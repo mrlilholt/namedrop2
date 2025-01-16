@@ -1,7 +1,8 @@
 // Part 1: Firebase Initialization and Google Login
-import { auth, provider, signInWithPopup } from "./js/firebase.js";
+import { signInWithPopup } from "./js/firebase.js";
 import { saveScore, fetchScore } from "./js/scoring.js";
 import { db } from "./js/firebase.js";
+import { auth, provider, db, collection, doc, getDocs, setDoc, getDoc } from "./js/firebase.js";
 
 let currentUser = null;
 

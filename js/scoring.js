@@ -1,4 +1,4 @@
-import { getFirestore, doc, setDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+import { db, setDoc, getDoc, doc } from "./js/firebase.js";
 
 const db = getFirestore();
 
