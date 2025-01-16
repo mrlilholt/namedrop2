@@ -1,7 +1,7 @@
 // upload_images.js
 import { db, doc, setDoc } from "./firebase.js";
 
-const db = getFirestore();
+//const db = getFirestore();
 
 export function initializeUploadModal() {
     const uploadModal = document.createElement("div");
