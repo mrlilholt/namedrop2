@@ -1,6 +1,6 @@
 import { db, setDoc, getDoc, doc } from "./js/firebase.js";
 
-const db = getFirestore();
+//const db = getFirestore();
 
 // Save score to Firestore
 export async function saveScore(userId, score) {
