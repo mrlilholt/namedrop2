@@ -1,5 +1,5 @@
 // upload_images.js
-import { getFirestore, doc, setDoc } from "./firebase.js";
+import { db, doc, setDoc } from "./firebase.js";
 
 const db = getFirestore();
 
