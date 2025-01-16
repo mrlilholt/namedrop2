@@ -2,7 +2,6 @@
 import { auth, provider, signInWithPopup } from "./js/firebase.js";
 import { saveScore, fetchScore } from "./js/scoring.js";
 import { db } from "./js/firebase.js";
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 
 let currentUser = null;
 
