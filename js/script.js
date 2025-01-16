@@ -180,10 +180,28 @@ auth.onAuthStateChanged((user) => {
 
 
 // Part 5: Menu Button and Modal Handling
+// Initialize an empty modals object
+const modals = {
+    profile: null,
+    upload: null,
+    settings: null,
+};
+
+// Function to register a modal
+function registerModal(name, element) {
+    modals[name] = element;
+}
 // Select all modal elements and the menu button
-import { initializeProfileModal } from "./userinfo.js";
-import { initializeUploadModal } from "./upload_images.js";
-import { initializeSettingsModal } from "./settings.js";
+import { initializeProfileModal } from "./js/userinfo.js";
+import { initializeUploadModal } from "./js/upload_images.js";
+import { initializeSettingsModal } from "./js/settings.js";
+
+// Register modals dynamically
+document.addEventListener("DOMContentLoaded", () => {
+    registerModal("profile", initializeProfileModal());
+    registerModal("upload", initializeUploadModal());
+    registerModal("settings", initializeSettingsModal());
+});
 
 // Initialize modals when menu options are clicked
 document.getElementById("menu-icon").addEventListener("click", () => {
