@@ -11,20 +11,6 @@ const googleLoginButton = document.getElementById("google-login");
 const loginContainer = document.getElementById("login-container");
 const mainApp = document.querySelector("main");
 
-function googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            console.log(`Logged in as: ${user.displayName}`);
-            // Redirect or show the main game content
-            showMainContent(); 
-        })
-        .catch((error) => {
-            console.error("Error during Google login:", error);
-        });
-}
-
 // Google login button click handler
 document.getElementById("google-login").addEventListener("click", async () => {
     try {
@@ -202,17 +188,8 @@ function updateUserIcon(user) {
 }
 
 // Ensure user icon is updated after Google login
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        // User is logged in
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("main-container").style.display = "block";
-    } else {
-        // User is not logged in
-        document.getElementById("login-container").style.display = "flex";
-        document.getElementById("main-container").style.display = "none";
-    }
-});
+
+;
 
 
 
@@ -267,49 +244,60 @@ document.addEventListener("DOMContentLoaded", () => {
 // Initialize modals when menu options are clicked
 // Handle menu clicks
 document.getElementById("menu-icon").addEventListener("click", () => {
-    const existingMenu = document.getElementById("menu-options");
-    if (existingMenu) {
-        existingMenu.remove(); // Close the menu if already open
-        return;
-    }
-
     const menuOptions = `
         <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
-            <button data-modal="settings">Settings</button>
-            <button data-modal="profile">User Info</button>
-            <button data-modal="upload">Upload Image</button>
+            <button id="open-settings">Settings</button>
+            <button id="open-userinfo">User Info</button>
+            <button id="open-upload">Upload Image</button>
             <button id="logout">Logout</button>
         </div>
     `;
 
     document.body.insertAdjacentHTML("beforeend", menuOptions);
 
+    // Attach event listeners for the menu options
+    document.getElementById("open-settings").addEventListener("click", () => {
+        initializeSettingsModal(); // Assuming `initializeSettingsModal` is imported from `settings.js`
+    });
+    document.getElementById("open-userinfo").addEventListener("click", () => {
+        initializeUserInfoModal(); // Assuming you have a similar function in `userinfo.js`
+    });
+    document.getElementById("open-upload").addEventListener("click", () => {
+        initializeUploadImagesModal(); // Assuming you have a similar function in `upload_images.js`
+    });
     document.getElementById("logout").addEventListener("click", () => {
         auth.signOut();
         document.getElementById("menu-options").remove();
     });
 
-    document.querySelectorAll("[data-modal]").forEach((button) => {
-        button.addEventListener("click", (e) => {
+    // Add event listeners for menu items
+    menuDropdown.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", (e) => {
             const modalType = e.target.getAttribute("data-modal");
-            if (modalType === "settings") initializeSettingsModal();
-            if (modalType === "profile") initializeProfileModal();
-            if (modalType === "upload") initializeUploadImagesModal();
+
+            // Initialize and open the respective modal
+            switch (modalType) {
+                case "profile":
+                    initializeProfileModal();
+                    break;
+                case "upload":
+                    initializeUploadModal();
+                    break;
+                case "settings":
+                    initializeSettingsModal();
+                    break;
+                default:
+                    console.error(`Unknown modal type: ${modalType}`);
+            }
+
+            // Close menu options on clicking outside
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
+            document.getElementById("menu-options").remove();
+        }
+    }, { once: true });
         });
     });
-
-    // Close menu when clicking outside
-    document.addEventListener(
-        "click",
-        (e) => {
-            if (!e.target.closest("#menu-options") && e.target.id !== "menu-icon") {
-                document.getElementById("menu-options").remove();
-            }
-        },
-        { once: true }
-    );
-});
-
 
     // Close dropdown if clicked outside
     document.addEventListener(
@@ -321,7 +309,7 @@ document.getElementById("menu-icon").addEventListener("click", () => {
         },
         { once: true }
     );
-;
+});
 
 Object.entries(modals).forEach(([modalName, modalElement]) => {
     if (!modalElement) {
