@@ -181,74 +181,77 @@ auth.onAuthStateChanged((user) => {
 
 // Part 5: Menu Button and Modal Handling
 // Select all modal elements and the menu button
-const modals = {
-    leaderboard: document.getElementById("leaderboard-modal"),
-    uploads: document.getElementById("uploads-modal"),
-    userInfo: document.getElementById("user-info-modal"),
-    settings: document.getElementById("settings-modal"),
-    logout: document.getElementById("logout-modal"),
-};
+import { initializeProfileModal } from "./userinfo.js";
+import { initializeUploadModal } from "./upload_images.js";
+import { initializeSettingsModal } from "./settings.js";
 
-const menuIcon = document.getElementById("menu-icon");
-
-// Open the specified modal
-function openModal(modalName) {
-    if (modals[modalName]) {
-        modals[modalName].style.display = "block";
-    } else {
-        console.error(`Modal "${modalName}" does not exist.`);
-    }
-}
-
-// Close all modals
-function closeAllModals() {
-    Object.values(modals).forEach((modal) => {
-        modal.style.display = "none";
-    });
-}
-
-// Menu icon event listener
-menuIcon.addEventListener("click", () => {
+// Initialize modals when menu options are clicked
+document.getElementById("menu-icon").addEventListener("click", () => {
     const menuDropdown = document.createElement("div");
     menuDropdown.classList.add("menu-dropdown");
 
     menuDropdown.innerHTML = `
         <ul>
-            <li data-modal="leaderboard">Leaderboard</li>
-            <li data-modal="uploads">Image Uploads</li>
-            <li data-modal="userInfo">User Info</li>
+            <li data-modal="profile">Profile</li>
+            <li data-modal="upload">Upload Image</li>
             <li data-modal="settings">Settings</li>
-            <li data-modal="logout">Logout</li>
         </ul>
     `;
 
     document.body.appendChild(menuDropdown);
 
-    // Add event listeners for dropdown items
+    // Add event listeners for menu items
     menuDropdown.querySelectorAll("li").forEach((item) => {
         item.addEventListener("click", (e) => {
-            const modalName = e.target.getAttribute("data-modal");
-            openModal(modalName);
-            menuDropdown.remove(); // Remove dropdown after selection
+            const modalType = e.target.getAttribute("data-modal");
+
+            // Initialize and open the respective modal
+            switch (modalType) {
+                case "profile":
+                    initializeProfileModal();
+                    break;
+                case "upload":
+                    initializeUploadModal();
+                    break;
+                case "settings":
+                    initializeSettingsModal();
+                    break;
+                default:
+                    console.error(`Unknown modal type: ${modalType}`);
+            }
+
+            // Remove dropdown after a selection is made
+            menuDropdown.remove();
         });
     });
 
-    // Close the dropdown if clicked outside
-    document.addEventListener("click", (e) => {
-        if (!menuDropdown.contains(e.target) && e.target !== menuIcon) {
-            menuDropdown.remove();
-        }
-    }, { once: true });
+    // Close dropdown if clicked outside
+    document.addEventListener(
+        "click",
+        (e) => {
+            if (!menuDropdown.contains(e.target) && e.target !== document.getElementById("menu-icon")) {
+                menuDropdown.remove();
+            }
+        },
+        { once: true }
+    );
 });
 
-// Add close buttons for each modal
 Object.entries(modals).forEach(([modalName, modalElement]) => {
+    if (!modalElement) {
+        console.warn(`Modal "${modalName}" not found.`);
+        return;
+    }
+
     const closeButton = modalElement.querySelector(".close-modal");
     if (closeButton) {
-        closeButton.addEventListener("click", closeAllModals);
+        closeButton.addEventListener("click", () => {
+            modalElement.style.display = "none";
+        });
+    } else {
+        console.warn(`Close button not found for modal "${modalName}".`);
     }
 });
-
 
 
 
