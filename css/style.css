@@ -1,4 +1,4 @@
-/* General Reset */
+/* General Stuff */
 * {
     margin: 0;
     padding: 0;
@@ -71,25 +71,12 @@ main {
     position: relative;
 }
 
-#random-person {
-    width: 250px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f1f1f1;
-    border-radius: 50%;
-    font-weight: bold;
-    color: #555;
-    font-size: 1.2rem;
-}
 
-#game-area-input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 60%;
-}
+
+
+
+
+/*login stuff */
 #login-container {
     display: flex;
     flex-direction: column;
@@ -144,11 +131,36 @@ main {
     background-color: #0056cc;
 }
 
+
+
+
+
+
+/* game stuff */
 #input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+}
+#random-person {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    font-weight: bold;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+#game-area-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
 }
 
 #score-section {
@@ -258,6 +270,31 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(14px);
+}
+
+
+
+/* menu/modal stuff */
+#menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+#menu-icon:hover {
+    background-color: #f0f0f0;
+}
+
+.material-icons {
+    font-size: 24px;
+    color: #333;
 }
 
 .modal {
