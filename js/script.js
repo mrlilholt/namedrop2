@@ -11,40 +11,41 @@ const googleLoginButton = document.getElementById("google-login");
 const loginContainer = document.getElementById("login-container");
 const mainApp = document.querySelector("main");
 
-googleLoginButton.addEventListener("click", async () => {
+// Google login button click handler
+document.getElementById("google-login").addEventListener("click", async () => {
     try {
-        await signInWithPopup(auth, provider);
-        loginContainer.style.display = "none";
-        mainApp.style.display = "block";
+        // Sign in with Firebase
+        const result = await signInWithPopup(auth, provider);
+
+        // Extract user info
+        const user = result.user;
+        console.log("Logged in as:", user);
+
+        // Hide the login container and show the main app container
+        const loginContainer = document.getElementById("login-container");
+        const mainContainer = document.getElementById("main-container");
+
+        if (loginContainer && mainContainer) {
+            loginContainer.style.display = "none";
+            mainContainer.style.display = "block";
+        } else {
+            console.error("Login or Main container is missing in the DOM.");
+        }
+
+        // Update user profile picture in the app
+        const userIcon = document.getElementById("user-icon");
+        if (userIcon) {
+            userIcon.style.backgroundImage = `url(${user.photoURL})`;
+        }
+
     } catch (error) {
-        console.error("Login failed:", error);
+        console.error("Error during Google login:", error);
     }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
     mainApp.style.display = "none"; // Ensure the main app is hidden initially
 });
-
-function googleLogin() {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            currentUser = user;
-
-            // Display user icon
-            const userIcon = document.getElementById("user-icon");
-            userIcon.style.backgroundImage = `url(${user.photoURL})`;
-
-            // Hide Google Login button
-            document.getElementById("google-login-container").style.display = "none";
-
-            // Fetch or initialize user score
-            initializeUserScore(user.uid);
-        })
-        .catch((error) => {
-            console.error("Error during Google login:", error);
-        });
-}
 
 
 // Initialize user score in Firestore
