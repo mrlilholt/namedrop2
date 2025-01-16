@@ -11,6 +11,20 @@ const googleLoginButton = document.getElementById("google-login");
 const loginContainer = document.getElementById("login-container");
 const mainApp = document.querySelector("main");
 
+window.googleLogin = function () {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            const user = result.user;
+            console.log(`Logged in as: ${user.displayName}`);
+            showMainContent();
+        })
+        .catch((error) => {
+            console.error("Error during Google login:", error);
+        });
+};
+
+
 // Google login button click handler
 document.getElementById("google-login").addEventListener("click", async () => {
     try {
