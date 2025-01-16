@@ -285,7 +285,7 @@ document.getElementById("menu-icon").addEventListener("click", () => {
         auth.signOut();
         document.getElementById("menu-options").remove();
     });
-    
+
     // Add event listeners for menu items
     menuDropdown.querySelectorAll("li").forEach((item) => {
         item.addEventListener("click", (e) => {
@@ -306,8 +306,12 @@ document.getElementById("menu-icon").addEventListener("click", () => {
                     console.error(`Unknown modal type: ${modalType}`);
             }
 
-            // Remove dropdown after a selection is made
-            menuDropdown.remove();
+            // Close menu options on clicking outside
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
+            document.getElementById("menu-options").remove();
+        }
+    }, { once: true });
         });
     });
 
