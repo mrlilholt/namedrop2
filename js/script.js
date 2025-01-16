@@ -7,6 +7,24 @@ import { saveScore, fetchScore } from "./scoring.js";
 let currentUser = null;
 
 // Initialize Google Login
+const googleLoginButton = document.getElementById("google-login");
+const loginContainer = document.getElementById("login-container");
+const mainApp = document.querySelector("main");
+
+googleLoginButton.addEventListener("click", async () => {
+    try {
+        await signInWithPopup(auth, provider);
+        loginContainer.style.display = "none";
+        mainApp.style.display = "block";
+    } catch (error) {
+        console.error("Login failed:", error);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    mainApp.style.display = "none"; // Ensure the main app is hidden initially
+});
+
 function googleLogin() {
     signInWithPopup(auth, provider)
         .then((result) => {
@@ -27,6 +45,7 @@ function googleLogin() {
             console.error("Error during Google login:", error);
         });
 }
+
 
 // Initialize user score in Firestore
 async function initializeUserScore(userId) {
@@ -198,10 +217,31 @@ import { initializeSettingsModal } from "./settings.js";
 
 // Register modals dynamically
 document.addEventListener("DOMContentLoaded", () => {
-    registerModal("profile", initializeProfileModal());
-    registerModal("upload", initializeUploadModal());
-    registerModal("settings", initializeSettingsModal());
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach(modal => {
+        modal.classList.remove("active"); // Ensure they are hidden on load
+    });
+
+    // Add functionality to open and close modals
+    document.querySelectorAll("[data-modal-open]").forEach(button => {
+        button.addEventListener("click", () => {
+            const targetModal = document.querySelector(button.dataset.modalOpen);
+            if (targetModal) {
+                targetModal.classList.add("active");
+            }
+        });
+    });
+
+    document.querySelectorAll("[data-modal-close]").forEach(button => {
+        button.addEventListener("click", () => {
+            const targetModal = button.closest(".modal");
+            if (targetModal) {
+                targetModal.classList.remove("active");
+            }
+        });
+    });
 });
+
 
 // Initialize modals when menu options are clicked
 document.getElementById("menu-icon").addEventListener("click", () => {
