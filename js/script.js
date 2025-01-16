@@ -75,7 +75,7 @@ async function loadRandomImage() {
 
 
 // Part 2: Loading the Random Image
-import { collection, query, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+import { query } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 
 // Load a random image from Firestore
 async function loadRandomImage() {
