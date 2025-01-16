@@ -192,9 +192,9 @@ function registerModal(name, element) {
     modals[name] = element;
 }
 // Select all modal elements and the menu button
-import { initializeProfileModal } from "./js/userinfo.js";
-import { initializeUploadModal } from "./js/upload_images.js";
-import { initializeSettingsModal } from "./js/settings.js";
+import { initializeProfileModal } from "./userinfo.js";
+import { initializeUploadModal } from "./upload_images.js";
+import { initializeSettingsModal } from "./settings.js";
 
 // Register modals dynamically
 document.addEventListener("DOMContentLoaded", () => {
