@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NameDrop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" style="display: none;">
+        <h1>Welcome to NameDrop</h1>
+        <div id="google-login-container">
+            <button id="google-login">
+                <img src="assets/google_g_logo.png" alt="Google Logo" width="20">
+                Login with Google
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <header>
+            <div id="logo-section">
+                <img src="assets/NameDrop.png" alt="NameDrop Logo">
+            </div>
+            <div id="text-section">
+                <h2>Matching Names To Faces</h2>
+            </div>
+            <div id="user-menu">
+                <div id="menu-icon"></div>
+                <div id="user-icon"></div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Placeholder for Random Person -->
+            <div id="random-person">
+                random person
+            </div>
+        
+            <!-- Game Area Input -->
+            <div id="game-area-input">
+                <div id="score-section">
+                    <div class="score-container">
+                        <img src="assets/streak-icon.png" alt="Flame Icon">
+                        <span>10</span>
+                    </div>
+                    <div class="score-container">
+                        <img src="assets/score-icon.png" alt="Coin Icon">
+                        <span>50</span>
+                    </div>
+                </div>
+                <input type="text" placeholder="First Name" id="first-input">
+                <input type="text" placeholder="Last Name" id="last-input">
+                <button id="submit-button">Submit</button>
+                <div id="toggle-container">
+                    <span class="toggle-label">First & Last</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="name-toggle" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
