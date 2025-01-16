@@ -90,6 +90,27 @@ main {
     align-items: center;
     width: 60%;
 }
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#login-logo {
+    width: 150px; /* Adjust size as needed */
+    margin-bottom: 20px;
+}
+
+#login-container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
 
 #google-login-container {
     width: 90%;
@@ -237,4 +258,23 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(14px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal.active {
+    display: block;
 }
