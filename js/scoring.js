@@ -1,4 +1,4 @@
-import { db, setDoc, getDoc, doc } from "./js/firebase.js";
+import { db, setDoc, getDoc, doc } from "./firebase.js";
 
 //const db = getFirestore();
 

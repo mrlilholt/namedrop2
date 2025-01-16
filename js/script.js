@@ -1,7 +1,8 @@
+// script.js
+
 // Part 1: Firebase Initialization and Google Login
-import { signInWithPopup } from "./js/firebase.js";
-import { saveScore, fetchScore } from "./js/scoring.js";
-import { auth, provider, db, collection, doc, getDocs, setDoc, getDoc } from "./js/firebase.js";
+import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc } from "./firebase.js";
+import { saveScore, fetchScore } from "./scoring.js";
 
 let currentUser = null;
 
@@ -9,14 +10,13 @@ let currentUser = null;
 function googleLogin() {
     signInWithPopup(auth, provider)
         .then((result) => {
-            // Get user information
             const user = result.user;
             currentUser = user;
-            
+
             // Display user icon
             const userIcon = document.getElementById("user-icon");
             userIcon.style.backgroundImage = `url(${user.photoURL})`;
-            
+
             // Hide Google Login button
             document.getElementById("google-login-container").style.display = "none";
 
@@ -28,7 +28,7 @@ function googleLogin() {
         });
 }
 
-// Initialize user score in Firestore if not already present
+// Initialize user score in Firestore
 async function initializeUserScore(userId) {
     try {
         const userRef = doc(db, "users", userId);
@@ -44,22 +44,17 @@ async function initializeUserScore(userId) {
 // Event listener for Google login
 document.getElementById("google-login").addEventListener("click", googleLogin);
 
-// Part 2: Loading the Random Image
-import { collection, query, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-
-// Load a random image from Firestore
+// Part 2: Loading Random Image
 async function loadRandomImage() {
     try {
         const imagesCollection = collection(db, "images");
         const imagesSnapshot = await getDocs(imagesCollection);
         const images = [];
 
-        // Collect all images into an array
         imagesSnapshot.forEach((doc) => {
             images.push({ id: doc.id, ...doc.data() });
         });
 
-        // Select a random image
         if (images.length > 0) {
             const randomImage = images[Math.floor(Math.random() * images.length)];
             displayRandomImage(randomImage);
@@ -71,49 +66,15 @@ async function loadRandomImage() {
     }
 }
 
-
-
-
-// Part 2: Loading the Random Image
-import { query } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-
-// Load a random image from Firestore
-async function loadRandomImage() {
-    try {
-        const imagesCollection = collection(db, "images");
-        const imagesSnapshot = await getDocs(imagesCollection);
-        const images = [];
-
-        // Collect all images into an array
-        imagesSnapshot.forEach((doc) => {
-            images.push({ id: doc.id, ...doc.data() });
-        });
-
-        // Select a random image
-        if (images.length > 0) {
-            const randomImage = images[Math.floor(Math.random() * images.length)];
-            displayRandomImage(randomImage);
-        } else {
-            console.error("No images found in Firestore.");
-        }
-    } catch (error) {
-        console.error("Error loading random image:", error);
-    }
-}
-
-// Display the random image in the placeholder
+// Display the random image
 function displayRandomImage(imageData) {
     const randomPersonElement = document.getElementById("random-person");
     randomPersonElement.style.backgroundImage = `url(${imageData.url})`;
-    randomPersonElement.dataset.imageId = imageData.id; // Store the image ID for later use
+    randomPersonElement.dataset.imageId = imageData.id;
 }
 
 // Call the function to load the image when the page loads
-document.addEventListener("DOMContentLoaded", () => {
-    loadRandomImage();
-});
-
-
+document.addEventListener("DOMContentLoaded", loadRandomImage);
 
 
 // Part 3: Submitting First/Last Name
