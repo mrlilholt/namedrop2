@@ -375,6 +375,35 @@ input:checked + .slider:before {
     transform: translateX(14px);
 }
 
+#gif-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%; /* Scaled down by 30% */
+    max-width: 300px; /* Optional: Limit the size for larger screens */
+    z-index: 1000;
+    display: none; /* Hidden by default */
+    text-align: center; /* Center text within the container */
+}
+
+#gif-container img {
+    width: 100%; /* Adjusts to fit the scaled-down container */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+}
+
+#success-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Ensure it contrasts with the GIF */
+    font-size: 1.5rem; /* Adjust size as needed */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add shadow for better visibility */
+}
+
+
 
 
 /* menu/modal stuff */
