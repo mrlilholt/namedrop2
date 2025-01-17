@@ -184,13 +184,13 @@ function showSuccessGif() {
     const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
     successText.textContent = randomMessage;
 
-    // Position the container relative to the random person element
+    // Get the random person element's position
     const randomPerson = document.getElementById("random-person");
     const rect = randomPerson.getBoundingClientRect();
 
-    gifContainer.style.top = `${rect.top + window.scrollY + 10}px`; // Offset by 10px from top
-    gifContainer.style.left = `${rect.left + window.scrollX + 10}px`; // Offset by 10px from left
-    gifContainer.style.width = "30%"; // Scale down
+    // Position the gifContainer over the upper-left corner of the random person element
+    gifContainer.style.top = `${rect.top + window.scrollY}px`; // Align with the top of the random person
+    gifContainer.style.left = `${rect.left + window.scrollX}px`; // Align with the left of the random person
 
     // Show the container
     gifContainer.style.display = "block";
@@ -200,6 +200,7 @@ function showSuccessGif() {
         gifContainer.style.display = "none";
     }, 3000);
 }
+
 
 
 
