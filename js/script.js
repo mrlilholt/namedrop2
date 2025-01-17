@@ -186,8 +186,113 @@ function updateUserIcon(user) {
 ;
 
 
+//Part 4.5 RANDOS
 
+// Function to fetch and display a random image from Firestore
+async function loadRandomImage() {
+    try {
+        // Access the Firestore 'images' collection
+        const imagesCollection = collection(db, "images");
+        const imagesSnapshot = await getDocs(imagesCollection);
 
+        const images = [];
+        imagesSnapshot.forEach((doc) => {
+            images.push({ id: doc.id, ...doc.data() });
+        });
+
+        if (images.length > 0) {
+            // Pick a random image
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+
+            // Update the placeholder with the random image
+            const randomPersonElement = document.getElementById("random-person");
+            randomPersonElement.style.backgroundImage = `url(${randomImage.imageUrl})`;
+            randomPersonElement.dataset.imageId = randomImage.id; // Store image ID for later use
+        } else {
+            console.error("No images found in Firestore.");
+        }
+    } catch (error) {
+        console.error("Error fetching images:", error);
+    }
+}
+
+// Load a random image when the page loads
+document.addEventListener("DOMContentLoaded", loadRandomImage);
+
+//Part 4.6 NAME INPUT
+
+// Function to validate user input against Firestore data
+async function validateNameInput() {
+    const firstNameInput = document.getElementById("first-input").value.trim().toLowerCase();
+    const lastNameInput = document.getElementById("last-input").value.trim().toLowerCase();
+
+    const randomPersonElement = document.getElementById("random-person");
+    const imageId = randomPersonElement.dataset.imageId; // Get the image ID
+
+    if (!imageId) {
+        console.error("No image loaded.");
+        return;
+    }
+
+    try {
+        // Fetch the specific document from Firestore
+        const imageRef = doc(db, "images", imageId);
+        const imageDoc = await getDoc(imageRef);
+
+        if (!imageDoc.exists()) {
+            console.error("Image not found in Firestore.");
+            return;
+        }
+
+        const { firstName, lastName } = imageDoc.data();
+
+        // Check if the input matches
+        if (firstNameInput === firstName.toLowerCase() && lastNameInput === lastName.toLowerCase()) {
+            console.log("Correct!");
+            updateScores(true); // Update the score and streak
+            loadRandomImage(); // Load a new random image
+        } else {
+            console.log("Incorrect!");
+            updateScores(false); // Reset streak and leave score unchanged
+        }
+    } catch (error) {
+        console.error("Error validating name input:", error);
+    }
+}
+
+//Part 4.7 SCORES and STREAKS
+
+// Function to update score and streak
+async function updateScores(isCorrect) {
+    const userId = auth.currentUser?.uid; // Get current user ID
+    if (!userId) {
+        console.error("No user logged in.");
+        return;
+    }
+
+    try {
+        const userRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            console.error("User document not found.");
+            return;
+        }
+
+        const { score = 0, streak = 0 } = userDoc.data();
+        const newScore = isCorrect ? score + 1 : score;
+        const newStreak = isCorrect ? streak + 1 : 0;
+
+        // Update Firestore with new score and streak
+        await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
+
+        // Update UI
+        document.querySelector(".score-container span").textContent = newScore;
+        document.querySelector("#streak-container span").textContent = newStreak;
+    } catch (error) {
+        console.error("Error updating scores:", error);
+    }
+}
 
 
 // Part 5: Menu Button and Modal Handling
