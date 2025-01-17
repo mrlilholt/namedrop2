@@ -2,6 +2,21 @@
 import { db, doc, setDoc } from "./firebase.js";
 
 //const db = getFirestore();
+export function initializeUploadImagesModal() {
+    const modal = document.getElementById("upload-modal");
+    if (!modal) {
+        console.error("Upload modal not found!");
+        return;
+    }
+    modal.style.display = "block";
+
+    const closeButton = modal.querySelector(".close-modal");
+    if (closeButton) {
+        closeButton.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
+}
 
 export function initializeUploadModal() {
     const uploadModal = document.createElement("div");
