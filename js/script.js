@@ -3,6 +3,9 @@
 // Part 1: Firebase Initialization and Google Login
 import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc } from "./firebase.js";
 import { saveScore, fetchScore } from "./scoring.js";
+import { initializeUploadImagesModal } from "./upload_images.js";
+import { initializeProfileModal } from "./userinfo.js";
+import { initializeSettingsModal } from "./settings.js";
 
 let currentUser = null;
 
@@ -188,9 +191,6 @@ function updateUserIcon(user) {
 
 
 // Part 5: Menu Button and Modal Handling
-import { initializeProfileModal } from "./userinfo.js";
-import { initializeUploadImagesModal } from "./upload_images.js";
-import { initializeSettingsModal } from "./settings.js";
 
 document.getElementById("menu-icon").addEventListener("click", () => {
     const existingMenu = document.getElementById("menu-options");
@@ -239,7 +239,7 @@ document.getElementById("menu-icon").addEventListener("click", () => {
             if (modalType === "settings") initializeSettingsModal();
         });
     });
-
+    
     // Close menu on outside click
     document.addEventListener(
         "click",
