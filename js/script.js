@@ -173,15 +173,24 @@ const successMessages = [
 function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
+    const gif = document.getElementById("success-gif");
 
     if (!successMessages || successMessages.length === 0) {
         console.error("Success messages array is missing or empty.");
         return;
     }
 
-    // Pick a random message from the array
+    // Pick a random message
     const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
     successText.textContent = randomMessage;
+
+    // Position the container relative to the random person element
+    const randomPerson = document.getElementById("random-person");
+    const rect = randomPerson.getBoundingClientRect();
+
+    gifContainer.style.top = `${rect.top + window.scrollY + 10}px`; // Offset by 10px from top
+    gifContainer.style.left = `${rect.left + window.scrollX + 10}px`; // Offset by 10px from left
+    gifContainer.style.width = "30%"; // Scale down
 
     // Show the container
     gifContainer.style.display = "block";
@@ -191,6 +200,7 @@ function showSuccessGif() {
         gifContainer.style.display = "none";
     }, 3000);
 }
+
 
 
 async function updateScores(isCorrect) {
