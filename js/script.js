@@ -173,33 +173,34 @@ const successMessages = [
 function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
-    const gif = document.getElementById("success-gif");
 
     if (!successMessages || successMessages.length === 0) {
         console.error("Success messages array is missing or empty.");
         return;
     }
 
-    // Pick a random message
+    // Pick a random success message
     const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
     successText.textContent = randomMessage;
 
-    // Get the random person element's position
+    // Get the position of the random person element
     const randomPerson = document.getElementById("random-person");
     const rect = randomPerson.getBoundingClientRect();
 
-    // Position the gifContainer over the upper-left corner of the random person element
-    gifContainer.style.top = `${rect.top + window.scrollY}px`; // Align with the top of the random person
-    gifContainer.style.left = `${rect.left + window.scrollX}px`; // Align with the left of the random person
+    // Position gifContainer relative to the random person element
+    gifContainer.style.top = `${rect.top + window.scrollY - 20}px`; // Slightly above the image
+    gifContainer.style.left = `${rect.left + window.scrollX + 20}px`; // Slightly to the left
+    gifContainer.style.width = `${rect.width * 0.8}px`; // Scale width to match 80% of the image
 
-    // Show the container
+    // Display the container
     gifContainer.style.display = "block";
 
-    // Hide it after 3 seconds
+    // Hide after 3 seconds
     setTimeout(() => {
         gifContainer.style.display = "none";
     }, 3000);
 }
+
 
 
 
