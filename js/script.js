@@ -160,8 +160,8 @@ async function updateScores(isCorrect) {
     }
 }
 
-// Event listener for the Submit button
-document.getElementById("submit-button").addEventListener("click", submitName);
+// Event listener for the submit button
+document.getElementById("submit-button").addEventListener("click", validateNameInput);
 
 
 
