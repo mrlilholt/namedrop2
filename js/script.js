@@ -191,10 +191,6 @@ function updateUserIcon(user) {
 
 
 // Part 5: Menu Button and Modal Handling
-// Import the modal initialization functions
-import { initializeUploadImagesModal } from "./upload_images.js";
-import { initializeProfileModal } from "./userinfo.js";
-import { initializeSettingsModal } from "./settings.js";
 
 // Toggle Sidebar
 const menuIcon = document.getElementById("menu-icon");
