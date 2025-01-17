@@ -38,7 +38,24 @@
                 <div id="user-icon"></div>
             </div>
         </header>
-
+        <div id="menu-sidebar" class="hidden">
+            <div id="menu-header">
+                <img src="assets/user-avatar.png" alt="User Avatar" id="menu-avatar">
+                <div>
+                    <h3 id="menu-username">User Name</h3>
+                    <p id="menu-balance">Welcome to NameDrop!</p>
+                </div>
+            </div>
+            <ul id="menu-list">
+                <li data-modal="upload"><span class="material-icons">file_upload</span> Upload Image</li>
+                <li data-modal="profile"><span class="material-icons">account_circle</span> User Info</li>
+                <li data-modal="settings"><span class="material-icons">settings</span> Settings</li>
+            </ul>
+            <button id="logout-button" class="menu-footer">
+                <span class="material-icons">logout</span> Logout
+            </button>
+        </div>
+        
         <main>
             <!-- Placeholder for Random Person -->
             <div id="random-person">
