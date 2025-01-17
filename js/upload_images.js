@@ -3,20 +3,72 @@ import { db, doc, setDoc } from "./firebase.js";
 
 //const db = getFirestore();
 export function initializeUploadImagesModal() {
-    const modal = document.getElementById("upload-modal");
+    let modal = document.getElementById("upload-modal");
     if (!modal) {
-        console.error("Upload modal not found!");
-        return;
+        // Dynamically create the modal if it doesn't exist
+        modal = document.createElement("div");
+        modal.id = "upload-modal";
+        modal.style.position = "fixed";
+        modal.style.top = "50%";
+        modal.style.left = "50%";
+        modal.style.transform = "translate(-50%, -50%)";
+        modal.style.width = "400px";
+        modal.style.padding = "20px";
+        modal.style.backgroundColor = "#fff";
+        modal.style.borderRadius = "10px";
+        modal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.2)";
+        modal.style.zIndex = "1000";
+
+        modal.innerHTML = `
+            <h2 style="text-align: center;">Upload an Image</h2>
+            <form id="upload-form">
+                <label for="file-input">Select an Image:</label>
+                <input type="file" id="file-input" accept="image/*" required />
+                <br />
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" required />
+                <br />
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" required />
+                <br />
+                <button type="submit" style="
+                    display: block;
+                    margin: 10px auto;
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                ">Upload</button>
+            </form>
+            <button id="close-upload" style="
+                display: block;
+                margin: 10px auto;
+                padding: 10px 20px;
+                background-color: #ccc;
+                color: black;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            ">Close</button>
+        `;
+
+        document.body.appendChild(modal);
     }
+
+    // Show the modal
     modal.style.display = "block";
 
-    const closeButton = modal.querySelector(".close-modal");
+    // Close modal event
+    const closeButton = modal.querySelector("#close-upload");
     if (closeButton) {
         closeButton.addEventListener("click", () => {
             modal.style.display = "none";
         });
     }
 }
+
 
 export function initializeUploadModal() {
     const uploadModal = document.createElement("div");
