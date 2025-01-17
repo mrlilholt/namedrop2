@@ -390,14 +390,15 @@ input:checked + .slider:before {
 
 #success-text {
     position: absolute;
-    top: 50%; /* Center vertically in the GIF */
-    left: 50%; /* Center horizontally in the GIF */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%);
     color: white;
     font-size: 1rem;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
+
 
 
 
