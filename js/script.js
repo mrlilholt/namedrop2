@@ -170,6 +170,7 @@ const successMessages = [
     "You crushed it!",
 ];
 
+// Adjust GIF positioning to stay relative to #random-person
 function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
@@ -185,14 +186,13 @@ function showSuccessGif() {
 
     // Get the position of the random person element
     const randomPerson = document.getElementById("random-person");
-    const rect = randomPerson.getBoundingClientRect();
+    const randomPersonRect = randomPerson.getBoundingClientRect();
 
-    // Position gifContainer relative to the random person element
-    gifContainer.style.top = `${rect.top + window.scrollY - 300}px`; // Slightly above the image
-    gifContainer.style.left = `${rect.left + window.scrollX - 300}px`; // Slightly to the left
-    gifContainer.style.width = `${rect.width * 0.4}px`; // Scale width to match 80% of the image
-
-    // Display the container
+    // Position gifContainer relative to random-person
+    gifContainer.style.position = "absolute";
+    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`; // Slightly below the top
+    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`; // Slightly right
+    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`; // Scaled size
     gifContainer.style.display = "block";
 
     // Hide after 3 seconds
@@ -200,6 +200,18 @@ function showSuccessGif() {
         gifContainer.style.display = "none";
     }, 3000);
 }
+
+// Skip button logic
+document.getElementById("skip-button").addEventListener("click", () => {
+    loadRandomImage(); // Load a new random image without updating scores
+    console.log("Skipped to the next image!");
+});
+
+// Ensure skip button is correctly initialized
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("skip-button").disabled = false; // Enable skip button
+});
+
 
 
 
