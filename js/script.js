@@ -189,7 +189,7 @@ function showSuccessGif() {
 
     // Position gifContainer relative to the random person element
     gifContainer.style.top = `${rect.top + window.scrollY - 300}px`; // Slightly above the image
-    gifContainer.style.left = `${rect.left + window.scrollX + 300}px`; // Slightly to the left
+    gifContainer.style.left = `${rect.left + window.scrollX - 300}px`; // Slightly to the left
     gifContainer.style.width = `${rect.width * 0.4}px`; // Scale width to match 80% of the image
 
     // Display the container
