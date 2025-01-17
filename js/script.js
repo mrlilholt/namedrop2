@@ -159,62 +159,6 @@ async function validateNameInput() {
 
 //Part 4.7 SCORES and STREAKS
 
-// Function to update score and streak
-async function updateScores(isCorrect) {
-    if (!currentUser) {
-        console.error("No user logged in.");
-        return;
-    }
-
-    const userId = currentUser.uid;
-    const userRef = doc(db, "users", userId);
-
-    try {
-        const userDoc = await getDoc(userRef);
-
-        if (!userDoc.exists()) {
-            console.error("User document not found.");
-            return;
-        }
-
-        const { score, streak } = userDoc.data();
-        const newScore = isCorrect ? score + 1 : score;
-        const newStreak = isCorrect ? streak + 1 : 0;
-
-        // Update Firestore with the new score and streak
-        await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
-
-        // Update UI
-        document.getElementById("score-value").textContent = newScore; // Update the score
-        document.getElementById("streak-value").textContent = newStreak; // Update the streak
-    } catch (error) {
-        console.error("Error updating scores:", error);
-    }
-}
-
-document.getElementById("name-toggle").addEventListener("change", (event) => {
-    const lastNameInput = document.getElementById("last-input");
-
-    if (event.target.checked) {
-        // Show the last name input
-        lastNameInput.style.display = "block";
-    } else {
-        // Hide the last name input
-        lastNameInput.style.display = "none";
-        lastNameInput.value = ""; // Clear the last name input value
-    }
-});
-
-// HAPPY DANCE
-const successMessages = [
-    "Way to go!",
-    "Nice, you know them well!",
-    "Great job!",
-    "You're on fire!",
-    "Amazing!",
-    "Keep it up!",
-    "You crushed it!",
-];
 function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
@@ -249,6 +193,10 @@ async function updateScores(isCorrect) {
             return;
         }
 
+        const { score, streak } = userDoc.data();
+        const newScore = isCorrect ? score + 1 : score;
+        const newStreak = isCorrect ? streak + 1 : 0;
+
         // Update Firestore with the new score and streak
         await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
 
@@ -264,6 +212,20 @@ async function updateScores(isCorrect) {
         console.error("Error updating scores:", error);
     }
 }
+
+
+document.getElementById("name-toggle").addEventListener("change", (event) => {
+    const lastNameInput = document.getElementById("last-input");
+
+    if (event.target.checked) {
+        // Show the last name input
+        lastNameInput.style.display = "block";
+    } else {
+        // Hide the last name input
+        lastNameInput.style.display = "none";
+        lastNameInput.value = ""; // Clear the last name input value
+    }
+});
 
 
 // Part 5: Menu Button and Modal Handling
