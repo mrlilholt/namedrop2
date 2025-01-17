@@ -190,59 +190,47 @@ function updateUserIcon(user) {
 // Part 5: Menu Button and Modal Handling
 // Handle menu icon click
 document.getElementById("menu-icon").addEventListener("click", () => {
-    let existingMenu = document.getElementById("menu-options");
+    const existingMenu = document.getElementById("menu-options");
     if (existingMenu) {
-        existingMenu.remove(); // Close menu if already open
+        existingMenu.remove(); // Close if already open
         return;
     }
 
-    // Create menu dropdown
-    const menuOptions = `
-        <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); z-index: 1000;">
-            <button id="open-settings">Settings</button>
-            <button id="open-userinfo">User Info</button>
-            <button id="open-upload">Upload Image</button>
+    // Create dropdown menu
+    const menuHTML = `
+        <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
+            <button data-modal="settings">Settings</button>
+            <button data-modal="profile">User Info</button>
+            <button data-modal="upload">Upload Image</button>
             <button id="logout">Logout</button>
         </div>
     `;
-    document.body.insertAdjacentHTML("beforeend", menuOptions);
 
-    // Add menu option event listeners
-    document.getElementById("open-settings").addEventListener("click", () => {
-        initializeSettingsModal();
-        document.getElementById("menu-options").remove(); // Close menu
-    });
+    document.body.insertAdjacentHTML("beforeend", menuHTML);
 
-    document.getElementById("open-userinfo").addEventListener("click", () => {
-        initializeProfileModal();
-        document.getElementById("menu-options").remove(); // Close menu
-    });
-
-    document.getElementById("open-upload").addEventListener("click", () => {
-        initializeUploadModal();
-        document.getElementById("menu-options").remove(); // Close menu
-    });
-
+    // Attach event listeners for menu options
     document.getElementById("logout").addEventListener("click", () => {
-        auth.signOut().then(() => {
-            console.log("User logged out");
-            document.getElementById("menu-options").remove(); // Close menu
+        auth.signOut();
+        document.getElementById("menu-options").remove();
+        location.reload(); // Refresh page to return to login
+    });
+
+    document.querySelectorAll("[data-modal]").forEach((button) => {
+        const modalType = button.getAttribute("data-modal");
+        button.addEventListener("click", () => {
+            if (modalType === "settings") initializeSettingsModal();
+            if (modalType === "profile") initializeProfileModal();
+            if (modalType === "upload") initializeUploadImagesModal();
         });
     });
 
-    // Close menu when clicking outside
-    document.addEventListener(
-        "click",
-        (e) => {
-            if (!e.target.closest("#menu-options") && e.target.id !== "menu-icon") {
-                const menu = document.getElementById("menu-options");
-                if (menu) menu.remove();
-            }
-        },
-        { once: true }
-    );
+    // Close menu on outside click
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
+            document.getElementById("menu-options").remove();
+        }
+    }, { once: true });
 });
-
 
 
 
