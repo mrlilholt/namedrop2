@@ -58,113 +58,6 @@ async function initializeUserScore(userId) {
     }
 }
 
-// Part 2: Loading Random Image
-async function loadRandomImage() {
-    try {
-        const imagesCollection = collection(db, "images");
-        const imagesSnapshot = await getDocs(imagesCollection);
-        const images = [];
-
-        imagesSnapshot.forEach((doc) => {
-            images.push({ id: doc.id, ...doc.data() });
-        });
-
-        if (images.length > 0) {
-            const randomImage = images[Math.floor(Math.random() * images.length)];
-            displayRandomImage(randomImage);
-        } else {
-            console.error("No images found in Firestore.");
-        }
-    } catch (error) {
-        console.error("Error loading random image:", error);
-    }
-}
-
-// Display the random image
-function displayRandomImage(imageData) {
-    const randomPersonElement = document.getElementById("random-person");
-    randomPersonElement.style.backgroundImage = `url(${imageData.url})`;
-    randomPersonElement.dataset.imageId = imageData.id;
-}
-
-// Call the function to load the image when the page loads
-document.addEventListener("DOMContentLoaded", loadRandomImage);
-
-
-// Part 3: Submitting First/Last Name
-async function submitName() {
-    const firstNameInput = document.getElementById("first-input").value.trim().toLowerCase();
-    const lastNameInput = document.getElementById("last-input").value.trim().toLowerCase();
-    const randomPersonElement = document.getElementById("random-person");
-    const imageId = randomPersonElement.dataset.imageId;
-
-    if (!imageId) {
-        console.error("No image loaded.");
-        return;
-    }
-
-    try {
-        // Fetch the image data from Firestore
-        const imageRef = doc(db, "images", imageId);
-        const imageDoc = await getDoc(imageRef);
-
-        if (!imageDoc.exists()) {
-            console.error("Image not found in Firestore.");
-            return;
-        }
-
-        const { firstName, lastName } = imageDoc.data();
-
-        // Check if the input matches
-        if (firstNameInput === firstName.toLowerCase() && lastNameInput === lastName.toLowerCase()) {
-            updateScores(true);
-            loadRandomImage(); // Load a new random image
-        } else {
-            updateScores(false);
-        }
-    } catch (error) {
-        console.error("Error validating name submission:", error);
-    }
-}
-
-// Update scores and streaks
-async function updateScores(isCorrect) {
-    if (!currentUser) {
-        console.error("No user logged in.");
-        return;
-    }
-
-    const userId = currentUser.uid;
-    const userRef = doc(db, "users", userId);
-
-    try {
-        const userDoc = await getDoc(userRef);
-
-        if (!userDoc.exists()) {
-            console.error("User document not found.");
-            return;
-        }
-
-        const { score, streak } = userDoc.data();
-        const newScore = isCorrect ? score + 1 : score;
-        const newStreak = isCorrect ? streak + 1 : 0;
-
-        // Update Firestore with the new score and streak
-        await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
-
-        // Update UI
-        document.querySelector(".score-container span").textContent = newScore;
-        document.querySelector("#streak-container span").textContent = newStreak;
-    } catch (error) {
-        console.error("Error updating scores:", error);
-    }
-}
-
-// Event listener for the submit button
-document.getElementById("submit-button").addEventListener("click", validateNameInput);
-
-
-
 
 // Part 4: User Profile Icon Population
 function updateUserIcon(user) {
@@ -218,6 +111,10 @@ async function loadRandomImage() {
 
 // Load a random image when the page loads
 document.addEventListener("DOMContentLoaded", loadRandomImage);
+
+// Event listener for the submit button
+document.getElementById("submit-button").addEventListener("click", validateNameInput);
+
 
 //Part 4.6 NAME INPUT
 
