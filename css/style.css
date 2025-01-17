@@ -376,12 +376,13 @@ input:checked + .slider:before {
 }
 
 #gif-container {
-    position: absolute; /* Allow it to be positioned relative to the page */
-    width: 30%; /* Smaller size */
+    position: absolute; /* Keep it relative to the page */
     z-index: 1000;
-    display: none;
-    text-align: center; /* Center text inside the container */
+    display: none; /* Hidden by default */
+    text-align: center;
+    pointer-events: none; /* Ensure clicks pass through */
 }
+
 
 #gif-container img {
     width: 100%; /* Adjust to fit the smaller container */
@@ -389,16 +390,15 @@ input:checked + .slider:before {
 }
 
 #success-text {
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%);
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
 
 
 
