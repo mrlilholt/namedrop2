@@ -205,6 +205,70 @@ document.getElementById("name-toggle").addEventListener("change", (event) => {
     }
 });
 
+// HAPPY DANCE
+const successMessages = [
+    "Way to go!",
+    "Nice, you know them well!",
+    "Great job!",
+    "You're on fire!",
+    "Amazing!",
+    "Keep it up!",
+    "You crushed it!",
+];
+function showSuccessGif() {
+    const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
+
+    // Pick a random message from the array
+    const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
+    successText.textContent = randomMessage;
+
+    // Show the container
+    gifContainer.style.display = "block";
+
+    // Hide it after 3 seconds
+    setTimeout(() => {
+        gifContainer.style.display = "none";
+    }, 3000);
+}
+
+async function updateScores(isCorrect) {
+    if (!currentUser) {
+        console.error("No user logged in.");
+        return;
+    }
+
+    const userId = currentUser.uid;
+    const userRef = doc(db, "users", userId);
+
+    try {
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            console.error("User document not found.");
+            return;
+        }
+
+        const { score, streak } = userDoc.data();
+        const newScore = isCorrect ? score + 1 : score;
+        const newStreak = isCorrect ? streak + 1 : 0;
+
+        // Update Firestore with the new score and streak
+        await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
+
+        // Update UI
+        document.querySelector("#score-section .score-container:nth-child(1) span").textContent = newStreak; // Streak
+        document.querySelector("#score-section .score-container:nth-child(2) span").textContent = newScore;  // Score
+
+        // Show GIF if the answer is correct
+        if (isCorrect) {
+            showSuccessGif();
+        }
+    } catch (error) {
+        console.error("Error updating scores:", error);
+    }
+}
+
 
 // Part 5: Menu Button and Modal Handling
 
