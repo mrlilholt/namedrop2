@@ -188,7 +188,7 @@ function updateUserIcon(user) {
 
 
 // Part 5: Menu Button and Modal Handling
-// Handle menu icon click
+const menuIcon = document.getElementById("menu-icon");
 
 // Function to handle menu icon click
 document.getElementById("menu-icon").addEventListener("click", () => {
