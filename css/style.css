@@ -239,17 +239,21 @@ main {
     margin-top: 20px;
 }
 #random-person {
-    width: 250px;
-    height: 250px;
+    width: 100px; /* Set the width of the circle */
+    height: 100px; /* Set the height of the circle */
+    border-radius: 50%; /* Make it circular */
+    background-size: cover; /* Ensure the image covers the circle */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Avoid tiling */
+    overflow: hidden; /* Clip any overflowing parts */
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #f1f1f1;
-    border-radius: 50%;
-    font-weight: bold;
-    color: #555;
-    font-size: 1.2rem;
+    justify-content: center;
+    color: #fff; /* Optional: Add text styling for the "random person" placeholder */
+    font-size: 14px;
+    text-align: center;
 }
+
 
 #game-area-input {
     display: flex;
