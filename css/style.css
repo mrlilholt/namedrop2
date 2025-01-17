@@ -238,6 +238,10 @@ main {
     align-items: center;
     margin-top: 20px;
 }
+#last-input {
+    display: none; /* Default state is hidden */
+}
+
 #random-person {
     width: 200px; /* Set the width of the circle */
     height: 200px; /* Set the height of the circle */
