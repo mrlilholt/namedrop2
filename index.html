@@ -64,15 +64,16 @@
             <!-- Game Area Input -->
             <div id="game-area-input">
                 <div id="score-section">
-                    <div class="score-container">
+                    <div class="score-container" id="streak-container">
                         <img src="assets/streak-icon.png" alt="Flame Icon">
-                        <span>10</span>
+                        <span id="streak-value">0</span>
                     </div>
-                    <div class="score-container">
+                    <div class="score-container" id="score-container">
                         <img src="assets/score-icon.png" alt="Coin Icon">
-                        <span>50</span>
+                        <span id="score-value">0</span>
                     </div>
                 </div>
+                
                 <input type="text" placeholder="First Name" id="first-input">
                 <input type="text" placeholder="Last Name" id="last-input">
                 <button id="submit-button">Submit</button>
