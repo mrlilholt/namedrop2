@@ -161,14 +161,15 @@ async function validateNameInput() {
 
 // Function to update score and streak
 async function updateScores(isCorrect) {
-    const userId = auth.currentUser?.uid; // Get current user ID
-    if (!userId) {
+    if (!currentUser) {
         console.error("No user logged in.");
         return;
     }
 
+    const userId = currentUser.uid;
+    const userRef = doc(db, "users", userId);
+
     try {
-        const userRef = doc(db, "users", userId);
         const userDoc = await getDoc(userRef);
 
         if (!userDoc.exists()) {
@@ -176,20 +177,21 @@ async function updateScores(isCorrect) {
             return;
         }
 
-        const { score = 0, streak = 0 } = userDoc.data();
+        const { score, streak } = userDoc.data();
         const newScore = isCorrect ? score + 1 : score;
         const newStreak = isCorrect ? streak + 1 : 0;
 
-        // Update Firestore with new score and streak
+        // Update Firestore with the new score and streak
         await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
 
         // Update UI
-        document.querySelector(".score-container span").textContent = newScore;
-        document.querySelector("#streak-container span").textContent = newStreak;
+        document.getElementById("score-value").textContent = newScore; // Update the score
+        document.getElementById("streak-value").textContent = newStreak; // Update the streak
     } catch (error) {
         console.error("Error updating scores:", error);
     }
 }
+
 
 
 // Part 5: Menu Button and Modal Handling
