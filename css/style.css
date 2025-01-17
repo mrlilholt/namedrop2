@@ -239,8 +239,8 @@ main {
     margin-top: 20px;
 }
 #random-person {
-    width: 100px; /* Set the width of the circle */
-    height: 100px; /* Set the height of the circle */
+    width: 250px; /* Set the width of the circle */
+    height: 250px; /* Set the height of the circle */
     border-radius: 50%; /* Make it circular */
     background-size: cover; /* Ensure the image covers the circle */
     background-position: center; /* Center the image */
