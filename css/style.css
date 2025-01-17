@@ -376,19 +376,18 @@ input:checked + .slider:before {
 }
 
 #gif-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: absolute; /* Position it relative to the random image */
+    top: 10%; /* Adjust based on the random image position */
+    left: 10%; /* Adjust based on the random image position */
     transform: translate(-50%, -50%);
-    width: 70%; /* Scaled down by 30% */
-    max-width: 300px; /* Optional: Limit the size for larger screens */
+    width: 30%; /* Make it smaller */
     z-index: 1000;
-    display: none; /* Hidden by default */
+    display: none;
     text-align: center; /* Center text within the container */
 }
 
 #gif-container img {
-    width: 100%; /* Adjusts to fit the scaled-down container */
+    width: 100%; /* Adjust to fit the smaller container */
     border-radius: 10px; /* Optional: Adds rounded corners */
 }
 
@@ -398,7 +397,7 @@ input:checked + .slider:before {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white; /* Ensure it contrasts with the GIF */
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 1rem; /* Adjust size as needed */
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add shadow for better visibility */
 }
