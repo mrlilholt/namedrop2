@@ -188,6 +188,10 @@ function updateUserIcon(user) {
 
 
 // Part 5: Menu Button and Modal Handling
+import { initializeProfileModal } from "./userinfo.js";
+import { initializeUploadImagesModal } from "./upload_images.js";
+import { initializeSettingsModal } from "./settings.js";
+
 document.getElementById("menu-icon").addEventListener("click", () => {
     const existingMenu = document.getElementById("menu-options");
     if (existingMenu) {
