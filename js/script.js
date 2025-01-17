@@ -192,6 +192,18 @@ async function updateScores(isCorrect) {
     }
 }
 
+document.getElementById("name-toggle").addEventListener("change", (event) => {
+    const lastNameInput = document.getElementById("last-input");
+
+    if (event.target.checked) {
+        // Show the last name input
+        lastNameInput.style.display = "block";
+    } else {
+        // Hide the last name input
+        lastNameInput.style.display = "none";
+        lastNameInput.value = ""; // Clear the last name input value
+    }
+});
 
 
 // Part 5: Menu Button and Modal Handling
