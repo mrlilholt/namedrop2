@@ -191,67 +191,45 @@ function updateUserIcon(user) {
 
 
 // Part 5: Menu Button and Modal Handling
+// Import the modal initialization functions
+import { initializeUploadImagesModal } from "./upload_images.js";
+import { initializeProfileModal } from "./userinfo.js";
+import { initializeSettingsModal } from "./settings.js";
 
-document.getElementById("menu-icon").addEventListener("click", () => {
-    const existingMenu = document.getElementById("menu-options");
-    if (existingMenu) {
-        existingMenu.remove(); // Close the menu if already open
-        return;
-    }
+// Toggle Sidebar
+const menuIcon = document.getElementById("menu-icon");
+const menuSidebar = document.getElementById("menu-sidebar");
 
-    // Get the menu icon's position
-    const menuIcon = document.getElementById("menu-icon");
-    const rect = menuIcon.getBoundingClientRect();
-
-    // Create dropdown menu
-    const menuHTML = `
-        <div id="menu-options" style="
-            position: absolute;
-            top: ${rect.bottom + window.scrollY}px; 
-            left: ${rect.left + window.scrollX}px;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-        ">
-            <button data-modal="upload">Upload Image</button>
-            <button data-modal="profile">User Info</button>
-            <button data-modal="settings">Settings</button>
-            <button id="logout" style="color: red;">Logout</button>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML("beforeend", menuHTML);
-
-    // Attach event listeners for menu options
-    document.getElementById("logout").addEventListener("click", () => {
-        auth.signOut();
-        document.getElementById("menu-options").remove();
-        location.reload(); // Refresh page to return to login
-    });
-
-    document.querySelectorAll("[data-modal]").forEach((button) => {
-        const modalType = button.getAttribute("data-modal");
-        button.addEventListener("click", () => {
-            if (modalType === "upload") initializeUploadImagesModal();
-            if (modalType === "profile") initializeProfileModal();
-            if (modalType === "settings") initializeSettingsModal();
-        });
-    });
-    
-    // Close menu on outside click
-    document.addEventListener(
-        "click",
-        (event) => {
-            if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
-                const menu = document.getElementById("menu-options");
-                if (menu) menu.remove();
-            }
-        },
-        { once: true }
-    );
+menuIcon.addEventListener("click", () => {
+    menuSidebar.classList.toggle("active");
 });
+
+// Add Event Listeners for Modals
+document.querySelectorAll("#menu-list li").forEach((menuItem) => {
+    const modalType = menuItem.getAttribute("data-modal");
+    menuItem.addEventListener("click", () => {
+        if (modalType === "upload") initializeUploadImagesModal();
+        if (modalType === "profile") initializeProfileModal();
+        if (modalType === "settings") initializeSettingsModal();
+    });
+});
+
+// Handle Logout
+const logoutButton = document.getElementById("logout-button");
+logoutButton.addEventListener("click", () => {
+    auth.signOut().then(() => {
+        location.reload(); // Redirect to login
+    });
+});
+
+// Update User Info in Sidebar
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        document.getElementById("menu-avatar").src = user.photoURL || "assets/default-avatar.png";
+        document.getElementById("menu-username").textContent = user.displayName || "User";
+    }
+});
+
 
 
 
