@@ -12,7 +12,8 @@ const loginContainer = document.getElementById("login-container");
 const mainApp = document.querySelector("main");
 
 // Google login button click handler
-document.getElementById("google-login").addEventListener("click", async () => {
+// Attach googleLogin to the global window object
+window.googleLogin = async function () {
     try {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
@@ -38,7 +39,8 @@ document.getElementById("google-login").addEventListener("click", async () => {
     } catch (error) {
         console.error("Error during Google login:", error);
     }
-});
+};
+
 
 // Initialize user score in Firestore
 async function initializeUserScore(userId) {
