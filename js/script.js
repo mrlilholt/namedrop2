@@ -249,10 +249,6 @@ async function updateScores(isCorrect) {
             return;
         }
 
-        const { score, streak } = userDoc.data();
-        const newScore = isCorrect ? score + 1 : score;
-        const newStreak = isCorrect ? streak + 1 : 0;
-
         // Update Firestore with the new score and streak
         await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
 
