@@ -159,9 +159,25 @@ async function validateNameInput() {
 
 //Part 4.7 SCORES and STREAKS
 
+// Define success messages globally
+const successMessages = [
+    "Way to go!",
+    "Nice, you know them well!",
+    "Great job!",
+    "You're on fire!",
+    "Amazing!",
+    "Keep it up!",
+    "You crushed it!",
+];
+
 function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
+
+    if (!successMessages || successMessages.length === 0) {
+        console.error("Success messages array is missing or empty.");
+        return;
+    }
 
     // Pick a random message from the array
     const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
@@ -175,6 +191,7 @@ function showSuccessGif() {
         gifContainer.style.display = "none";
     }, 3000);
 }
+
 
 async function updateScores(isCorrect) {
     if (!currentUser) {
