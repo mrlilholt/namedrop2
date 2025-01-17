@@ -189,49 +189,73 @@ function updateUserIcon(user) {
 
 // Part 5: Menu Button and Modal Handling
 // Handle menu icon click
+
+// Function to handle menu icon click
 document.getElementById("menu-icon").addEventListener("click", () => {
-    const existingMenu = document.getElementById("menu-options");
+    // Check if the menu already exists
+    let existingMenu = document.getElementById("menu-options");
     if (existingMenu) {
-        existingMenu.remove(); // Close if already open
+        existingMenu.remove(); // Close the menu if it exists
         return;
     }
 
-    // Create dropdown menu
-    const menuHTML = `
-        <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
-            <button data-modal="settings">Settings</button>
-            <button data-modal="profile">User Info</button>
-            <button data-modal="upload">Upload Image</button>
-            <button id="logout">Logout</button>
+    // Create the menu options
+    const menuOptions = `
+        <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); z-index: 100;">
+            <button id="open-upload" style="display: block; margin-bottom: 10px;">Upload Image</button>
+            <button id="open-userinfo" style="display: block; margin-bottom: 10px;">User Info</button>
+            <button id="open-settings" style="display: block; margin-bottom: 10px;">Settings</button>
+            <button id="logout" style="display: block; color: red;">Logout</button>
         </div>
     `;
+    document.body.insertAdjacentHTML("beforeend", menuOptions);
 
-    document.body.insertAdjacentHTML("beforeend", menuHTML);
+    // Add event listener for Upload Image button
+    document.getElementById("open-upload").addEventListener("click", () => {
+        initializeUploadImagesModal(); // Call your modal initialization from upload_images.js
+        closeMenu();
+    });
 
-    // Attach event listeners for menu options
+    // Add event listener for User Info button
+    document.getElementById("open-userinfo").addEventListener("click", () => {
+        initializeProfileModal(); // Call your modal initialization from userinfo.js
+        closeMenu();
+    });
+
+    // Add event listener for Settings button
+    document.getElementById("open-settings").addEventListener("click", () => {
+        initializeSettingsModal(); // Call your modal initialization from settings.js
+        closeMenu();
+    });
+
+    // Add event listener for Logout button
     document.getElementById("logout").addEventListener("click", () => {
-        auth.signOut();
-        document.getElementById("menu-options").remove();
-        location.reload(); // Refresh page to return to login
+        auth.signOut()
+            .then(() => {
+                console.log("User logged out");
+                location.reload(); // Reload the page to show the login screen
+            })
+            .catch((error) => {
+                console.error("Logout error:", error);
+            });
+        closeMenu();
     });
 
-    document.querySelectorAll("[data-modal]").forEach((button) => {
-        const modalType = button.getAttribute("data-modal");
-        button.addEventListener("click", () => {
-            if (modalType === "settings") initializeSettingsModal();
-            if (modalType === "profile") initializeProfileModal();
-            if (modalType === "upload") initializeUploadImagesModal();
-        });
-    });
-
-    // Close menu on outside click
+    // Close the menu when clicking outside
     document.addEventListener("click", (event) => {
         if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
-            document.getElementById("menu-options").remove();
+            closeMenu();
         }
     }, { once: true });
 });
 
+// Helper function to close the menu
+function closeMenu() {
+    const menu = document.getElementById("menu-options");
+    if (menu) {
+        menu.remove();
+    }
+}
 
 
 // Part 6: Login Page and Redirection
