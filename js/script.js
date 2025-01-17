@@ -14,39 +14,31 @@ const mainApp = document.querySelector("main");
 // Google login button click handler
 document.getElementById("google-login").addEventListener("click", async () => {
     try {
-        // Sign in with Firebase
         const result = await signInWithPopup(auth, provider);
-
-        // Extract user info
         const user = result.user;
         console.log("Logged in as:", user);
 
-        // Hide the login container and show the main app container
+        // Hide the login container and show the main app
         const loginContainer = document.getElementById("login-container");
         const mainContainer = document.getElementById("main-container");
 
         if (loginContainer && mainContainer) {
             loginContainer.style.display = "none";
             mainContainer.style.display = "block";
-        } else {
-            console.error("Login or Main container is missing in the DOM.");
         }
 
-        // Update user profile picture in the app
+        // Update user profile picture
         const userIcon = document.getElementById("user-icon");
         if (userIcon) {
             userIcon.style.backgroundImage = `url(${user.photoURL})`;
         }
 
+        // Initialize the user's score in Firestore
+        initializeUserScore(user.uid);
     } catch (error) {
         console.error("Error during Google login:", error);
     }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-    mainApp.style.display = "none"; // Ensure the main app is hidden initially
-});
-
 
 // Initialize user score in Firestore
 async function initializeUserScore(userId) {
@@ -60,9 +52,6 @@ async function initializeUserScore(userId) {
         console.error("Error initializing user score:", error);
     }
 }
-
-// Event listener for Google login
-document.getElementById("google-login").addEventListener("click", googleLogin);
 
 // Part 2: Loading Random Image
 async function loadRandomImage() {
@@ -244,72 +233,50 @@ document.addEventListener("DOMContentLoaded", () => {
 // Initialize modals when menu options are clicked
 // Handle menu clicks
 document.getElementById("menu-icon").addEventListener("click", () => {
+    let existingMenu = document.getElementById("menu-options");
+    if (existingMenu) {
+        existingMenu.remove(); // Close the menu if it already exists
+        return;
+    }
+
     const menuOptions = `
         <div id="menu-options" style="position: absolute; top: 50px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);">
-            <button id="open-settings">Settings</button>
-            <button id="open-userinfo">User Info</button>
-            <button id="open-upload">Upload Image</button>
+            <button data-modal="settings">Settings</button>
+            <button data-modal="profile">User Info</button>
+            <button data-modal="upload">Upload Image</button>
             <button id="logout">Logout</button>
         </div>
     `;
-
     document.body.insertAdjacentHTML("beforeend", menuOptions);
 
-    // Attach event listeners for the menu options
-    document.getElementById("open-settings").addEventListener("click", () => {
-        initializeSettingsModal(); // Assuming `initializeSettingsModal` is imported from `settings.js`
-    });
-    document.getElementById("open-userinfo").addEventListener("click", () => {
-        initializeUserInfoModal(); // Assuming you have a similar function in `userinfo.js`
-    });
-    document.getElementById("open-upload").addEventListener("click", () => {
-        initializeUploadImagesModal(); // Assuming you have a similar function in `upload_images.js`
-    });
+    // Add menu event listeners
     document.getElementById("logout").addEventListener("click", () => {
         auth.signOut();
         document.getElementById("menu-options").remove();
     });
 
-    // Add event listeners for menu items
-    menuDropdown.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("click", (e) => {
+    document.querySelectorAll("[data-modal]").forEach((button) => {
+        button.addEventListener("click", (e) => {
             const modalType = e.target.getAttribute("data-modal");
-
-            // Initialize and open the respective modal
-            switch (modalType) {
-                case "profile":
-                    initializeProfileModal();
-                    break;
-                case "upload":
-                    initializeUploadModal();
-                    break;
-                case "settings":
-                    initializeSettingsModal();
-                    break;
-                default:
-                    console.error(`Unknown modal type: ${modalType}`);
-            }
-
-            // Close menu options on clicking outside
-    document.addEventListener("click", (event) => {
-        if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
-            document.getElementById("menu-options").remove();
-        }
-    }, { once: true });
+            if (modalType === "settings") initializeSettingsModal();
+            if (modalType === "profile") initializeProfileModal();
+            if (modalType === "upload") initializeUploadImagesModal();
         });
     });
 
-    // Close dropdown if clicked outside
+    // Close menu on outside click
     document.addEventListener(
         "click",
-        (e) => {
-            if (!menuDropdown.contains(e.target) && e.target !== document.getElementById("menu-icon")) {
-                menuDropdown.remove();
+        (event) => {
+            if (!event.target.closest("#menu-options") && event.target.id !== "menu-icon") {
+                const menu = document.getElementById("menu-options");
+                if (menu) menu.remove();
             }
         },
         { once: true }
     );
 });
+
 
 Object.entries(modals).forEach(([modalName, modalElement]) => {
     if (!modalElement) {
@@ -332,20 +299,42 @@ Object.entries(modals).forEach(([modalName, modalElement]) => {
 
 // Part 6: Login Page and Redirection
 document.addEventListener("DOMContentLoaded", () => {
-    const loginPage = document.getElementById("login-page");
-    const mainContent = document.getElementById("main-content");
+    // Ensure the main app is hidden initially
+    const mainApp = document.getElementById("main-container");
+    if (mainApp) {
+        mainApp.style.display = "none";
+    }
 
+    // Load a random image
+    loadRandomImage();
+
+    // Check authentication state
     auth.onAuthStateChanged((user) => {
+        const loginContainer = document.getElementById("login-container");
+        const mainContainer = document.getElementById("main-container");
+
         if (user) {
-            // User is logged in, show main content
+            // User is logged in
+            console.log("User is logged in:", user);
             currentUser = user;
+
+            if (loginContainer && mainContainer) {
+                loginContainer.style.display = "none";
+                mainContainer.style.display = "block";
+            }
+
+            // Update user icon
             updateUserIcon(user);
-            loginPage.style.display = "none";
-            mainContent.style.display = "block";
+
+            // Initialize user's score
+            initializeUserScore(user.uid);
         } else {
-            // User is not logged in, show login page
-            loginPage.style.display = "flex";
-            mainContent.style.display = "none";
+            // User is not logged in
+            if (loginContainer && mainContainer) {
+                loginContainer.style.display = "flex";
+                mainContainer.style.display = "none";
+            }
         }
     });
 });
+
