@@ -171,34 +171,15 @@ const successMessages = [
 ];
 
 // Adjust GIF positioning to stay relative to #random-person
-function showSuccessGif() {
-    const gifContainer = document.getElementById("gif-container");
-    const successText = document.getElementById("success-text");
-
-    if (!successMessages || successMessages.length === 0) {
-        console.error("Success messages array is missing or empty.");
-        return;
-    }
-
-    // Pick a random success message
-    const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
-    successText.textContent = randomMessage;
-
-    // Get the position of the random person element
-    const randomPerson = document.getElementById("random-person");
-    const randomPersonRect = randomPerson.getBoundingClientRect();
-
-    // Position gifContainer relative to random-person
-    gifContainer.style.position = "absolute";
-    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`; // Slightly below the top
-    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`; // Slightly right
-    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`; // Scaled size
-    gifContainer.style.display = "block";
-
-    // Hide after 3 seconds
+function showSuccessGif(message) {
+    const gifContainer = document.getElementById('gif-container');
+    const successText = document.getElementById('success-text');
+    
+    successText.textContent = message;
+    gifContainer.style.display = 'block'; // Make it visible
     setTimeout(() => {
-        gifContainer.style.display = "none";
-    }, 3000);
+        gifContainer.style.display = 'none'; // Hide after a short time
+    }, 3000); // Adjust timing as needed
 }
 
 // Skip button logic
