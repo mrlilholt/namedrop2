@@ -198,17 +198,17 @@ function showSuccessGif() {
     }, 3000);
 }
 
-// Skip button logic
-document.getElementById("skip-button").addEventListener("click", () => {
-    loadRandomImage(); // Load a new random image without updating scores
-    console.log("Skipped to the next image!");
-});
 
-// Ensure skip button is correctly initialized
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("skip-button").disabled = false; // Enable skip button
-});
 
+document.getElementById("submit-button").addEventListener("click", () => {
+    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
+    if (isCorrect) {
+        const randomMessage = getRandomSuccessMessage();
+        showSuccessGif(randomMessage);
+    } else {
+        console.log("Incorrect!");
+    }
+});
 
 
 // Skip button logic
