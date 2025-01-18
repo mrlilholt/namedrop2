@@ -174,21 +174,20 @@ function getRandomSuccessMessage() {
 
 function showSuccessGif(message) {
     const gifContainer = document.getElementById('gif-container');
-    let successText = document.getElementById('success-text');
+    const successText = document.getElementById('success-text');
 
     if (!successText) {
-        // Create the element if it doesn't exist
-        successText = document.createElement('div');
-        successText.id = 'success-text';
-        gifContainer.appendChild(successText);
+        console.error('Success text container not found');
+        return;
     }
 
-    successText.textContent = message; // Update the text
-    gifContainer.style.display = 'block'; // Show the container
+    successText.textContent = message; // Add message
+    gifContainer.style.display = 'block'; // Show container
     setTimeout(() => {
-        gifContainer.style.display = 'none'; // Hide after 3 seconds
+        gifContainer.style.display = 'none'; // Hide after timeout
     }, 3000);
 }
+
 
 
 document.getElementById("submit-button").addEventListener("click", () => {
