@@ -402,7 +402,12 @@ input:checked + .slider:before {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
+#button-container {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Add space between buttons */
+    margin-top: 10px; /* Optional: Add spacing above or below */
+}
 .btn-primary {
     background-color: #0066ff;
     color: white;
@@ -412,6 +417,9 @@ input:checked + .slider:before {
     border-radius: 8px;
     cursor: pointer;
     margin-top: 10px;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px; /* Ensure consistent button width */
 }
 
 .btn-primary:hover {
