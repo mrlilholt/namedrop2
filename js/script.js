@@ -200,7 +200,7 @@ document.getElementById("submit-button").addEventListener("click", async () => {
         // Add a 2-second delay before loading the next random image
         setTimeout(() => {
             loadRandomImage(); // Function to load the next random image
-        }, 2000); // 2000 milliseconds = 2 seconds
+        }, 4000); // 2000 milliseconds = 2 seconds
     } else {
         console.log("Incorrect!");
     }
