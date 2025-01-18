@@ -318,6 +318,7 @@ main {
 
 #submit-button:hover {
     background-color: #0056cc;
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 #toggle-container {
@@ -403,18 +404,18 @@ input:checked + .slider:before {
 }
 
 .btn-primary {
-    background-color: #007bff; /* Same blue as Submit */
+    background-color: #0066ff;
     color: white;
-    border: none;
-    border-radius: 5px;
+    font-weight: bold;
     padding: 10px 20px;
-    font-size: 16px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056cc;
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
