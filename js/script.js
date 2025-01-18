@@ -190,11 +190,17 @@ function showSuccessGif(message) {
 
 
 
-document.getElementById("submit-button").addEventListener("click", () => {
+document.getElementById("submit-button").addEventListener("click", async () => {
     const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
+
     if (isCorrect) {
         const randomMessage = getRandomSuccessMessage();
         showSuccessGif(randomMessage);
+
+        // Add a 2-second delay before loading the next random image
+        setTimeout(() => {
+            loadRandomImage(); // Function to load the next random image
+        }, 2000); // 2000 milliseconds = 2 seconds
     } else {
         console.log("Incorrect!");
     }
