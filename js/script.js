@@ -171,29 +171,34 @@ const successMessages = [
 ];
 
 // Adjust GIF positioning to stay relative to #random-person
-// Add this to position the gif-container relative to #random-person
-function showSuccessGif(message) {
+function showSuccessGif() {
     const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
+
+    if (!successMessages || successMessages.length === 0) {
+        console.error("Success messages array is missing or empty.");
+        return;
+    }
+
+    // Pick a random success message
+    const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
+    successText.textContent = randomMessage;
+
+    // Get the position of the random person element
     const randomPerson = document.getElementById("random-person");
+    const randomPersonRect = randomPerson.getBoundingClientRect();
 
-    if (!gifContainer || !randomPerson) return;
-
-    // Get the bounding box of the random-person element
-    const rect = randomPerson.getBoundingClientRect();
-
-    // Set gif-container to match the random-person's position
-    gifContainer.style.top = `${rect.top + window.scrollY}px`;
-    gifContainer.style.left = `${rect.left + window.scrollX}px`;
-    gifContainer.style.width = `${rect.width}px`;
-    gifContainer.style.height = `${rect.height}px`;
-
-    // Display the gif and text
-    gifContainer.querySelector("#success-text").innerText = message;
+    // Position gifContainer relative to random-person
+    gifContainer.style.position = "absolute";
+    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`; // Slightly below the top
+    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`; // Slightly right
+    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`; // Scaled size
     gifContainer.style.display = "block";
 
+    // Hide after 3 seconds
     setTimeout(() => {
         gifContainer.style.display = "none";
-    }, 2000);
+    }, 3000);
 }
 
 // Skip button logic
