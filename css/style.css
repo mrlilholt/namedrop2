@@ -396,14 +396,9 @@ input:checked + .slider:before {
 }
 
 #success-text {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: white; /* Ensure it's visible over the GIF */
+    margin-top: 10px; /* Adjust spacing */
 }
 #button-container {
     display: flex;
