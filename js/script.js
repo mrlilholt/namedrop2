@@ -122,6 +122,7 @@ document.getElementById("submit-button").addEventListener("click", validateNameI
 async function validateNameInput() {
     const firstNameInput = document.getElementById("first-input").value.trim().toLowerCase();
     const lastNameInput = document.getElementById("last-input").value.trim().toLowerCase();
+    const nameToggle = document.getElementById("name-toggle").checked;
 
     const randomPersonElement = document.getElementById("random-person");
     const imageId = randomPersonElement.dataset.imageId; // Get the image ID
@@ -143,14 +144,23 @@ async function validateNameInput() {
 
         const { firstName, lastName } = imageDoc.data();
 
-        // Check if the input matches
-        if (firstNameInput === firstName.toLowerCase() && lastNameInput === lastName.toLowerCase()) {
+        let isCorrect = false;
+        if (nameToggle) {
+            // Validate both first and last name
+            isCorrect = firstNameInput === firstName.toLowerCase() && lastNameInput === lastName.toLowerCase();
+        } else {
+            // Validate first name only
+            isCorrect = firstNameInput === firstName.toLowerCase();
+        }
+
+        if (isCorrect) {
             console.log("Correct!");
-            updateScores(true); // Update the score and streak
+            const points = nameToggle ? 2 : 1; // Assign 2 points for both names, 1 point for first name only
+            await updateScores(true, points); // Pass points to the updateScores function
             loadRandomImage(); // Load a new random image
         } else {
             console.log("Incorrect!");
-            updateScores(false); // Reset streak and leave score unchanged
+            await updateScores(false, 0); // Reset streak, no points
         }
     } catch (error) {
         console.error("Error validating name input:", error);
@@ -223,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-async function updateScores(isCorrect) {
+async function updateScores(isCorrect, points = 1) {
     if (!currentUser) {
         console.error("No user logged in.");
         return;
@@ -241,7 +251,7 @@ async function updateScores(isCorrect) {
         }
 
         const { score, streak } = userDoc.data();
-        const newScore = isCorrect ? score + 1 : score;
+        const newScore = isCorrect ? score + points : score;
         const newStreak = isCorrect ? streak + 1 : 0;
 
         // Update Firestore with the new score and streak
@@ -250,15 +260,11 @@ async function updateScores(isCorrect) {
         // Update UI
         document.querySelector("#score-section .score-container:nth-child(1) span").textContent = newStreak; // Streak
         document.querySelector("#score-section .score-container:nth-child(2) span").textContent = newScore;  // Score
-
-        // Show GIF if the answer is correct
-        if (isCorrect) {
-            showSuccessGif();
-        }
     } catch (error) {
         console.error("Error updating scores:", error);
     }
 }
+
 
 
 document.getElementById("name-toggle").addEventListener("change", (event) => {
