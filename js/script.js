@@ -176,35 +176,22 @@ function showSuccessGif(message) {
     const gifContainer = document.getElementById('gif-container');
     const successText = document.getElementById('success-text');
 
-    if (!successText || !gifContainer) {
-        console.error('Success text or GIF container not found');
+    if (!successText) {
+        console.error('Success text container not found');
         return;
     }
 
-    // Add the success message to the success-text element
-    successText.textContent = message;
-
-    // Position and show the GIF container
-    const randomPerson = document.getElementById('random-person');
-    const randomPersonRect = randomPerson.getBoundingClientRect();
-
-    gifContainer.style.position = 'absolute';
-    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`;
-    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`;
-    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`;
-    gifContainer.style.display = 'block';
-
-    // Hide after 3 seconds
+    successText.textContent = message; // Add message
+    gifContainer.style.display = 'block'; // Show container
     setTimeout(() => {
-        gifContainer.style.display = 'none';
+        gifContainer.style.display = 'none'; // Hide after timeout
     }, 3000);
 }
 
 
 
-
-document.getElementById("submit-button").addEventListener("click", async () => {
-    const isCorrect = await validateNameInput(); // Or your logic for validating
+document.getElementById("submit-button").addEventListener("click", () => {
+    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
     if (isCorrect) {
         const randomMessage = getRandomSuccessMessage();
         showSuccessGif(randomMessage);
@@ -212,7 +199,6 @@ document.getElementById("submit-button").addEventListener("click", async () => {
         console.log("Incorrect!");
     }
 });
-
 
 
 // Skip button logic
