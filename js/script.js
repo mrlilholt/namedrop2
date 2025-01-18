@@ -161,26 +161,38 @@ async function validateNameInput() {
 
 // Define success messages globally
 const successMessages = [
-    "Way to go!",
-    "Nice, you know them well!",
-    "Great job!",
-    "You're on fire!",
-    "Amazing!",
-    "Keep it up!",
     "You crushed it!",
+    "Amazing!",
+    "Way to go!",
+    "Keep it up!",
+    "You're on fire!"
 ];
 
-// Adjust GIF positioning to stay relative to #random-person
+function getRandomSuccessMessage() {
+    return successMessages[Math.floor(Math.random() * successMessages.length)];
+}
+
 function showSuccessGif(message) {
     const gifContainer = document.getElementById('gif-container');
     const successText = document.getElementById('success-text');
     
-    successText.textContent = message;
-    gifContainer.style.display = 'block'; // Make it visible
+    successText.textContent = message; // Update the text
+    gifContainer.style.display = 'block'; // Show the container
     setTimeout(() => {
-        gifContainer.style.display = 'none'; // Hide after a short time
-    }, 3000); // Adjust timing as needed
+        gifContainer.style.display = 'none'; // Hide after 3 seconds
+    }, 3000);
 }
+
+document.getElementById("submit-button").addEventListener("click", () => {
+    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
+    if (isCorrect) {
+        const randomMessage = getRandomSuccessMessage();
+        showSuccessGif(randomMessage);
+    } else {
+        console.log("Incorrect!");
+    }
+});
+
 
 // Skip button logic
 document.getElementById("skip-button").addEventListener("click", () => {
