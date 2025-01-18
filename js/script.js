@@ -178,39 +178,42 @@ const successMessages = [
     "You're on fire!"
 ];
 
-function showSuccessGif(message) {
-    console.log("showSuccessGif called with message:", message);
-    const gifContainer = document.getElementById('gif-container');
-    const successText = document.getElementById('success-text');
+function getRandomSuccessMessage() {
+    return successMessages[Math.floor(Math.random() * successMessages.length)];
+}
 
-    if (!successText) {
-        console.error("Success text container not found");
+function showSuccessGif(message) {
+    const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
+
+    if (!gifContainer || !successText) {
+        console.error("GIF container or success text element not found");
         return;
     }
 
+    // Set the success message
     successText.textContent = message;
-    gifContainer.style.display = 'block';
-    console.log("GIF container displayed");
 
+    // Show the GIF container
+    gifContainer.style.display = "flex";
+
+    // Hide the GIF container after 3 seconds
     setTimeout(() => {
-        gifContainer.style.display = 'none';
-        console.log("GIF container hidden");
+        gifContainer.style.display = "none";
     }, 3000);
 }
 
-
-
-document.getElementById("submit-button").addEventListener("click", async () => {
-    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
-
+// Example integration with the submit button
+document.getElementById("submit-button").addEventListener("click", () => {
+    const isCorrect = checkAnswer(); // Replace this with your logic for validation
     if (isCorrect) {
         const randomMessage = getRandomSuccessMessage();
         showSuccessGif(randomMessage);
 
-        // Add a 2-second delay before loading the next random image
+        // Add a delay before loading the next image
         setTimeout(() => {
-            loadRandomImage(); // Function to load the next random image
-        }, 4000); // 2000 milliseconds = 2 seconds
+            loadRandomImage(); // Load a new random image
+        }, 2000); // 2-second delay
     } else {
         console.log("Incorrect!");
     }
