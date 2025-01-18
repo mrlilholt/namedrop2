@@ -168,40 +168,43 @@ const successMessages = [
     "You're on fire!"
 ];
 
-function showSuccessGif() {
-    const gifContainer = document.getElementById("gif-container");
-    const successText = document.getElementById("success-text");
+function getRandomSuccessMessage() {
+    return successMessages[Math.floor(Math.random() * successMessages.length)];
+}
 
-    if (!successMessages || successMessages.length === 0) {
-        console.error("Success messages array is missing or empty.");
+function showSuccessGif(message) {
+    const gifContainer = document.getElementById('gif-container');
+    const successText = document.getElementById('success-text');
+
+    if (!successText || !gifContainer) {
+        console.error('Success text or GIF container not found');
         return;
     }
 
-    // Pick a random success message
-    const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
-    successText.textContent = randomMessage;
+    // Add the success message to the success-text element
+    successText.textContent = message;
 
-    // Get the position of the random person element
-    const randomPerson = document.getElementById("random-person");
+    // Position and show the GIF container
+    const randomPerson = document.getElementById('random-person');
     const randomPersonRect = randomPerson.getBoundingClientRect();
 
-    // Position gifContainer relative to random-person
-    gifContainer.style.position = "absolute";
-    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`; // Slightly below the top
-    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`; // Slightly right
-    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`; // Scaled size
-    gifContainer.style.display = "block";
+    gifContainer.style.position = 'absolute';
+    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`;
+    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`;
+    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`;
+    gifContainer.style.display = 'block';
 
     // Hide after 3 seconds
     setTimeout(() => {
-        gifContainer.style.display = "none";
+        gifContainer.style.display = 'none';
     }, 3000);
 }
 
 
 
-document.getElementById("submit-button").addEventListener("click", () => {
-    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
+
+document.getElementById("submit-button").addEventListener("click", async () => {
+    const isCorrect = await validateNameInput(); // Or your logic for validating
     if (isCorrect) {
         const randomMessage = getRandomSuccessMessage();
         showSuccessGif(randomMessage);
@@ -209,6 +212,7 @@ document.getElementById("submit-button").addEventListener("click", () => {
         console.log("Incorrect!");
     }
 });
+
 
 
 // Skip button logic
