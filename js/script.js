@@ -178,23 +178,23 @@ const successMessages = [
     "You're on fire!"
 ];
 
-function getRandomSuccessMessage() {
-    return successMessages[Math.floor(Math.random() * successMessages.length)];
-}
-
 function showSuccessGif(message) {
+    console.log("showSuccessGif called with message:", message);
     const gifContainer = document.getElementById('gif-container');
     const successText = document.getElementById('success-text');
 
     if (!successText) {
-        console.error('Success text container not found');
+        console.error("Success text container not found");
         return;
     }
 
-    successText.textContent = message; // Add message
-    gifContainer.style.display = 'block'; // Show container
+    successText.textContent = message;
+    gifContainer.style.display = 'block';
+    console.log("GIF container displayed");
+
     setTimeout(() => {
-        gifContainer.style.display = 'none'; // Hide after timeout
+        gifContainer.style.display = 'none';
+        console.log("GIF container hidden");
     }, 3000);
 }
 
