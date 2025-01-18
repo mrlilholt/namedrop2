@@ -379,14 +379,14 @@ input:checked + .slider:before {
 }
 
 #gif-container {
-    position: absolute; /* Positioned relative to #random-person */
-    top: 10%; /* Adjust upward */
-    left: 10%; /* Adjust to the left */
-    transform: translate(-10%, -10%); /* Fine-tune centering */
-    width: 30%; /* Size adjustment */
-    z-index: 10; /* Ensure it appears on top */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    z-index: 10;
     text-align: center;
-    display: none; /* Initially hidden */
+    display: none; /* Or 'block' for testing */
 }
 
 
