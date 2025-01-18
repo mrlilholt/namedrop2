@@ -182,71 +182,42 @@ function getRandomSuccessMessage() {
     return successMessages[Math.floor(Math.random() * successMessages.length)];
 }
 
-// Function to show the success GIF and text
 function showSuccessGif(message) {
-    const gifContainer = document.getElementById('gif-container');
-    const successText = document.getElementById('success-text');
+    const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
 
     if (!gifContainer || !successText) {
-        console.error("GIF container or success text not found.");
+        console.error("GIF container or success text element not found");
         return;
     }
 
-    successText.textContent = message; // Set the success message
-    gifContainer.style.display = 'flex'; // Show the container
+    // Set the success message
+    successText.textContent = message;
 
+    // Show the GIF container
+    gifContainer.style.display = "flex";
+
+    // Hide the GIF container after 3 seconds
     setTimeout(() => {
-        gifContainer.style.display = 'none'; // Hide after 3 seconds
+        gifContainer.style.display = "none";
     }, 3000);
 }
 
-// Event listener for Submit button
-document.getElementById("submit-button").addEventListener("click", async () => {
-    const isCorrect = await validateNameInput(); // Your function to validate the answer
+// Example integration with the submit button
+document.getElementById("submit-button").addEventListener("click", () => {
+    const isCorrect = checkAnswer(); // Replace this with your logic for validation
     if (isCorrect) {
-        const randomMessage = getRandomSuccessMessage(); // Get a random message
-        showSuccessGif(randomMessage); // Show GIF with the message
-        await updateScores(true); // Update the score for correct answers
-        setTimeout(() => loadRandomImage(), 2000); // Load next image after delay
+        const randomMessage = getRandomSuccessMessage();
+        showSuccessGif(randomMessage);
+
+        // Add a delay before loading the next image
+        setTimeout(() => {
+            loadRandomImage(); // Load a new random image
+        }, 2000); // 2-second delay
     } else {
         console.log("Incorrect!");
-        await updateScores(false); // Update score for incorrect answers
     }
 });
-
-// Function to update scores
-async function updateScores(isCorrect) {
-    if (!currentUser) {
-        console.error("No user logged in.");
-        return;
-    }
-
-    const userId = currentUser.uid;
-    const userRef = doc(db, "users", userId);
-
-    try {
-        const userDoc = await getDoc(userRef);
-
-        if (!userDoc.exists()) {
-            console.error("User document not found.");
-            return;
-        }
-
-        const { score, streak } = userDoc.data();
-        const newScore = isCorrect ? score + 1 : score;
-        const newStreak = isCorrect ? streak + 1 : 0;
-
-        // Update Firestore
-        await setDoc(userRef, { score: newScore, streak: newStreak }, { merge: true });
-
-        // Update the UI
-        document.querySelector(".score-container span").textContent = newScore;
-        document.querySelector("#streak-container span").textContent = newStreak;
-    } catch (error) {
-        console.error("Error updating scores:", error);
-    }
-}
-
 
 
 // Skip button logic
