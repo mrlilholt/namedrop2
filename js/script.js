@@ -168,37 +168,47 @@ const successMessages = [
     "You're on fire!"
 ];
 
-function getRandomSuccessMessage() {
-    return successMessages[Math.floor(Math.random() * successMessages.length)];
-}
+function showSuccessGif() {
+    const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
 
-function showSuccessGif(message) {
-    const gifContainer = document.getElementById('gif-container');
-    const successText = document.getElementById('success-text');
-
-    if (!successText) {
-        console.error('Success text container not found');
+    if (!successMessages || successMessages.length === 0) {
+        console.error("Success messages array is missing or empty.");
         return;
     }
 
-    successText.textContent = message; // Add message
-    gifContainer.style.display = 'block'; // Show container
+    // Pick a random success message
+    const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
+    successText.textContent = randomMessage;
+
+    // Get the position of the random person element
+    const randomPerson = document.getElementById("random-person");
+    const randomPersonRect = randomPerson.getBoundingClientRect();
+
+    // Position gifContainer relative to random-person
+    gifContainer.style.position = "absolute";
+    gifContainer.style.top = `${randomPersonRect.top + window.scrollY + randomPersonRect.height * 0.1}px`; // Slightly below the top
+    gifContainer.style.left = `${randomPersonRect.left + window.scrollX + randomPersonRect.width * 0.1}px`; // Slightly right
+    gifContainer.style.width = `${randomPersonRect.width * 0.8}px`; // Scaled size
+    gifContainer.style.display = "block";
+
+    // Hide after 3 seconds
     setTimeout(() => {
-        gifContainer.style.display = 'none'; // Hide after timeout
+        gifContainer.style.display = "none";
     }, 3000);
 }
 
-
-
-document.getElementById("submit-button").addEventListener("click", () => {
-    const isCorrect = checkAnswer(); // Replace with your logic to validate the answer
-    if (isCorrect) {
-        const randomMessage = getRandomSuccessMessage();
-        showSuccessGif(randomMessage);
-    } else {
-        console.log("Incorrect!");
-    }
+// Skip button logic
+document.getElementById("skip-button").addEventListener("click", () => {
+    loadRandomImage(); // Load a new random image without updating scores
+    console.log("Skipped to the next image!");
 });
+
+// Ensure skip button is correctly initialized
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("skip-button").disabled = false; // Enable skip button
+});
+
 
 
 // Skip button logic
