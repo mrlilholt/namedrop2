@@ -475,3 +475,24 @@ input:checked + .slider:before {
 .modal.active {
     display: block;
 }
+
+
+/*MODAL STUFF */
+
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #0066ff; /* Match your theme color */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Smooth edges */
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056cc; /* Slightly darker on hover */
+}
