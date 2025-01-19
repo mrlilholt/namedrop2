@@ -88,7 +88,7 @@ function toggleDarkMode(isDarkMode) {
             const link = document.createElement("link");
             link.id = "dark-mode-css";
             link.rel = "stylesheet";
-            link.href = "darkmode.css";
+            link.href = "/css/darkmode.css";
             document.head.appendChild(link);
         }
         localStorage.setItem("theme", "dark");
