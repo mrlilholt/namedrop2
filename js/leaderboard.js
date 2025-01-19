@@ -1,108 +1,92 @@
-import { db } from "./firebase.js"; // Adjust the path if needed
-import { collection, getDocs } from "./firebase.js";
+import { db, collection, getDocs, query, orderBy } from "./firebase.js";
 
-export function initializeLeaderboardModal() {
-    const modal = document.createElement("div");
-    modal.id = "leaderboard-modal";
-    modal.classList.add("modal");
-    modal.style.display = "none"; // Initially hidden
-    modal.innerHTML = `
-        <div class="leaderboard-header">
-            <h2>Leaderboard</h2>
-            <div class="toggle-container">
-                <button id="toggle-score" class="toggle active">Score</button>
-                <button id="toggle-streak" class="toggle">Streak</button>
-            </div>
-        </div>
-        <div class="leaderboard-top">
-            <div id="top-3"></div>
-        </div>
-        <div class="leaderboard-list" id="leaderboard-list"></div>
-        <button id="close-leaderboard" class="modal-close">Close</button>
-    `;
+export async function initializeLeaderboardModal() {
+    const leaderboardModal = document.getElementById("leaderboard-modal");
+    if (!leaderboardModal) {
+        console.error("Leaderboard modal not found");
+        return;
+    }
 
-    document.body.appendChild(modal);
+    // Clear previous leaderboard data
+    const leaderboardContent = leaderboardModal.querySelector(".leaderboard-content");
+    leaderboardContent.innerHTML = "<p>Loading leaderboard data...</p>";
 
-    // Close leaderboard
-    document.getElementById("close-leaderboard").addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Event listeners for toggle
-    document.getElementById("toggle-score").addEventListener("click", () => {
-        loadLeaderboardData("score");
-    });
-
-    document.getElementById("toggle-streak").addEventListener("click", () => {
-        loadLeaderboardData("streak");
-    });
-
-    // Load initial leaderboard data
-    loadLeaderboardData("score");
-
-    return modal;
-}
-
-// Function to fetch and display leaderboard data
-async function loadLeaderboardData(metric) {
     try {
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, orderBy(metric, "desc"));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            console.log("No matching documents.");
-            return;
-        }
-
-        const users = [];
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            users.push({
-                name: data.name || "Anonymous",
-                avatar: data.avatar || "assets/default-user.png", // Fallback image
-                score: data.score || 0,
-                streak: data.streak || 0,
-            });
-        });
-
-        // Sort users by selected metric
-        users.sort((a, b) => b[metric] - a[metric]);
-
-        // Update top 3
-        updateTopThree(users.slice(0, 3), metric);
-
-        // Update leaderboard list
-        const listContainer = document.getElementById("leaderboard-list");
-        listContainer.innerHTML = users
-            .slice(3) // Skip top 3
-            .map((user, index) => `
-                <div class="leaderboard-item">
-                    <span class="rank">${index + 4}</span>
-                    <img src="${user.avatar}" alt="${user.name}" class="avatar">
-                    <div class="user-info">
-                        <span class="username">${user.name}</span>
-                        <span class="user-score">${user[metric]}</span>
-                    </div>
-                </div>
-            `)
-            .join("");
+        // Load leaderboard data
+        const leaderboardData = await loadLeaderboardData();
+        
+        // Render leaderboard
+        renderLeaderboard(leaderboardContent, leaderboardData);
     } catch (error) {
         console.error("Error loading leaderboard data:", error);
+        leaderboardContent.innerHTML = "<p>Error loading leaderboard data.</p>";
+    }
+
+    // Show modal
+    leaderboardModal.style.display = "block";
+
+    // Close button
+    const closeButton = leaderboardModal.querySelector("#close-leaderboard");
+    closeButton.addEventListener("click", () => {
+        leaderboardModal.style.display = "none";
+    });
+}
+
+async function loadLeaderboardData() {
+    try {
+        // Reference Firestore collection
+        const usersCollection = collection(db, "users");
+
+        // Query Firestore for leaderboard data, ordering by score descending
+        const leaderboardQuery = query(usersCollection, orderBy("score", "desc"));
+        const querySnapshot = await getDocs(leaderboardQuery);
+
+        const leaderboardData = [];
+        querySnapshot.forEach((doc) => {
+            leaderboardData.push({ id: doc.id, ...doc.data() });
+        });
+
+        return leaderboardData;
+    } catch (error) {
+        console.error("Error loading leaderboard data:", error);
+        throw error;
     }
 }
 
-function updateTopThree(topThree, metric) {
-    const topContainer = document.getElementById("top-3");
-    topContainer.innerHTML = topThree
-        .map((user, index) => `
-            <div class="top-player ${index === 0 ? "gold" : index === 1 ? "silver" : "bronze"}">
-                <img src="${user.avatar}" alt="${user.name}" class="avatar">
-                <div class="user-info">
-                    <span class="username">${user.name}</span>
-                    <span class="user-score">${user[metric]}</span>
-                </div>
-            </div>
-        `)
+function renderLeaderboard(container, data) {
+    // Sort and slice top 3 for featured users
+    const topThree = data.slice(0, 3);
+    const others = data.slice(3);
+
+    // Render top 3 users
+    const topThreeHtml = topThree
+        .map(
+            (user, index) => `
+        <div class="top-user">
+            <p>#${index + 1}: ${user.nickname || user.name || "Anonymous"}</p>
+            <p>Score: ${user.score || 0}</p>
+        </div>`
+        )
         .join("");
+
+    // Render others
+    const othersHtml = others
+        .map(
+            (user, index) => `
+        <div class="other-user">
+            <p>#${index + 4}: ${user.nickname || user.name || "Anonymous"}</p>
+            <p>Score: ${user.score || 0}</p>
+        </div>`
+        )
+        .join("");
+
+    container.innerHTML = `
+        <div class="top-three">
+            ${topThreeHtml}
+        </div>
+        <hr />
+        <div class="others">
+            ${othersHtml}
+        </div>
+    `;
 }
