@@ -21,7 +21,9 @@ export function initializeUploadImagesModal() {
     <h2 style="text-align: center;">Upload an Image</h2>
     <form id="upload-form">
         <label for="file-input">Select an Image:</label>
-        <input type="file" id="file-input" accept="image/*" required />
+<label for="file-input" class="custom-file-label">Choose File</label>
+<input type="file" id="file-input" accept="image/*" required style="display: none;" />
+<span id="file-chosen">No file chosen</span>
         <br />
         <label for="first-name">First Name:</label>
         <input type="text" id="first-name" required />
@@ -37,7 +39,11 @@ export function initializeUploadImagesModal() {
 
         document.body.appendChild(modal);
     }
-
+    document.getElementById("file-input").addEventListener("change", function () {
+        const fileChosen = document.getElementById("file-chosen");
+        fileChosen.textContent = this.files[0] ? this.files[0].name : "No file chosen";
+    });
+    
     // Show the modal
     modal.style.display = "block";
 
