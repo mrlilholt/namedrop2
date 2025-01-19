@@ -117,12 +117,22 @@ document.getElementById("dark-mode-toggle").addEventListener("change", (event) =
     document.getElementById("save-nickname").addEventListener("click", () => {
         const nicknameInput = document.getElementById("nickname-input").value.trim();
         if (nicknameInput) {
+            // Save nickname to localStorage
+            localStorage.setItem("nickname", nicknameInput);
+    
+            // Provide user feedback
             alert(`Nickname updated to: ${nicknameInput}`);
-            // Save nickname to database or update UI
+    
+            // Optionally update the profile modal immediately if it's open
+            const profileNickname = document.getElementById("profile-nickname");
+            if (profileNickname) {
+                profileNickname.innerHTML = `<strong>Nickname:</strong> ${nicknameInput}`;
+            }
         } else {
             alert("Please enter a valid nickname.");
         }
     });
+    
 
     // Add functionality for resetting score
     document.getElementById("reset-score").addEventListener("click", () => {

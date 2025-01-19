@@ -52,23 +52,24 @@ export function initializeProfileModal() {
     });
 
     // Fetch and display user info from auth
-    const user = auth.currentUser;
-    if (user) {
-        const profilePicture = document.getElementById("profile-picture");
-        const profileName = document.getElementById("profile-name");
-        const profileEmail = document.getElementById("profile-email");
-        const profileNickname = document.getElementById("profile-nickname");
+   // Fetch and display user info from auth
+const user = auth.currentUser;
+if (user) {
+    const profilePicture = document.getElementById("profile-picture");
+    const profileName = document.getElementById("profile-name");
+    const profileEmail = document.getElementById("profile-email");
+    const profileNickname = document.getElementById("profile-nickname");
 
-        if (user.photoURL) {
-            profilePicture.style.backgroundImage = `url(${user.photoURL})`;
-        }
-        profileName.innerHTML = `<strong>Name:</strong> ${user.displayName || "Unknown"}`;
-        profileEmail.innerHTML = `<strong>Email:</strong> ${user.email || "Unknown"}`;
-
-        // Fetch nickname from localStorage (or another storage system if implemented)
-        const nickname = localStorage.getItem("nickname");
-        profileNickname.innerHTML = `<strong>Nickname:</strong> ${nickname || "Not set"}`;
-    } else {
-        console.error("No user is currently signed in.");
+    if (user.photoURL) {
+        profilePicture.style.backgroundImage = `url(${user.photoURL})`;
     }
+    profileName.innerHTML = `<strong>Name:</strong> ${user.displayName || "Unknown"}`;
+    profileEmail.innerHTML = `<strong>Email:</strong> ${user.email || "Unknown"}`;
+
+    // Fetch nickname from localStorage
+    const nickname = localStorage.getItem("nickname");
+    profileNickname.innerHTML = `<strong>Nickname:</strong> ${nickname || "Not set"}`;
+} else {
+    console.error("No user is currently signed in.");
+}
 }
