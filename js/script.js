@@ -408,6 +408,7 @@ menuIcon.addEventListener("click", () => {
 document.querySelectorAll("#menu-list li").forEach((menuItem) => {
     const modalType = menuItem.getAttribute("data-modal");
     menuItem.addEventListener("click", () => {
+        if (modalType === "leaderboard") initializeLeaderboardModal(); // Add this line for the leaderboard
         if (modalType === "upload") initializeUploadImagesModal();
         if (modalType === "profile") initializeProfileModal();
         if (modalType === "settings") initializeSettingsModal();
