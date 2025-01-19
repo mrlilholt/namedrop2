@@ -386,7 +386,7 @@ input:checked + .slider:before {
     width: 60%; /* Adjust size */
     z-index: 1000;
     text-align: center;
-    display: flex; /* Default hidden */
+    display: none; /* Default hidden */
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center align the items */
     justify-content: center; /* Center align vertically */
