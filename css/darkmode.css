@@ -1,12 +1,39 @@
 /* darkmode.css */
 body {
-    background-color: #121212;
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* Light text */
+}
+
+header {
+    background-color: #1e1e1e; /* Dark header background */
+    color: #ffffff; /* Light header text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Adjust shadow for dark mode */
+}
+
+main {
+    background-color: #1e1e1e; /* Dark content background */
     color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+#menu-sidebar {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-right: 1px solid #333333; /* Optional: subtle border for contrast */
+}
+
+#menu-list li:hover {
+    color: #1e90ff; /* Highlight on hover */
 }
 
 button {
-    background-color: #333333;
-    color: #ffffff;
+    background-color: #333333; /* Dark button */
+    color: #ffffff; /* Light text */
+    border: 1px solid #444444;
+}
+
+button:hover {
+    background-color: #555555; /* Slightly lighter on hover */
 }
 
 input {
@@ -15,4 +42,77 @@ input {
     border: 1px solid #444444;
 }
 
-/* Add more specific dark mode styles here */
+/* Dark mode for modals */
+.modal {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6); /* Stronger shadow in dark mode */
+}
+
+#upload-modal {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Sidebar menu footer */
+.menu-footer {
+    color: #ff6666; /* Bright red for logout */
+}
+
+.menu-footer:hover {
+    color: #ff4c4c; /* Darker red on hover */
+}
+
+/* Toggle Switch */
+.slider {
+    background-color: #333333; /* Dark slider background */
+}
+
+input:checked + .slider {
+    background-color: #1e90ff; /* Highlight when active */
+}
+
+input:checked + .slider:before {
+    background-color: #ffffff; /* White circle for contrast */
+}
+
+/* Game Area */
+#random-person {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+#first-input, #last-input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+#submit-button {
+    background-color: #1e90ff;
+    color: white;
+}
+
+#submit-button:hover {
+    background-color: #1c7ed6;
+}
+
+/* Handle specific modal buttons */
+#upload-form button {
+    background-color: #1e90ff;
+    color: white;
+}
+
+#upload-form button:hover {
+    background-color: #1c7ed6;
+}
+
+#close-upload {
+    background-color: #555555;
+    color: #ffffff;
+}
+
+#close-upload:hover {
+    background-color: #444444;
+}
