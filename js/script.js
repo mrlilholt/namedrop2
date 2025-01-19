@@ -6,7 +6,6 @@ import { saveScore, fetchScore } from "./scoring.js";
 import { initializeUploadImagesModal } from "./upload_images.js";
 import { initializeProfileModal } from "./userinfo.js";
 import { initializeSettingsModal } from "./settings.js";
-import { initializeLeaderboardModal } from "./leaderboard.js";
 
 let currentUser = null;
 
