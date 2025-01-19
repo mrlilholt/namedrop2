@@ -1,39 +1,44 @@
-/* Dark mode general styles */
-body.dark-mode {
-    background-color: #121212 !important; /* Dark body background */
-    color: #ffffff !important; /* Light text */
+/* darkmode.css */
+body {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* Light text */
 }
-
-/* Modals */
+/* Ensure all modals have dark backgrounds */
 body.dark-mode .modal,
 body.dark-mode #upload-modal,
 body.dark-mode #settings-modal,
 body.dark-mode #profile-modal {
-    background-color: #1e1e1e !important; /* Modal background */
-    color: #ffffff !important; /* Modal text */
-    border: 1px solid #444444 !important; /* Subtle border */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6) !important; /* Shadow for depth */
+    background-color: #1e1e1e !important; /* Override any background styles */
+    color: #ffffff !important; /* Ensure text is visible */
+    border: 1px solid #333 !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Input Fields */
-body.dark-mode input {
+/* Inputs inside modals */
+body.dark-mode #upload-modal input,
+body.dark-mode #settings-modal input,
+body.dark-mode #profile-modal input {
     background-color: #333333 !important;
     color: #ffffff !important;
     border: 1px solid #444444 !important;
     border-radius: 5px;
 }
 
-/* Buttons */
-body.dark-mode button {
+/* Buttons inside modals */
+body.dark-mode #upload-modal button,
+body.dark-mode #settings-modal button,
+body.dark-mode #profile-modal button {
     background-color: #1e90ff !important;
-    color: #ffffff !important;
+    color: white !important;
 }
 
-body.dark-mode button:hover {
+body.dark-mode #upload-modal button:hover,
+body.dark-mode #settings-modal button:hover,
+body.dark-mode #profile-modal button:hover {
     background-color: #1c7ed6 !important;
 }
 
-/* Modals Close Button */
+/* Close button in modals */
 body.dark-mode #close-upload,
 body.dark-mode #close-settings,
 body.dark-mode #close-profile {
@@ -47,48 +52,29 @@ body.dark-mode #close-profile:hover {
     background-color: #444444 !important;
 }
 
-/* Game Area */
-body.dark-mode #random-person {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    border-radius: 50%;
-    border: 2px solid #444444 !important;
-}
-
-/* Score and Streak Containers */
+/* Score and streak containers */
 body.dark-mode .score-container,
 body.dark-mode #streak-container {
     background-color: #333333 !important;
     color: #ffffff !important;
     border: 1px solid #444444 !important;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Sidebar */
-body.dark-mode #menu-sidebar {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    border-right: 1px solid #333333;
-}
-
-body.dark-mode #menu-list li:hover {
-    color: #1e90ff !important;
-}
-
-/* Header and Main */
-body.dark-mode header {
+/* Specific game areas */
+body.dark-mode #random-person {
     background-color: #1e1e1e !important;
     color: #ffffff !important;
 }
 
-body.dark-mode main {
-    background-color: #1e1e1e !important;
+body.dark-mode #first-input,
+body.dark-mode #last-input {
+    background-color: #333333 !important;
     color: #ffffff !important;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid #444444 !important;
 }
 
-/* Toggle Switch */
+/* Ensure the toggle itself changes visually */
 body.dark-mode .slider {
     background-color: #333333 !important;
 }
@@ -97,16 +83,121 @@ body.dark-mode input:checked + .slider {
     background-color: #1e90ff !important;
 }
 
-body.dark-mode input:checked + .slider:before {
-    background-color: #ffffff !important;
+header {
+    background-color: #1e1e1e; /* Dark header background */
+    color: #ffffff; /* Light header text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Adjust shadow for dark mode */
 }
 
-/* Modal Buttons Specific */
-body.dark-mode #upload-form button {
-    background-color: #1e90ff !important;
-    color: #ffffff !important;
+main {
+    background-color: #1e1e1e; /* Dark content background */
+    color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
 
-body.dark-mode #upload-form button:hover {
-    background-color: #1c7ed6 !important;
+#menu-sidebar {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-right: 1px solid #333333; /* Optional: subtle border for contrast */
+}
+
+#menu-list li:hover {
+    color: #1e90ff; /* Highlight on hover */
+}
+
+button {
+    background-color: #333333; /* Dark button */
+    color: #ffffff; /* Light text */
+    border: 1px solid #444444;
+}
+
+button:hover {
+    background-color: #555555; /* Slightly lighter on hover */
+}
+
+input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+/* Dark mode for modals */
+/* Modals */
+.modal,
+#upload-modal,
+#settings-modal {
+    background-color: #1e1e1e; /* Dark modal background */
+    color: #ffffff; /* Light modal text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6); /* Stronger shadow for dark mode */
+}
+
+/* Score and streak containers */
+.score-container,
+#streak-container {
+    background-color: #333333; /* Dark background for score and streak boxes */
+    color: #ffffff;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Add subtle shadow */
+}
+/* Sidebar menu footer */
+.menu-footer {
+    color: #ff6666; /* Bright red for logout */
+}
+
+.menu-footer:hover {
+    color: #ff4c4c; /* Darker red on hover */
+}
+
+/* Toggle Switch */
+.slider {
+    background-color: #333333; /* Dark slider background */
+}
+
+input:checked + .slider {
+    background-color: #1e90ff; /* Highlight when active */
+}
+
+input:checked + .slider:before {
+    background-color: #ffffff; /* White circle for contrast */
+}
+
+/* Game Area */
+#random-person {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+#first-input, #last-input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+#submit-button {
+    background-color: #1e90ff;
+    color: white;
+}
+
+#submit-button:hover {
+    background-color: #1c7ed6;
+}
+
+/* Handle specific modal buttons */
+#upload-form button {
+    background-color: #1e90ff;
+    color: white;
+}
+
+#upload-form button:hover {
+    background-color: #1c7ed6;
+}
+
+#close-upload {
+    background-color: #555555;
+    color: #ffffff;
+}
+
+#close-upload:hover {
+    background-color: #444444;
 }
