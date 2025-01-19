@@ -1,0 +1,18 @@
+/* darkmode.css */
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+button {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+/* Add more specific dark mode styles here */
