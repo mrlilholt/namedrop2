@@ -522,3 +522,93 @@ button:hover {
     font-size: 1rem;
     color: #333;
 }
+/* Center alignment for everything inside the modal */
+#upload-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#upload-modal h2 {
+    font-family: 'Poppins', sans-serif; /* Match your app's font */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#upload-form label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+#upload-form input[type="file"],
+#upload-form input[type="text"] {
+    font-family: 'Poppins', sans-serif; /* Match input font with the rest of the UI */
+    font-size: 1rem;
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%; /* Keep inputs a consistent width */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#upload-form input[type="file"] {
+    background-color: #0066ff;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#upload-form input[type="file"]:hover {
+    background-color: #0056cc;
+}
+
+#upload-form button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#upload-form button:hover {
+    background-color: #0056cc;
+}
+
+/* Style the close button */
+#close-upload {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#close-upload:hover {
+    background-color: #bbb;
+}
