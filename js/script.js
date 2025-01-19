@@ -161,8 +161,10 @@ async function validateNameInput() {
         if (isCorrect) {
             console.log("Correct!");
             const points = nameToggle ? 2 : 1; // Assign 2 points for both names, 1 point for first name only
+            const randomMessage = getRandomSuccessMessage(); // Get a random success message
+            showSuccessGif(randomMessage); // Display the success GIF and message
             await updateScores(true, points); // Pass points to the updateScores function
-            loadRandomImage(); // Load a new random image
+            setTimeout(() => loadRandomImage(), 2000); // Load a new random image after delay
         } else {
             console.log("Incorrect!");
             await updateScores(false, 0); // Reset streak, no points
@@ -171,6 +173,7 @@ async function validateNameInput() {
         console.error("Error validating name input:", error);
     }
 }
+
 
 //Part 4.7 SCORES and STREAKS
 
