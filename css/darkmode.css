@@ -3,6 +3,89 @@ body {
     background-color: #121212; /* Dark background */
     color: #ffffff; /* Light text */
 }
+/* General Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Button Styles */
+body.dark-mode .btn-primary {
+    background-color: #1e88e5;
+    color: #ffffff;
+    border: 1px solid #1e88e5;
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #424242;
+    color: #ffffff;
+    border: 1px solid #424242;
+}
+
+/* Score/Streak Container Styles */
+body.dark-mode .score-container {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Modal Backgrounds */
+body.dark-mode #profile-modal,
+body.dark-mode #upload-modal,
+body.dark-mode #settings-modal {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Inputs and Labels */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+body.dark-mode label {
+    color: #bbbbbb;
+}
+
+/* Custom File Input Label */
+body.dark-mode .custom-file-label {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Modal Headings */
+body.dark-mode h2 {
+    color: #ffffff;
+}
+
+/* Toggle Switch */
+body.dark-mode .toggle-switch {
+    background-color: #424242;
+    border: 1px solid #555;
+}
+
+/* Links */
+body.dark-mode a {
+    color: #1e88e5;
+}
+
+/* Success Message Styles */
+body.dark-mode #gif-container {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+}
 
 header {
     background-color: #1e1e1e; /* Dark header background */
