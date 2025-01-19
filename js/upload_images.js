@@ -167,6 +167,9 @@ async function uploadImageToCloudinary(file) {
     formData.append("upload_preset", uploadPreset);
 
     try {
+        console.log("Uploading to Cloudinary...");
+        console.log("FormData:", formData.get("file"), formData.get("upload_preset"));
+
         const response = await fetch(cloudinaryUrl, {
             method: "POST",
             body: formData,
@@ -177,12 +180,14 @@ async function uploadImageToCloudinary(file) {
         }
 
         const data = await response.json();
+        console.log("Upload successful:", data);
         return data.secure_url; // Cloudinary URL
     } catch (error) {
         console.error("Error uploading image to Cloudinary:", error);
         throw new Error("Image upload failed");
     }
 }
+
 
 // Save metadata to Firestore
 async function saveMetadataToFirestore(imageUrl, firstName, lastName) {
