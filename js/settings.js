@@ -71,12 +71,47 @@ export function initializeSettingsModal() {
     });
 
     // Add functionality for dark mode toggle
-    const darkModeToggle = document.getElementById("dark-mode-toggle");
-    darkModeToggle.addEventListener("click", () => {
-        const isActive = darkModeToggle.textContent === "toggle_on";
-        darkModeToggle.textContent = isActive ? "toggle_off" : "toggle_on";
-        document.body.classList.toggle("dark-mode", !isActive);
-    });
+    // settings.js
+
+// Function to toggle dark mode
+function toggleDarkMode(isDarkMode) {
+    const darkModeLink = document.getElementById("dark-mode-css");
+
+    if (isDarkMode) {
+        // If dark mode is enabled, add the CSS file
+        if (!darkModeLink) {
+            const link = document.createElement("link");
+            link.id = "dark-mode-css";
+            link.rel = "stylesheet";
+            link.href = "darkmode.css";
+            document.head.appendChild(link);
+        }
+        localStorage.setItem("theme", "dark");
+    } else {
+        // If dark mode is disabled, remove the CSS file
+        if (darkModeLink) {
+            document.head.removeChild(darkModeLink);
+        }
+        localStorage.setItem("theme", "light");
+    }
+}
+
+// Check localStorage to apply the theme on load
+document.addEventListener("DOMContentLoaded", () => {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark") {
+        toggleDarkMode(true);
+        document.getElementById("dark-mode-toggle").checked = true;
+    } else {
+        toggleDarkMode(false);
+    }
+});
+
+// Add event listener to the dark mode toggle switch
+document.getElementById("dark-mode-toggle").addEventListener("change", (event) => {
+    toggleDarkMode(event.target.checked);
+});
+
 
     // Add functionality for saving nickname
     document.getElementById("save-nickname").addEventListener("click", () => {
