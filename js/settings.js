@@ -16,17 +16,28 @@ export function initializeSettingsModal() {
     // Content
     settingsModal.innerHTML = `
         <h2 style="text-align: center;">Settings</h2>
+        <div style="margin: 20px 0; text-align: center;">
+            <label for="nickname-input">Update Nickname:</label>
+            <input type="text" id="nickname-input" placeholder="Enter new nickname" style="
+                width: 100%;
+                padding: 10px;
+                margin-top: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            " />
+            <button id="save-nickname" style="
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            ">Save</button>
+        </div>
         <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;">
             <span class="material-icons">dark_mode</span>
             <span id="dark-mode-toggle" class="material-icons" style="cursor: pointer;">toggle_off</span>
-        </div>
-        <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;">
-            <span class="material-icons">volume_up</span>
-            <span id="sound-effects-toggle" class="material-icons" style="cursor: pointer;">toggle_off</span>
-        </div>
-        <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;">
-            <span class="material-icons">notifications</span>
-            <span id="notifications-toggle" class="material-icons" style="cursor: pointer;">toggle_off</span>
         </div>
         <div style="margin: 20px 0; text-align: center;">
             <button id="reset-score" style="
@@ -65,28 +76,22 @@ export function initializeSettingsModal() {
         const isActive = darkModeToggle.textContent === "toggle_on";
         darkModeToggle.textContent = isActive ? "toggle_off" : "toggle_on";
         document.body.classList.toggle("dark-mode", !isActive);
-        alert("Dark mode toggled!");
     });
 
-    // Add functionality for sound effects toggle
-    const soundEffectsToggle = document.getElementById("sound-effects-toggle");
-    soundEffectsToggle.addEventListener("click", () => {
-        const isActive = soundEffectsToggle.textContent === "toggle_on";
-        soundEffectsToggle.textContent = isActive ? "toggle_off" : "toggle_on";
-        alert("Sound effects toggled!");
-    });
-
-    // Add functionality for notifications toggle
-    const notificationsToggle = document.getElementById("notifications-toggle");
-    notificationsToggle.addEventListener("click", () => {
-        const isActive = notificationsToggle.textContent === "toggle_on";
-        notificationsToggle.textContent = isActive ? "toggle_off" : "toggle_on";
-        alert("Notifications toggled!");
+    // Add functionality for saving nickname
+    document.getElementById("save-nickname").addEventListener("click", () => {
+        const nicknameInput = document.getElementById("nickname-input").value.trim();
+        if (nicknameInput) {
+            alert(`Nickname updated to: ${nicknameInput}`);
+            // Save nickname to database or update UI
+        } else {
+            alert("Please enter a valid nickname.");
+        }
     });
 
     // Add functionality for resetting score
     document.getElementById("reset-score").addEventListener("click", () => {
         alert("Score has been reset!");
-        // Future: Reset score logic
+        // Future: Add logic to reset score
     });
 }
