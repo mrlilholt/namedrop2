@@ -1,7 +1,7 @@
-/* General Dark Mode */
+/* Dark mode general styles */
 body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: #121212 !important; /* Dark body background */
+    color: #ffffff !important; /* Light text */
 }
 
 /* Modals */
@@ -9,37 +9,31 @@ body.dark-mode .modal,
 body.dark-mode #upload-modal,
 body.dark-mode #settings-modal,
 body.dark-mode #profile-modal {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    border: 1px solid #333 !important;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6) !important;
+    background-color: #1e1e1e !important; /* Modal background */
+    color: #ffffff !important; /* Modal text */
+    border: 1px solid #444444 !important; /* Subtle border */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6) !important; /* Shadow for depth */
 }
 
-/* Inputs inside Modals */
-body.dark-mode #upload-modal input,
-body.dark-mode #settings-modal input,
-body.dark-mode #profile-modal input {
+/* Input Fields */
+body.dark-mode input {
     background-color: #333333 !important;
     color: #ffffff !important;
     border: 1px solid #444444 !important;
     border-radius: 5px;
 }
 
-/* Buttons inside Modals */
-body.dark-mode #upload-modal button,
-body.dark-mode #settings-modal button,
-body.dark-mode #profile-modal button {
+/* Buttons */
+body.dark-mode button {
     background-color: #1e90ff !important;
-    color: white !important;
+    color: #ffffff !important;
 }
 
-body.dark-mode #upload-modal button:hover,
-body.dark-mode #settings-modal button:hover,
-body.dark-mode #profile-modal button:hover {
+body.dark-mode button:hover {
     background-color: #1c7ed6 !important;
 }
 
-/* Close Buttons */
+/* Modals Close Button */
 body.dark-mode #close-upload,
 body.dark-mode #close-settings,
 body.dark-mode #close-profile {
@@ -53,6 +47,14 @@ body.dark-mode #close-profile:hover {
     background-color: #444444 !important;
 }
 
+/* Game Area */
+body.dark-mode #random-person {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-radius: 50%;
+    border: 2px solid #444444 !important;
+}
+
 /* Score and Streak Containers */
 body.dark-mode .score-container,
 body.dark-mode #streak-container {
@@ -60,20 +62,30 @@ body.dark-mode #streak-container {
     color: #ffffff !important;
     border: 1px solid #444444 !important;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Game Area */
-body.dark-mode #random-person {
+/* Sidebar */
+body.dark-mode #menu-sidebar {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-right: 1px solid #333333;
+}
+
+body.dark-mode #menu-list li:hover {
+    color: #1e90ff !important;
+}
+
+/* Header and Main */
+body.dark-mode header {
     background-color: #1e1e1e !important;
     color: #ffffff !important;
 }
 
-body.dark-mode #first-input,
-body.dark-mode #last-input {
-    background-color: #333333 !important;
+body.dark-mode main {
+    background-color: #1e1e1e !important;
     color: #ffffff !important;
-    border: 1px solid #444444 !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Toggle Switch */
@@ -89,81 +101,12 @@ body.dark-mode input:checked + .slider:before {
     background-color: #ffffff !important;
 }
 
-/* Header */
-body.dark-mode header {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Main Content */
-body.dark-mode main {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Sidebar Menu */
-body.dark-mode #menu-sidebar {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    border-right: 1px solid #333333;
-}
-
-body.dark-mode #menu-list li:hover {
-    color: #1e90ff !important;
-}
-
-/* General Buttons */
-body.dark-mode button {
-    background-color: #333333 !important;
-    color: #ffffff !important;
-    border: 1px solid #444444 !important;
-}
-
-body.dark-mode button:hover {
-    background-color: #555555 !important;
-}
-
-/* Game Area Buttons */
-body.dark-mode #submit-button,
-body.dark-mode #skip-button {
-    background-color: #1e90ff !important;
-    color: white !important;
-}
-
-body.dark-mode #submit-button:hover,
-body.dark-mode #skip-button:hover {
-    background-color: #1c7ed6 !important;
-}
-
-/* Modals Specific Buttons */
+/* Modal Buttons Specific */
 body.dark-mode #upload-form button {
     background-color: #1e90ff !important;
-    color: white !important;
+    color: #ffffff !important;
 }
 
 body.dark-mode #upload-form button:hover {
     background-color: #1c7ed6 !important;
-}
-
-/* Sidebar Menu Footer */
-body.dark-mode .menu-footer {
-    color: #ff6666 !important;
-}
-
-body.dark-mode .menu-footer:hover {
-    color: #ff4c4c !important;
-}
-
-/* Ensure Text Contrast */
-body.dark-mode p,
-body.dark-mode span,
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6 {
-    color: #ffffff !important;
 }
