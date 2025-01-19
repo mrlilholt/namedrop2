@@ -87,7 +87,12 @@ async function loadRandomImage() {
         // Access the Firestore 'images' collection
         const imagesCollection = collection(db, "images");
         const imagesSnapshot = await getDocs(imagesCollection);
-
+        const gifContainer = document.getElementById("gif-container");
+        if (!gifContainer) {
+            const newGifContainer = document.createElement("div");
+            newGifContainer.id = "gif-container";
+            randomPerson.appendChild(newGifContainer);
+        }
         const images = [];
         imagesSnapshot.forEach((doc) => {
             images.push({ id: doc.id, ...doc.data() });
@@ -205,19 +210,25 @@ function showSuccessGif(message) {
 
 // Example integration with the submit button
 document.getElementById("submit-button").addEventListener("click", () => {
-    const isCorrect = checkAnswer(); // Replace this with your logic for validation
+    // Check if the answer is correct
+    const isCorrect = checkAnswer(); // Replace with your logic for validation
+    console.log("Is the answer correct?", isCorrect);
+
     if (isCorrect) {
         const randomMessage = getRandomSuccessMessage();
-        showSuccessGif(randomMessage);
+        console.log("Displaying success message:", randomMessage);
+        showSuccessGif(randomMessage); // Show GIF and success message
 
-        // Add a delay before loading the next image
+        // Add a delay before loading the next random image
         setTimeout(() => {
-            loadRandomImage(); // Load a new random image
+            console.log("Loading new random image...");
+            loadRandomImage();
         }, 2000); // 2-second delay
     } else {
         console.log("Incorrect!");
     }
 });
+
 
 
 // Skip button logic
