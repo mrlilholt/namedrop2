@@ -71,14 +71,19 @@ export function initializeSettingsModal() {
     });
 
     // Add functionality for dark mode toggle
-    // settings.js
+// Add event listener to the dark mode toggle switch
+// Event listener for dark mode toggle
+document.getElementById("dark-mode-toggle").addEventListener("click", (event) => {
+    const isDarkMode = event.target.textContent === "toggle_off"; // Check the current icon state
+    event.target.textContent = isDarkMode ? "toggle_on" : "toggle_off"; // Toggle the icon
+    toggleDarkMode(isDarkMode);
+});
 
 // Function to toggle dark mode
 function toggleDarkMode(isDarkMode) {
     const darkModeLink = document.getElementById("dark-mode-css");
 
     if (isDarkMode) {
-        // If dark mode is enabled, add the CSS file
         if (!darkModeLink) {
             const link = document.createElement("link");
             link.id = "dark-mode-css";
@@ -88,7 +93,6 @@ function toggleDarkMode(isDarkMode) {
         }
         localStorage.setItem("theme", "dark");
     } else {
-        // If dark mode is disabled, remove the CSS file
         if (darkModeLink) {
             document.head.removeChild(darkModeLink);
         }
@@ -96,20 +100,17 @@ function toggleDarkMode(isDarkMode) {
     }
 }
 
+
 // Check localStorage to apply the theme on load
 document.addEventListener("DOMContentLoaded", () => {
     const currentTheme = localStorage.getItem("theme");
     if (currentTheme === "dark") {
         toggleDarkMode(true);
-        document.getElementById("dark-mode-toggle").checked = true;
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        if (darkModeToggle) darkModeToggle.textContent = "toggle_on";
     } else {
         toggleDarkMode(false);
     }
-});
-
-// Add event listener to the dark mode toggle switch
-document.getElementById("dark-mode-toggle").addEventListener("change", (event) => {
-    toggleDarkMode(event.target.checked);
 });
 
 
