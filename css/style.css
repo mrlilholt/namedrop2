@@ -496,3 +496,29 @@ button {
 button:hover {
     background-color: #0056cc; /* Slightly darker on hover */
 }
+
+.custom-file-label {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #0066ff; /* Match your theme */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-label:hover {
+    background-color: #0056cc; /* Slightly darker on hover */
+}
+
+#file-chosen {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 1rem;
+    color: #333;
+}
