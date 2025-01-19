@@ -45,19 +45,16 @@ export function initializeLeaderboardModal() {
 // Function to fetch and display leaderboard data
 async function loadLeaderboardData(metric) {
     try {
-        const usersRef = collection(db, "users");
-        const usersSnapshot = await getDocs(usersRef);
-        const users = [];
-        
-        usersSnapshot.forEach((doc) => {
-            const data = doc.data();
-            users.push({
-                name: data.name || "Anonymous",
-                avatar: data.avatar || "./assets/default-avatar.png",
-                score: data.score || 0,
-                streak: data.streak || 0,
-            });
-        });
+        const usersRef = db.collection("users");
+const snapshot = await usersRef.orderBy("score", "desc").limit(10).get();
+if (snapshot.empty) {
+    console.log("No matching documents.");
+    return;
+}
+snapshot.forEach(doc => {
+    console.log(doc.id, "=>", doc.data());
+});
+
 
         // Sort users by selected metric
         users.sort((a, b) => b[metric] - a[metric]);
