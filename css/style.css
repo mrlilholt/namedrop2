@@ -386,7 +386,10 @@ input:checked + .slider:before {
     width: 60%; /* Adjust size */
     z-index: 1000;
     text-align: center;
-    display: none; /* Default hidden */
+    display: flex; /* Default hidden */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align the items */
+    justify-content: center; /* Center align vertically */
 }
 
 
@@ -396,10 +399,14 @@ input:checked + .slider:before {
 }
 
 #success-text {
+    position: relative;
+    margin-bottom: 10px; /* Add space between the text and the GIF */
+    color: white; /* Ensure the text is visible */
     font-size: 1.2rem;
-    color: white;
-    text-align: center;
-    margin-top: 10px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Add a shadow for readability */
+    z-index: 2; /* Ensure it's above the GIF */
+    text-align: center; /* Center-align the text */
 }
 #button-container {
     display: flex;
