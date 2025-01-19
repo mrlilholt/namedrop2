@@ -18,39 +18,22 @@ export function initializeUploadImagesModal() {
         modal.style.zIndex = "1000";
 
         modal.innerHTML = `
-            <h2 style="text-align: center;">Upload an Image</h2>
-            <form id="upload-form">
-                <label for="file-input">Select an Image:</label>
-                <input type="file" id="file-input" accept="image/*" required />
-                <br />
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" required />
-                <br />
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" required />
-                <br />
-                <button type="submit" style="
-                    display: block;
-                    margin: 10px auto;
-                    padding: 10px 20px;
-                    background-color: #007bff;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                ">Upload</button>
-            </form>
-            <button id="close-upload" style="
-                display: block;
-                margin: 10px auto;
-                padding: 10px 20px;
-                background-color: #ccc;
-                color: black;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            ">Close</button>
-        `;
+    <h2 style="text-align: center;">Upload an Image</h2>
+    <form id="upload-form">
+        <label for="file-input">Select an Image:</label>
+        <input type="file" id="file-input" accept="image/*" required />
+        <br />
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required />
+        <br />
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required />
+        <br />
+        <button type="submit" class="btn-primary">Upload</button>
+    </form>
+    <button id="close-upload" class="btn-secondary">Close</button>
+`;
+
 
         document.body.appendChild(modal);
     }
