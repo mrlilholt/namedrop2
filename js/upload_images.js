@@ -159,32 +159,33 @@ export function initializeUploadModal() {
 
 // Cloudinary Upload API
 async function uploadImageToCloudinary(file) {
-    const cloudinaryUrl = "https://api.cloudinary.com/v1_1/mrlilholt/image/upload";
-    const uploadPreset = "NameDrop";
-
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", uploadPreset);
+    formData.append("upload_preset", "NameDrop"); // Make sure this matches exactly
+    formData.append("folder", "namedrop"); // Folder name
+
+    console.log("Uploading to Cloudinary with:", formData);
 
     try {
-        console.log("Uploading to Cloudinary...");
-        console.log("FormData:", formData.get("file"), formData.get("upload_preset"));
-
-        const response = await fetch(cloudinaryUrl, {
-            method: "POST",
-            body: formData,
-        });
-
-        if (!response.ok) {
-            throw new Error(`Cloudinary upload failed with status ${response.status}`);
-        }
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/mrlilholt/image/upload",
+            {
+                method: "POST",
+                body: formData,
+            }
+        );
 
         const data = await response.json();
-        console.log("Upload successful:", data);
-        return data.secure_url; // Cloudinary URL
+        console.log("Cloudinary response:", data);
+
+        if (response.ok) {
+            return data.secure_url; // URL of uploaded image
+        } else {
+            throw new Error(`Upload failed: ${data.error.message}`);
+        }
     } catch (error) {
-        console.error("Error uploading image to Cloudinary:", error);
-        throw new Error("Image upload failed");
+        console.error("Error uploading to Cloudinary:", error);
+        throw error;
     }
 }
 
