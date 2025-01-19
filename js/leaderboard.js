@@ -1,5 +1,5 @@
 import { db } from "./firebase.js"; // Adjust the path if needed
-import { collection, getDocs, orderBy, query } from "./firebase.js";
+import { collection, getDocs, orderBy, query } from "firebase/firestore"; // Correct import
 
 export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
@@ -46,16 +46,25 @@ export function initializeLeaderboardModal() {
 // Function to fetch and display leaderboard data
 async function loadLeaderboardData(metric) {
     try {
-        const usersRef = db.collection("users");
-const snapshot = await usersRef.orderBy("score", "desc").limit(10).get();
-if (snapshot.empty) {
-    console.log("No matching documents.");
-    return;
-}
-snapshot.forEach(doc => {
-    console.log(doc.id, "=>", doc.data());
-});
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, orderBy(metric, "desc"));
+        const snapshot = await getDocs(q);
 
+        if (snapshot.empty) {
+            console.log("No matching documents.");
+            return;
+        }
+
+        const users = [];
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            users.push({
+                name: data.name || "Anonymous",
+                avatar: data.avatar || "assets/default-user.png", // Fallback image
+                score: data.score || 0,
+                streak: data.streak || 0,
+            });
+        });
 
         // Sort users by selected metric
         users.sort((a, b) => b[metric] - a[metric]);
@@ -87,7 +96,7 @@ function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");
     topContainer.innerHTML = topThree
         .map((user, index) => `
-            <div class="top-player ${index === 1 ? "gold" : index === 0 ? "silver" : "bronze"}">
+            <div class="top-player ${index === 0 ? "gold" : index === 1 ? "silver" : "bronze"}">
                 <img src="${user.avatar}" alt="${user.name}" class="avatar">
                 <div class="user-info">
                     <span class="username">${user.name}</span>
