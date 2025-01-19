@@ -98,4 +98,3 @@ function updateTopThree(topThree, metric) {
         .join("");
 }
 
-export { db }; // Ensure this is present
