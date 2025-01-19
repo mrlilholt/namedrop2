@@ -43,18 +43,24 @@ input {
 }
 
 /* Dark mode for modals */
-.modal {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6); /* Stronger shadow in dark mode */
+/* Modals */
+.modal,
+#upload-modal,
+#settings-modal {
+    background-color: #1e1e1e; /* Dark modal background */
+    color: #ffffff; /* Light modal text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6); /* Stronger shadow for dark mode */
 }
 
-#upload-modal {
-    background-color: #1e1e1e;
+/* Score and streak containers */
+.score-container,
+#streak-container {
+    background-color: #333333; /* Dark background for score and streak boxes */
     color: #ffffff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+    border: 1px solid #444444;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Add subtle shadow */
 }
-
 /* Sidebar menu footer */
 .menu-footer {
     color: #ff6666; /* Bright red for logout */
