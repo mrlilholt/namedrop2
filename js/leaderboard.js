@@ -1,5 +1,5 @@
 import { db } from "./firebase.js"; // Adjust the path if needed
-import { collection, getDocs, orderBy, query } from "firebase/firestore"; // Correct import
+import { collection, getDocs } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
