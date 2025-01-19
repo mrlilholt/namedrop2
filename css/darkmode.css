@@ -3,88 +3,84 @@ body {
     background-color: #121212; /* Dark background */
     color: #ffffff; /* Light text */
 }
-/* General Dark Mode Styles */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+/* Ensure all modals have dark backgrounds */
+body.dark-mode .modal,
+body.dark-mode #upload-modal,
+body.dark-mode #settings-modal,
+body.dark-mode #profile-modal {
+    background-color: #1e1e1e !important; /* Override any background styles */
+    color: #ffffff !important; /* Ensure text is visible */
+    border: 1px solid #333 !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Button Styles */
-body.dark-mode .btn-primary {
-    background-color: #1e88e5;
-    color: #ffffff;
-    border: 1px solid #1e88e5;
+/* Inputs inside modals */
+body.dark-mode #upload-modal input,
+body.dark-mode #settings-modal input,
+body.dark-mode #profile-modal input {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #444444 !important;
+    border-radius: 5px;
 }
 
-body.dark-mode .btn-secondary {
-    background-color: #424242;
-    color: #ffffff;
-    border: 1px solid #424242;
+/* Buttons inside modals */
+body.dark-mode #upload-modal button,
+body.dark-mode #settings-modal button,
+body.dark-mode #profile-modal button {
+    background-color: #1e90ff !important;
+    color: white !important;
 }
 
-/* Score/Streak Container Styles */
-body.dark-mode .score-container {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    color: #ffffff;
-    padding: 10px;
+body.dark-mode #upload-modal button:hover,
+body.dark-mode #settings-modal button:hover,
+body.dark-mode #profile-modal button:hover {
+    background-color: #1c7ed6 !important;
+}
+
+/* Close button in modals */
+body.dark-mode #close-upload,
+body.dark-mode #close-settings,
+body.dark-mode #close-profile {
+    background-color: #555555 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode #close-upload:hover,
+body.dark-mode #close-settings:hover,
+body.dark-mode #close-profile:hover {
+    background-color: #444444 !important;
+}
+
+/* Score and streak containers */
+body.dark-mode .score-container,
+body.dark-mode #streak-container {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #444444 !important;
     border-radius: 8px;
 }
 
-/* Modal Backgrounds */
-body.dark-mode #profile-modal,
-body.dark-mode #upload-modal,
-body.dark-mode #settings-modal {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border: 1px solid #333;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+/* Specific game areas */
+body.dark-mode #random-person {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
 }
 
-/* Inputs and Labels */
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #555;
-    border-radius: 5px;
+body.dark-mode #first-input,
+body.dark-mode #last-input {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #444444 !important;
 }
 
-body.dark-mode label {
-    color: #bbbbbb;
+/* Ensure the toggle itself changes visually */
+body.dark-mode .slider {
+    background-color: #333333 !important;
 }
 
-/* Custom File Input Label */
-body.dark-mode .custom-file-label {
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #555;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Modal Headings */
-body.dark-mode h2 {
-    color: #ffffff;
-}
-
-/* Toggle Switch */
-body.dark-mode .toggle-switch {
-    background-color: #424242;
-    border: 1px solid #555;
-}
-
-/* Links */
-body.dark-mode a {
-    color: #1e88e5;
-}
-
-/* Success Message Styles */
-body.dark-mode #gif-container {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    color: #ffffff;
+body.dark-mode input:checked + .slider {
+    background-color: #1e90ff !important;
 }
 
 header {
