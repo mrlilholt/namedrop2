@@ -17,6 +17,8 @@ export function initializeProfileModal() {
 
     // Content
     profileModal.innerHTML = `
+    <div id="upload-modal" class="modal">
+
         <h2 style="text-align: center;">Your Profile</h2>
         <div style="text-align: center; margin: 20px 0;">
             <div id="profile-picture" style="
@@ -41,6 +43,7 @@ export function initializeProfileModal() {
             border-radius: 5px;
             cursor: pointer;
         ">Close</button>
+        </div>
     `;
 
     // Append to body

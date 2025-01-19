@@ -18,6 +18,8 @@ export function initializeUploadImagesModal() {
         modal.style.zIndex = "1000";
 
         modal.innerHTML = `
+        <div id="upload-modal" class="modal">
+
     <h2 style="text-align: center;">Upload an Image</h2>
     <form id="upload-form">
         <label for="file-input">Select an Image:</label>
@@ -34,6 +36,7 @@ export function initializeUploadImagesModal() {
         <button type="submit" class="btn-primary">Upload</button>
     </form>
     <button id="close-upload" class="btn-secondary">Close</button>
+    </div>
 `;
 
 

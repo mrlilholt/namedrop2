@@ -15,6 +15,8 @@ export function initializeSettingsModal() {
 
     // Content
     settingsModal.innerHTML = `
+    <div id="upload-modal" class="modal">
+
         <h2 style="text-align: center;">Settings</h2>
         <div style="margin: 20px 0; text-align: center;">
             <label for="nickname-input">Update Nickname:</label>
@@ -60,6 +62,7 @@ export function initializeSettingsModal() {
             border-radius: 5px;
             cursor: pointer;
         ">Close</button>
+        </div>
     `;
 
     // Append to body
