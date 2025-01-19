@@ -31,12 +31,22 @@ export function initializeProfileModal() {
             <p id="profile-email"><strong>Email:</strong> Loading...</p>
             <p id="profile-nickname"><strong>Nickname:</strong> Not set</p>
         </div>
-        <button id="close-profile" style="
+        <button id="update-nickname-button" style="
             display: block;
-            margin: 0 auto;
+            margin: 10px auto;
             padding: 10px 20px;
             background-color: #007bff;
             color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        ">Update Nickname</button>
+        <button id="close-profile" style="
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #ccc;
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -71,4 +81,14 @@ export function initializeProfileModal() {
     } else {
         console.error("No user is currently signed in.");
     }
+
+    // Event listener for updating nickname
+    document.getElementById("update-nickname-button").addEventListener("click", () => {
+        const newNickname = prompt("Enter your new nickname:");
+        if (newNickname) {
+            localStorage.setItem("nickname", newNickname);
+            document.getElementById("profile-nickname").innerHTML = `<strong>Nickname:</strong> ${newNickname}`;
+            alert("Nickname updated successfully!");
+        }
+    });
 }
