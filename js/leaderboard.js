@@ -58,7 +58,8 @@ async function loadLeaderboardData(metric) {
         snapshot.forEach((doc) => {
             const data = doc.data();
             users.push({
-                id: doc.id,
+                name: data.name || "Anonymous",
+                avatar: data.avatar || "assets/default-user.png", // Ensure fallback image
                 score: data.score || 0,
                 streak: data.streak || 0,
             });
@@ -77,9 +78,9 @@ async function loadLeaderboardData(metric) {
             .map((user, index) => `
                 <div class="leaderboard-item">
                     <span class="rank">${index + 4}</span>
-                    <img src="assets/default-user.png" alt="Default Avatar" class="avatar">
+                    <img src="${user.avatar}" alt="${user.name}" class="avatar">
                     <div class="user-info">
-                        <span class="username">${user.id}</span>
+                        <span class="username">${user.name}</span>
                         <span class="user-score">${user[metric]}</span>
                     </div>
                 </div>
@@ -89,6 +90,7 @@ async function loadLeaderboardData(metric) {
         console.error("Error loading leaderboard data:", error);
     }
 }
+
 
 
 function updateTopThree(topThree, metric) {
