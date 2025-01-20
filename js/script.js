@@ -88,25 +88,25 @@ function updateUserIcon(user) {
 ;
 
 // Assuming `user` is the authenticated user object
+// Save user to Firestore with proper merging
 async function saveUserToFirestore(user) {
     try {
         const userRef = doc(db, "users", user.uid);
-        const userDoc = await getDoc(userRef);
 
-        if (!userDoc.exists()) {
-            // Set default values for a new user
-            await setDoc(userRef, {
-                name: user.displayName || "Anonymous",
-                avatar: user.photoURL || "assets/default-user.png",
-                score: 0,
-                streak: 0,
-            });
-        } else {
-            const data = userDoc.data();
-            sessionScore = data.score || 0; // Keep the existing score
-            sessionStreak = data.streak || 0; // Keep the existing streak
-        }
-        console.log("User saved to Firestore:", user.uid);
+        // Fetch existing data to avoid overwriting
+        const userSnapshot = await getDoc(userRef);
+
+        // Prepare user data
+        const userData = {
+            name: user.displayName || (userSnapshot.exists() ? userSnapshot.data().name : "Anonymous"),
+            avatar: user.photoURL || (userSnapshot.exists() ? userSnapshot.data().avatar : "assets/default-user.png"),
+            score: userSnapshot.exists() ? userSnapshot.data().score : 0,
+            streak: userSnapshot.exists() ? userSnapshot.data().streak : 0,
+        };
+
+        // Save or merge user data
+        await setDoc(userRef, userData, { merge: true });
+        console.log("User saved to Firestore:", userData);
     } catch (error) {
         console.error("Error saving user to Firestore:", error);
     }
@@ -117,6 +117,7 @@ async function saveUserToFirestore(user) {
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         currentUser = user;
+        saveUserToFirestore(user); // Ensure this function is triggered
 
         // Fetch user data from Firestore
         const userData = await fetchUserData(user.uid);
