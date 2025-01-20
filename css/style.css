@@ -707,15 +707,16 @@ body.dark-mode .leaderboard-item {
     text-align: center;
 }
 /* Toggle container styling */
+/* Toggle container styling */
 .toggle-container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #1e90ff; /* Blue background */
-    border-radius: 3px; /* Rounded container */
-    padding: 3px 3px; /* Minimal padding for barely visible container */
+    border-radius: 25px; /* Rounded container */
+    padding: 0; /* No padding for exact height matching */
     width: fit-content;
-    height: fit-content;
+    height: auto; /* Automatically adjust height based on inner content */
     margin: 0 auto;
 }
 
