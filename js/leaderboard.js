@@ -11,13 +11,12 @@ export function initializeLeaderboardModal() {
             <div class="leaderboard-header">
                 <h2>Leaderboard</h2>
                 <div class="toggle-container">
-    <button id="toggle-score" class="toggle active">Score</button>
-    <button id="toggle-streak" class="toggle">Streak</button>
-</div>
-
+                    <button id="toggle-score" class="toggle active">Score</button>
+                    <button id="toggle-streak" class="toggle">Streak</button>
+                </div>
             </div>
-            <div class="leaderboard-top">
-                <div id="top-3"></div>
+            <div class="leaderboard-top" id="top-3">
+                <!-- Top 3 will be dynamically populated -->
             </div>
             <div class="leaderboard-list" id="leaderboard-list"></div>
             <button id="close-leaderboard" class="modal-close">Close</button>
@@ -34,24 +33,54 @@ export function initializeLeaderboardModal() {
             // Add active class to Score button and remove from Streak
             document.getElementById("toggle-score").classList.add("active");
             document.getElementById("toggle-streak").classList.remove("active");
-        
+
             // Load Score leaderboard
             loadLeaderboardData("score");
         });
-        
+
         document.getElementById("toggle-streak").addEventListener("click", () => {
             // Add active class to Streak button and remove from Score
             document.getElementById("toggle-streak").classList.add("active");
             document.getElementById("toggle-score").classList.remove("active");
-        
+
             // Load Streak leaderboard
             loadLeaderboardData("streak");
         });
     }
 
+    // Function to update the top 3 users
+    function updateTopThree(users, metric) {
+        const topThreeHTML = `
+            <div class="top-3-item second">
+                <img src="${users[1]?.avatar || 'assets/default-user.png'}" alt="${users[1]?.name || 'Anonymous'}">
+                <div class="username">${users[1]?.name || 'Anonymous'}</div>
+                <div class="score">${users[1]?.[metric] || 0}</div>
+            </div>
+            <div class="top-3-item first">
+                <img src="${users[0]?.avatar || 'assets/default-user.png'}" alt="${users[0]?.name || 'Anonymous'}">
+                <div class="username">${users[0]?.name || 'Anonymous'}</div>
+                <div class="score">${users[0]?.[metric] || 0}</div>
+            </div>
+            <div class="top-3-item third">
+                <img src="${users[2]?.avatar || 'assets/default-user.png'}" alt="${users[2]?.name || 'Anonymous'}">
+                <div class="username">${users[2]?.name || 'Anonymous'}</div>
+                <div class="score">${users[2]?.[metric] || 0}</div>
+            </div>
+        `;
+
+        document.getElementById("top-3").innerHTML = topThreeHTML;
+    }
+
+    // Load initial leaderboard data
+    loadLeaderboardData("score");
+
+    // Add the `updateTopThree` function as a callback to `loadLeaderboardData`
+    window.updateTopThree = updateTopThree;
+
     // Display the modal
     modal.style.display = "block";
 }
+
 
 
 
