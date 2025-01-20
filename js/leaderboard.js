@@ -1,54 +1,50 @@
 import { db, collection, query, orderBy, getDocs } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
-    const leaderboardModal = document.createElement("div");
-    leaderboardModal.id = "leaderboard-modal";
-    leaderboardModal.style.position = "fixed";
-    leaderboardModal.style.top = "50%";
-    leaderboardModal.style.left = "50%";
-    leaderboardModal.style.transform = "translate(-50%, -50%)";
-    leaderboardModal.style.width = "400px";
-    leaderboardModal.style.padding = "20px";
-    leaderboardModal.style.backgroundColor = "#fff";
-    leaderboardModal.style.borderRadius = "10px";
-    leaderboardModal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.2)";
-    leaderboardModal.style.zIndex = "1000";
-    
-    modal.id = "leaderboard-modal";
-    modal.classList.add("modal");
-    modal.innerHTML = `
-        <div class="leaderboard-header">
-            <h2>Leaderboard</h2>
-            <div class="toggle-container">
-                <button id="toggle-score" class="toggle active">Score</button>
-                <button id="toggle-streak" class="toggle">Streak</button>
+    // Check if modal already exists
+    let modal = document.getElementById("leaderboard-modal");
+    if (!modal) {
+        // Create modal dynamically if not already created
+        modal = document.createElement("div");
+        modal.id = "leaderboard-modal";
+        modal.classList.add("modal");
+        modal.innerHTML = `
+            <div class="leaderboard-header">
+                <h2>Leaderboard</h2>
+                <div class="toggle-container">
+                    <button id="toggle-score" class="toggle active">Score</button>
+                    <button id="toggle-streak" class="toggle">Streak</button>
+                </div>
             </div>
-        </div>
-        <div class="leaderboard-top">
-            <div id="top-3"></div>
-        </div>
-        <div class="leaderboard-list" id="leaderboard-list"></div>
-        <button id="close-leaderboard" class="modal-close">Close</button>
-    `;
-    document.body.appendChild(modal);
+            <div class="leaderboard-top">
+                <div id="top-3"></div>
+            </div>
+            <div class="leaderboard-list" id="leaderboard-list"></div>
+            <button id="close-leaderboard" class="modal-close">Close</button>
+        `;
+        document.body.appendChild(modal);
 
-    // Close the modal
-    document.getElementById("close-leaderboard").addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+        // Close modal functionality
+        document.getElementById("close-leaderboard").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
 
-    // Set up toggle buttons
-    document.getElementById("toggle-score").addEventListener("click", () => {
+        // Toggle buttons for score and streak
+        document.getElementById("toggle-score").addEventListener("click", () => {
+            loadLeaderboardData("score");
+        });
+        document.getElementById("toggle-streak").addEventListener("click", () => {
+            loadLeaderboardData("streak");
+        });
+
+        // Load initial leaderboard data
         loadLeaderboardData("score");
-    });
-    document.getElementById("toggle-streak").addEventListener("click", () => {
-        loadLeaderboardData("streak");
-    });
+    }
 
-    // Load initial data
-    loadLeaderboardData("score");
-    return modal;
+    // Display the modal
+    modal.style.display = "block";
 }
+
 
 
 async function loadLeaderboardData(metric) {
