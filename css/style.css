@@ -737,7 +737,7 @@ body.dark-mode .leaderboard-item {
 
 /* Active toggle button */
 .toggle.active {
-    background-color: white; /* White background when active */
+    background-color: rgb(194, 195, 197); /* White background when active */
     color: #1e90ff; /* Blue text when active */
 }
 
