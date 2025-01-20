@@ -706,7 +706,6 @@ body.dark-mode .leaderboard-item {
 .leaderboard-header {
     text-align: center;
 }
-/* Toggle Container *//* Toggle container styling */
 /* Toggle container styling */
 .toggle-container {
     display: flex;
@@ -714,7 +713,7 @@ body.dark-mode .leaderboard-item {
     align-items: center;
     background-color: #1e90ff; /* Blue background */
     border-radius: 25px; /* Rounded container */
-    padding: 5px 10px; /* Reduced padding for equal spacing */
+    padding: 3px; /* Minimal padding for barely visible container */
     width: fit-content;
     margin: 0 auto;
 }
