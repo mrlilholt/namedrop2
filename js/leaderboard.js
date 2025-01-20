@@ -15,8 +15,8 @@ export function initializeLeaderboardModal() {
                     <button id="toggle-streak" class="toggle">Streak</button>
                 </div>
             </div>
-            <div class="leaderboard-top">
-                <!-- Dynamically populated top 3 users -->
+            <div class="leaderboard-top" id="top-3">
+                <!-- Top 3 will be dynamically populated -->
             </div>
             <div class="leaderboard-list" id="leaderboard-list"></div>
             <button id="close-leaderboard" class="modal-close">Close</button>
@@ -32,44 +32,57 @@ export function initializeLeaderboardModal() {
         document.getElementById("toggle-score").addEventListener("click", () => {
             document.getElementById("toggle-score").classList.add("active");
             document.getElementById("toggle-streak").classList.remove("active");
+
+            // Load Score leaderboard
             loadLeaderboardData("score");
         });
 
         document.getElementById("toggle-streak").addEventListener("click", () => {
             document.getElementById("toggle-streak").classList.add("active");
             document.getElementById("toggle-score").classList.remove("active");
+
+            // Load Streak leaderboard
             loadLeaderboardData("streak");
         });
     }
 
-    // Display the modal
-    modal.style.display = "block";
+    // Function to update the top 3 users
+    function updateTopThree(topThree) {
+        const top3Container = document.getElementById("top-3");
+    
+        // Debugging to verify input
+        console.log("Top Three Data:", topThree);
+    
+        top3Container.innerHTML = `
+            <div class="leaderboard-item second">
+                <img src="${topThree[1]?.avatar || './assets/default-user.png'}" alt="${topThree[1]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/second.png" alt="Second Place" class="badge">
+                <div>${topThree[1]?.name || 'Anonymous'} ${topThree[1]?.score || 0}</div>
+            </div>
+            <div class="leaderboard-item first">
+                <img src="${topThree[0]?.avatar || './assets/default-user.png'}" alt="${topThree[0]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/first.png" alt="First Place" class="badge">
+                <div>${topThree[0]?.name || 'Anonymous'} ${topThree[0]?.score || 0}</div>
+            </div>
+            <div class="leaderboard-item third">
+                <img src="${topThree[2]?.avatar || 'assets/default-user.png'}" alt="${topThree[2]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/third.png" alt="Third Place" class="badge">
+                <div>${topThree[2]?.name || 'Anonymous'} ${topThree[2]?.score || 0}</div>
+            </div>
+        `;
+    }
+    
 
     // Load initial leaderboard data
     loadLeaderboardData("score");
+
+    // Add the `updateTopThree` function as a callback to `loadLeaderboardData`
+    window.updateTopThree = updateTopThree;
+
+    // Display the modal
+    modal.style.display = "block";
 }
 
-    // Function to update the top 3 users
-    function updateTopThree(users) {
-        const topThreeContainer = document.querySelector(".leaderboard-top");
-        topThreeContainer.innerHTML = ""; // Clear existing content
-    
-        // Create user elements for the top 3
-        const positions = ["First", "Second", "Third"];
-        users.forEach((user, index) => {
-            const userElement = document.createElement("div");
-            userElement.classList.add("top-user");
-    
-            userElement.innerHTML = `
-                <div class="place-label">${positions[index]}</div>
-                <img src="${user.avatar}" alt="${user.name}" />
-                <div>${user.name}</div>
-                <div>${user.score || user.streak}</div>
-            `;
-            topThreeContainer.appendChild(userElement);
-        });
-    }
-    
 
 
 
