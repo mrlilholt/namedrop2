@@ -1,13 +1,12 @@
 import { db, collection, query, orderBy, getDocs } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
-    // Check if modal already exists
+    // Check if the modal exists
     let modal = document.getElementById("leaderboard-modal");
     if (!modal) {
-        // Create modal dynamically if not already created
         modal = document.createElement("div");
         modal.id = "leaderboard-modal";
-        modal.classList.add("modal");
+        modal.classList.add("modal"); // Modal class for styling
         modal.innerHTML = `
             <div class="leaderboard-header">
                 <h2>Leaderboard</h2>
@@ -24,12 +23,12 @@ export function initializeLeaderboardModal() {
         `;
         document.body.appendChild(modal);
 
-        // Close modal functionality
+        // Close modal
         document.getElementById("close-leaderboard").addEventListener("click", () => {
             modal.style.display = "none";
         });
 
-        // Toggle buttons for score and streak
+        // Event listeners for toggles
         document.getElementById("toggle-score").addEventListener("click", () => {
             loadLeaderboardData("score");
         });
