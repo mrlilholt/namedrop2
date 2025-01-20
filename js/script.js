@@ -52,13 +52,20 @@ async function initializeUserScore(userId) {
     try {
         const userRef = doc(db, "users", userId);
         const userDoc = await getDoc(userRef);
+
         if (!userDoc.exists()) {
+            // Initialize new user data only if the document doesn't exist
             await setDoc(userRef, { score: 0, streak: 0 });
+        } else {
+            const data = userDoc.data();
+            sessionScore = data.score || 0; // Fetch the existing score
+            sessionStreak = data.streak || 0; // Fetch the existing streak
         }
     } catch (error) {
         console.error("Error initializing user score:", error);
     }
 }
+
 
 
 // Part 4: User Profile Icon Population
@@ -84,24 +91,44 @@ function updateUserIcon(user) {
 async function saveUserToFirestore(user) {
     try {
         const userRef = doc(db, "users", user.uid);
-        await setDoc(userRef, {
-            name: user.displayName || "Anonymous", // Default to "Anonymous" if displayName is missing
-            avatar: user.photoURL || "assets/default-user.png", // Default avatar if photoURL is missing
-            score: 0, // Keep existing score if set
-            streak: 0, // Keep existing streak if set
-        }, { merge: true }); // Merge to avoid overwriting existing fields
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            // Set default values for a new user
+            await setDoc(userRef, {
+                name: user.displayName || "Anonymous",
+                avatar: user.photoURL || "assets/default-user.png",
+                score: 0,
+                streak: 0,
+            });
+        } else {
+            const data = userDoc.data();
+            sessionScore = data.score || 0; // Keep the existing score
+            sessionStreak = data.streak || 0; // Keep the existing streak
+        }
         console.log("User saved to Firestore:", user.uid);
     } catch (error) {
         console.error("Error saving user to Firestore:", error);
     }
 }
 
+
 // Example: Call this function after a successful login
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        await saveUserToFirestore(user);
+        currentUser = user;
+
+        // Fetch user data from Firestore
+        const userData = await fetchUserData(user.uid);
+        sessionScore = userData.score;
+        sessionStreak = userData.streak;
+
+        // Update UI with fetched data
+        document.querySelector("#score-section .score-container:nth-child(1) span").textContent = sessionStreak;
+        document.querySelector("#score-section .score-container:nth-child(2) span").textContent = sessionScore;
     }
 });
+
 
 //Part 4.5 RANDOS
 
@@ -534,17 +561,20 @@ auth.onAuthStateChanged(async (user) => {
 async function updateUserData(userId, newScore, newStreak) {
     const userRef = doc(db, "users", userId);
 
-    // Use a transaction to increment values safely
-    await db.runTransaction(async (transaction) => {
-        const userSnap = await transaction.get(userRef);
-        if (userSnap.exists()) {
-            const data = userSnap.data();
-            const updatedScore = (data.score || 0) + newScore;
-            const updatedStreak = (data.streak || 0) + newStreak;
+    try {
+        await db.runTransaction(async (transaction) => {
+            const userSnap = await transaction.get(userRef);
+            if (userSnap.exists()) {
+                const data = userSnap.data();
+                const updatedScore = (data.score || 0) + newScore;
+                const updatedStreak = (data.streak || 0) + newStreak;
 
-            transaction.update(userRef, { score: updatedScore, streak: updatedStreak });
-        } else {
-            transaction.set(userRef, { score: newScore, streak: newStreak });
-        }
-    });
+                transaction.update(userRef, { score: updatedScore, streak: updatedStreak });
+            } else {
+                transaction.set(userRef, { score: newScore, streak: newStreak });
+            }
+        });
+    } catch (error) {
+        console.error("Error updating user data:", error);
+    }
 }
