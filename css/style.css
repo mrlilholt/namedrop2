@@ -712,8 +712,8 @@ body.dark-mode .leaderboard-item {
     justify-content: center;
     align-items: center;
     background-color: #1e90ff; /* Blue background */
-    border-radius: 3px 3px; /* Rounded container */
-    padding: 3px; /* Minimal padding for barely visible container */
+    border-radius: 3px; /* Rounded container */
+    padding: 3px 3px; /* Minimal padding for barely visible container */
     width: fit-content;
     height: fit-content;
     margin: 0 auto;
