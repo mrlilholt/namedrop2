@@ -708,16 +708,15 @@ body.dark-mode .leaderboard-item {
 }
 /* Toggle container styling */
 /* Toggle container styling */
-/* Toggle container styling */
 .toggle-container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #1e90ff; /* Blue background */
     border-radius: 25px; /* Rounded container */
-    padding: 0; /* Remove padding */
+    padding: 0; /* No padding for exact height matching */
     width: fit-content;
-    height: 36px; /* Explicitly control the height */
+    height: auto; /* Automatically adjust height based on inner content */
     margin: 0 auto;
 }
 
@@ -726,18 +725,17 @@ body.dark-mode .leaderboard-item {
     background-color: transparent; /* Transparent background initially */
     color: white; /* White text initially */
     border: none; /* Remove border */
-    padding: 4px 20px; /* Adjust button padding for balance */
+    padding: 8px 20px; /* Adjust button padding for balance */
     border-radius: 20px; /* Rounded corners for buttons */
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
-    line-height: 28px; /* Vertically center the text within buttons */
 }
 
 /* Active toggle button */
 .toggle.active {
-    background-color: rgb(194, 195, 197); /* White background when active */
+    background-color: rgb(217, 217, 217); /* White background when active */
     color: #1e90ff; /* Blue text when active */
 }
 
@@ -750,11 +748,8 @@ body.dark-mode .leaderboard-item {
 
 .leaderboard-top {
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 10px; /* Space between 1st, 2nd, and 3rd */
+    justify-content: space-around;
     margin: 20px 0;
-    position: relative; /* Parent container for absolute positioning */
 }
 
 .top-player {
@@ -776,9 +771,9 @@ body.dark-mode .leaderboard-item {
 
 .leaderboard-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    position: relative; /* Required for placing PNGs */
+    padding: 10px 0;
+    border-bottom: 1px solid var(--divider-color);
 }
 
 .leaderboard-item .avatar {
@@ -876,23 +871,4 @@ body.dark-mode .leaderboard-item {
 
 .third .overlay {
     width: 50px; /* Smallest */
-}
-.leaderboard-item img.avatar {
-    width: 80px; /* Adjust size for 2nd and 3rd */
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #ccc; /* Optional border */
-}
-.leaderboard-item.first img.avatar {
-    width: 100px; /* Larger for 1st place */
-    height: 100px;
-}
-.leaderboard-item .badge {
-    position: absolute;
-    top: -10px; /* Adjust for positioning on top */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10; /* Ensure it is above everything else */
-    width: 50px; /* Adjust as needed */
-    height: 50px;
 }
