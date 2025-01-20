@@ -11,9 +11,10 @@ export function initializeLeaderboardModal() {
             <div class="leaderboard-header">
                 <h2>Leaderboard</h2>
                 <div class="toggle-container">
-                    <button id="toggle-score" class="toggle active">Score</button>
-                    <button id="toggle-streak" class="toggle">Streak</button>
-                </div>
+    <button id="toggle-score" class="toggle active">Score</button>
+    <button id="toggle-streak" class="toggle">Streak</button>
+</div>
+
             </div>
             <div class="leaderboard-top">
                 <div id="top-3"></div>
@@ -30,14 +31,22 @@ export function initializeLeaderboardModal() {
 
         // Event listeners for toggles
         document.getElementById("toggle-score").addEventListener("click", () => {
+            // Add active class to Score button and remove from Streak
+            document.getElementById("toggle-score").classList.add("active");
+            document.getElementById("toggle-streak").classList.remove("active");
+        
+            // Load Score leaderboard
             loadLeaderboardData("score");
         });
+        
         document.getElementById("toggle-streak").addEventListener("click", () => {
+            // Add active class to Streak button and remove from Score
+            document.getElementById("toggle-streak").classList.add("active");
+            document.getElementById("toggle-score").classList.remove("active");
+        
+            // Load Streak leaderboard
             loadLeaderboardData("streak");
         });
-
-        // Load initial leaderboard data
-        loadLeaderboardData("score");
     }
 
     // Display the modal
