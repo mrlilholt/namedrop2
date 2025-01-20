@@ -47,25 +47,25 @@ export function initializeLeaderboardModal() {
     }
 
     // Function to update the top 3 users
-    function updateTopThree(users, metric) {
-        const topThreeHTML = `
-            <div class="top-3-item second">
-                <img src="${users[1]?.avatar || 'assets/default-user.png'}" alt="${users[1]?.name || 'Anonymous'}">
-                <div class="username">${users[1]?.name || 'Anonymous'}</div>
-                <div class="score">${users[1]?.[metric] || 0}</div>
+    function updateTopThree(topThree) {
+        const top3Container = document.getElementById("top-3");
+        top3Container.innerHTML = `
+            <div class="leaderboard-item second">
+                <img src="${topThree[1]?.avatar || 'assets/default-user.png'}" alt="${topThree[1]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/second.png" alt="Second Place" class="badge">
+                <div>${topThree[1]?.name || 'Anonymous'} ${topThree[1]?.score || 0}</div>
             </div>
-            <div class="top-3-item first" style="background-image: url('/assets/first.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
-                <img src="${users[0]?.avatar || 'assets/default-user.png'}" alt="${users[0]?.name || 'Anonymous'}">
-                <div class="username">${users[0]?.name || 'Anonymous'}</div>
-                <div class="score">${users[0]?.[metric] || 0}</div>
+            <div class="leaderboard-item first">
+                <img src="${topThree[0]?.avatar || 'assets/default-user.png'}" alt="${topThree[0]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/first.png" alt="First Place" class="badge">
+                <div>${topThree[0]?.name || 'Anonymous'} ${topThree[0]?.score || 0}</div>
             </div>
-            <div class="top-3-item third">
-                <img src="${users[2]?.avatar || 'assets/default-user.png'}" alt="${users[2]?.name || 'Anonymous'}">
-                <div class="username">${users[2]?.name || 'Anonymous'}</div>
-                <div class="score">${users[2]?.[metric] || 0}</div>
+            <div class="leaderboard-item third">
+                <img src="${topThree[2]?.avatar || 'assets/default-user.png'}" alt="${topThree[2]?.name || 'Anonymous'}" class="avatar">
+                <img src="assets/third.png" alt="Third Place" class="badge">
+                <div>${topThree[2]?.name || 'Anonymous'} ${topThree[2]?.score || 0}</div>
             </div>
         `;
-
         document.getElementById("top-3").innerHTML = topThreeHTML;
     }
 
