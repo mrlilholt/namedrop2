@@ -498,4 +498,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+async function fetchUserData(userId) {
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
 
+    if (userSnap.exists()) {
+        const data = userSnap.data();
+        return {
+            score: data.score || 0,
+            streak: data.streak || 0,
+        };
+    } else {
+        // If user doesn't exist, initialize data
+        await setDoc(userRef, { score: 0, streak: 0 });
+        return { score: 0, streak: 0 };
+    }
+}
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        const userData = await fetchUserData(user.uid);
+
+        // Initialize session variables with fetched data
+        sessionScore = userData.score;
+        sessionStreak = userData.streak;
+    } else {
+        // Save session data to Firestore before logout
+        await updateUserData(auth.currentUser.uid, sessionScore, sessionStreak);
+
+        // Clear session variables
+        sessionScore = 0;
+        sessionStreak = 0;
+    }
+});
+
+async function updateUserData(userId, newScore, newStreak) {
+    const userRef = doc(db, "users", userId);
+
+    // Use a transaction to increment values safely
+    await db.runTransaction(async (transaction) => {
+        const userSnap = await transaction.get(userRef);
+        if (userSnap.exists()) {
+            const data = userSnap.data();
+            const updatedScore = (data.score || 0) + newScore;
+            const updatedStreak = (data.streak || 0) + newStreak;
+
+            transaction.update(userRef, { score: updatedScore, streak: updatedStreak });
+        } else {
+            transaction.set(userRef, { score: newScore, streak: newStreak });
+        }
+    });
+}
