@@ -1,4 +1,4 @@
-import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc } from "./firebase.js";
+import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc, orderBy, query } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
@@ -58,28 +58,28 @@ async function loadLeaderboardData(metric) {
         snapshot.forEach((doc) => {
             const data = doc.data();
             users.push({
-                id: doc.id, // Store document ID if needed
+                id: doc.id,
                 score: data.score || 0,
                 streak: data.streak || 0,
             });
         });
 
-        // Sort users by the selected metric
+        // Sort users by selected metric
         users.sort((a, b) => b[metric] - a[metric]);
 
-        // Update top 3 users
+        // Update top 3
         updateTopThree(users.slice(0, 3), metric);
 
         // Update leaderboard list
         const listContainer = document.getElementById("leaderboard-list");
         listContainer.innerHTML = users
-            .slice(3) // Skip the top 3
+            .slice(3) // Skip top 3
             .map((user, index) => `
                 <div class="leaderboard-item">
                     <span class="rank">${index + 4}</span>
-                    <img src="assets/default-user.png" alt="Default Avatar" class="avatar"> <!-- Default avatar -->
+                    <img src="assets/default-user.png" alt="Default Avatar" class="avatar">
                     <div class="user-info">
-                        <span class="username">${user.id}</span> <!-- Using document ID as a placeholder for the username -->
+                        <span class="username">${user.id}</span>
                         <span class="user-score">${user[metric]}</span>
                     </div>
                 </div>
@@ -89,6 +89,7 @@ async function loadLeaderboardData(metric) {
         console.error("Error loading leaderboard data:", error);
     }
 }
+
 
 function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");
