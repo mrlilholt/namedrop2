@@ -47,25 +47,35 @@ export function initializeLeaderboardModal() {
     }
 
     // Function to update the top 3 users
-    function updateTopThree(topThree) {
-        const top3Container = document.getElementById("top-3");
-        top3Container.innerHTML = `
-            <div class="leaderboard-item second">
-                <img src="${topThree[1]?.avatar || 'assets/default-user.png'}" alt="${topThree[1]?.name || 'Anonymous'}" class="avatar">
-                <img src="assets/second.png" alt="Second Place" class="badge">
-                <div>${topThree[1]?.name || 'Anonymous'} ${topThree[1]?.score || 0}</div>
+    function updateTopThree(users) {
+        const topThreeContainer = document.getElementById("top-3");
+        topThreeContainer.innerHTML = `
+            <div class="leaderboard-user second">
+                <img src="${users[1].avatar}" alt="${users[1].name}" class="avatar">
+                <img src="assets/second.png" alt="Second Place" class="overlay second-overlay">
+                <div class="user-info">
+                    <span class="username">${users[1].name}</span>
+                    <span class="user-score">${users[1].score}</span>
+                </div>
             </div>
-            <div class="leaderboard-item first">
-                <img src="${topThree[0]?.avatar || 'assets/default-user.png'}" alt="${topThree[0]?.name || 'Anonymous'}" class="avatar">
-                <img src="assets/first.png" alt="First Place" class="badge">
-                <div>${topThree[0]?.name || 'Anonymous'} ${topThree[0]?.score || 0}</div>
+            <div class="leaderboard-user first">
+                <img src="${users[0].avatar}" alt="${users[0].name}" class="avatar">
+                <img src="assets/first.png" alt="First Place" class="overlay first-overlay">
+                <div class="user-info">
+                    <span class="username">${users[0].name}</span>
+                    <span class="user-score">${users[0].score}</span>
+                </div>
             </div>
-            <div class="leaderboard-item third">
-                <img src="${topThree[2]?.avatar || 'assets/default-user.png'}" alt="${topThree[2]?.name || 'Anonymous'}" class="avatar">
-                <img src="assets/third.png" alt="Third Place" class="badge">
-                <div>${topThree[2]?.name || 'Anonymous'} ${topThree[2]?.score || 0}</div>
+            <div class="leaderboard-user third">
+                <img src="${users[2].avatar}" alt="${users[2].name}" class="avatar">
+                <img src="assets/third.png" alt="Third Place" class="overlay third-overlay">
+                <div class="user-info">
+                    <span class="username">${users[2].name}</span>
+                    <span class="user-score">${users[2].score}</span>
+                </div>
             </div>
         `;
+
         document.getElementById("top-3").innerHTML = topThreeHTML;
     }
 
