@@ -85,15 +85,23 @@ async function saveUserToFirestore(user) {
     try {
         const userRef = doc(db, "users", user.uid);
         await setDoc(userRef, {
-            name: user.displayName,
-            avatar: user.photoURL,
-            score: 0, // Initialize score if not set
-            streak: 0, // Initialize streak if not set
-        }, { merge: true }); // Merge to avoid overwriting existing data
+            name: user.displayName || "Anonymous", // Default to "Anonymous" if displayName is missing
+            avatar: user.photoURL || "assets/default-user.png", // Default avatar if photoURL is missing
+            score: 0, // Keep existing score if set
+            streak: 0, // Keep existing streak if set
+        }, { merge: true }); // Merge to avoid overwriting existing fields
+        console.log("User saved to Firestore:", user.uid);
     } catch (error) {
         console.error("Error saving user to Firestore:", error);
     }
 }
+
+// Example: Call this function after a successful login
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        await saveUserToFirestore(user);
+    }
+});
 
 //Part 4.5 RANDOS
 
