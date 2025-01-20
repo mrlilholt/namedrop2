@@ -715,6 +715,7 @@ body.dark-mode .leaderboard-item {
     border-radius: 3px; /* Rounded container */
     padding: 3px; /* Minimal padding for barely visible container */
     width: fit-content;
+    height: fit-content;
     margin: 0 auto;
 }
 
