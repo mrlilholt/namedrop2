@@ -1,5 +1,4 @@
-import { db } from "./firebase.js"; // Adjust the path if needed
-import { collection, getDocs } from "./firebase.js";
+import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
