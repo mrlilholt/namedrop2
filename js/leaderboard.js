@@ -55,17 +55,17 @@ export function initializeLeaderboardModal() {
     
         top3Container.innerHTML = `
             <div class="leaderboard-item second">
-                <img src="${topThree[1]?.avatar || 'assets/default-user.png'}" alt="${topThree[1]?.name || 'Anonymous'}" class="avatar">
+                <img src="${topThree[1]?.avatar || './assets/default-user.png'}" alt="${topThree[1]?.name || 'Anonymous'}" class="avatar">
                 <img src="assets/second.png" alt="Second Place" class="badge">
                 <div>${topThree[1]?.name || 'Anonymous'} ${topThree[1]?.score || 0}</div>
             </div>
             <div class="leaderboard-item first">
-                <img src="${topThree[0]?.avatar || 'assets/default-user.png'}" alt="${topThree[0]?.name || 'Anonymous'}" class="avatar">
+                <img src="${topThree[0]?.avatar || './assets/default-user.png'}" alt="${topThree[0]?.name || 'Anonymous'}" class="avatar">
                 <img src="assets/first.png" alt="First Place" class="badge">
                 <div>${topThree[0]?.name || 'Anonymous'} ${topThree[0]?.score || 0}</div>
             </div>
             <div class="leaderboard-item third">
-                <img src="${topThree[2]?.avatar || 'assets/default-user.png'}" alt="${topThree[2]?.name || 'Anonymous'}" class="avatar">
+                <img src="${topThree[2]?.avatar || './assets/default-user.png'}" alt="${topThree[2]?.name || 'Anonymous'}" class="avatar">
                 <img src="assets/third.png" alt="Third Place" class="badge">
                 <div>${topThree[2]?.name || 'Anonymous'} ${topThree[2]?.score || 0}</div>
             </div>
