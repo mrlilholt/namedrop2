@@ -750,8 +750,11 @@ body.dark-mode .leaderboard-item {
 
 .leaderboard-top {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px; /* Space between 1st, 2nd, and 3rd */
     margin: 20px 0;
+    position: relative; /* Parent container for absolute positioning */
 }
 
 .top-player {
@@ -773,9 +776,9 @@ body.dark-mode .leaderboard-item {
 
 .leaderboard-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--divider-color);
+    position: relative; /* Required for placing PNGs */
 }
 
 .leaderboard-item .avatar {
@@ -873,4 +876,23 @@ body.dark-mode .leaderboard-item {
 
 .third .overlay {
     width: 50px; /* Smallest */
+}
+.leaderboard-item img.avatar {
+    width: 80px; /* Adjust size for 2nd and 3rd */
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ccc; /* Optional border */
+}
+.leaderboard-item.first img.avatar {
+    width: 100px; /* Larger for 1st place */
+    height: 100px;
+}
+.leaderboard-item .badge {
+    position: absolute;
+    top: -10px; /* Adjust for positioning on top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10; /* Ensure it is above everything else */
+    width: 50px; /* Adjust as needed */
+    height: 50px;
 }
