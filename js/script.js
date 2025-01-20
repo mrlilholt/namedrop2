@@ -314,7 +314,7 @@ const successMessages = [
     "Flawless job!",
     "Above and beyond!",
     "Peak performance!",
-    "Unstoppable force!",
+    "Crazy good!",
     "Glorious win!",
     "Superhuman work!",
     "Phenomenal!",
