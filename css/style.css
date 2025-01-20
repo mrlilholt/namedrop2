@@ -614,6 +614,24 @@ button:hover {
 }
 
 /* Leaderboard Modal */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    display: none; /* Initially hidden */
+}
+
+.modal.show {
+    display: block; /* Show modal */
+}
 #leaderboard-modal {
     position: fixed;
     top: 50%;
