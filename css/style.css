@@ -724,7 +724,7 @@ body.dark-mode .leaderboard-item {
     background-color: transparent; /* Transparent background initially */
     color: white; /* White text initially */
     border: none; /* Remove border */
-    padding: 8px 8px; /* Adjust button padding for balance */
+    padding: 8px 20px; /* Adjust button padding for balance */
     border-radius: 20px; /* Rounded corners for buttons */
     font-size: 16px;
     font-weight: bold;
@@ -834,3 +834,40 @@ body.dark-mode .leaderboard-item {
     color: #666;
 }
 
+.leaderboard-user {
+    position: relative;
+    text-align: center;
+    margin: 10px;
+}
+
+/* User avatar */
+.leaderboard-user .avatar {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay images */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -20%); /* Center overlay over avatar */
+    width: 50px; /* Adjust as needed */
+    height: auto;
+    pointer-events: none; /* Prevent interaction */
+}
+
+/* Adjust sizes for each placement */
+.first .overlay {
+    width: 70px; /* Larger for first place */
+}
+
+.second .overlay {
+    width: 60px; /* Slightly smaller */
+}
+
+.third .overlay {
+    width: 50px; /* Smallest */
+}
