@@ -4,7 +4,6 @@ export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
     modal.id = "leaderboard-modal";
     modal.classList.add("modal");
-    modal.style.display = "none"; // Initially hidden
     modal.innerHTML = `
         <div class="leaderboard-header">
             <h2>Leaderboard</h2>
@@ -19,32 +18,26 @@ export function initializeLeaderboardModal() {
         <div class="leaderboard-list" id="leaderboard-list"></div>
         <button id="close-leaderboard" class="modal-close">Close</button>
     `;
-
     document.body.appendChild(modal);
 
-    // Close leaderboard
+    // Close the modal
     document.getElementById("close-leaderboard").addEventListener("click", () => {
         modal.style.display = "none";
     });
 
-    // Event listeners for toggle buttons
+    // Set up toggle buttons
     document.getElementById("toggle-score").addEventListener("click", () => {
-        document.getElementById("toggle-score").classList.add("active");
-        document.getElementById("toggle-streak").classList.remove("active");
         loadLeaderboardData("score");
     });
-
     document.getElementById("toggle-streak").addEventListener("click", () => {
-        document.getElementById("toggle-streak").classList.add("active");
-        document.getElementById("toggle-score").classList.remove("active");
         loadLeaderboardData("streak");
     });
 
-    // Load initial leaderboard data
+    // Load initial data
     loadLeaderboardData("score");
-
     return modal;
 }
+
 
 async function loadLeaderboardData(metric) {
     try {
