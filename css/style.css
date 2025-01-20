@@ -708,15 +708,16 @@ body.dark-mode .leaderboard-item {
 }
 /* Toggle container styling */
 /* Toggle container styling */
+/* Toggle container styling */
 .toggle-container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #1e90ff; /* Blue background */
     border-radius: 25px; /* Rounded container */
-    padding: 0; /* No padding for exact height matching */
+    padding: 0; /* Remove padding */
     width: fit-content;
-    height: auto; /* Automatically adjust height based on inner content */
+    height: 36px; /* Explicitly control the height */
     margin: 0 auto;
 }
 
@@ -725,17 +726,18 @@ body.dark-mode .leaderboard-item {
     background-color: transparent; /* Transparent background initially */
     color: white; /* White text initially */
     border: none; /* Remove border */
-    padding: 8px 20px; /* Adjust button padding for balance */
+    padding: 4px 20px; /* Adjust button padding for balance */
     border-radius: 20px; /* Rounded corners for buttons */
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
+    line-height: 28px; /* Vertically center the text within buttons */
 }
 
 /* Active toggle button */
 .toggle.active {
-    background-color: rgb(217, 217, 217); /* White background when active */
+    background-color: white; /* White background when active */
     color: #1e90ff; /* Blue text when active */
 }
 
