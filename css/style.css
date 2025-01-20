@@ -706,41 +706,42 @@ body.dark-mode .leaderboard-item {
 .leaderboard-header {
     text-align: center;
 }
-/* Toggle Container */
+/* Toggle Container *//* Toggle container styling */
 .toggle-container {
     display: flex;
     justify-content: center;
-    margin: 10px 0;
-    background-color: #1e1e1e;
-    border-radius: 20px;
-    overflow: hidden;
+    align-items: center;
+    background-color: #1e90ff; /* Blue background */
+    border-radius: 25px; /* Rounded container */
+    padding: 5px;
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
-/* Toggle Button */
+/* Toggle button styling */
 .toggle {
-    flex: 1;
+    background-color: transparent; /* Transparent background initially */
+    color: white; /* White text initially */
+    border: none; /* Remove border */
     padding: 10px 20px;
-    font-size: 14px;
+    border-radius: 20px; /* Rounded corners for buttons */
+    font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
-    background-color: transparent;
-    border: none;
-    outline: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
+/* Active toggle button */
 .toggle.active {
-    background-color: #ffcc00; /* Highlight color for active toggle */
-    color: #1e1e1e;
+    background-color: white; /* White background when active */
+    color: #1e90ff; /* Blue text when active */
 }
 
-.toggle:not(.active):hover {
-    background-color: rgba(255, 255, 255, 0.2);
+/* Hover effect for toggle buttons */
+.toggle:hover {
+    opacity: 0.9;
 }
+
 
 
 .leaderboard-top {
@@ -787,3 +788,48 @@ body.dark-mode .leaderboard-item {
 .leaderboard-item .user-score {
     font-weight: bold;
 }
+#top-3 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align icons to the bottom for a stepped look */
+    gap: 20px; /* Space between the icons */
+}
+
+.top-3-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.top-3-item img {
+    border-radius: 50%;
+    border: 3px solid #ffd700; /* Optional: golden border for 1st place */
+}
+
+.top-3-item.first img {
+    width: 100px; /* Largest size */
+    height: 100px;
+}
+
+.top-3-item.second img {
+    width: 90px; /* 10% smaller */
+    height: 90px;
+}
+
+.top-3-item.third img {
+    width: 80px; /* 20% smaller */
+    height: 80px;
+}
+
+.top-3-item .username {
+    margin-top: 10px;
+    font-size: 16px; /* Adjust as needed */
+    font-weight: bold;
+}
+
+.top-3-item .score {
+    font-size: 14px;
+    color: #666;
+}
+
