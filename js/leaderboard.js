@@ -1,7 +1,19 @@
 import { db, collection, query, orderBy, getDocs } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
-    const modal = document.createElement("div");
+    const leaderboardModal = document.createElement("div");
+    leaderboardModal.id = "leaderboard-modal";
+    leaderboardModal.style.position = "fixed";
+    leaderboardModal.style.top = "50%";
+    leaderboardModal.style.left = "50%";
+    leaderboardModal.style.transform = "translate(-50%, -50%)";
+    leaderboardModal.style.width = "400px";
+    leaderboardModal.style.padding = "20px";
+    leaderboardModal.style.backgroundColor = "#fff";
+    leaderboardModal.style.borderRadius = "10px";
+    leaderboardModal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.2)";
+    leaderboardModal.style.zIndex = "1000";
+    
     modal.id = "leaderboard-modal";
     modal.classList.add("modal");
     modal.innerHTML = `
