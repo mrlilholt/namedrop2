@@ -61,8 +61,8 @@ async function loadLeaderboardData(metric) {
         snapshot.forEach((doc) => {
             const data = doc.data();
             users.push({
-                name: data.name || "Anonymous",
-                avatar: data.avatar || "assets/default-user.png",
+                name: data.name || "Anonymous", // Use stored name or fallback
+                avatar: data.avatar || "assets/default-user.png", // Use stored avatar or fallback
                 score: data.score || 0,
                 streak: data.streak || 0,
             });
@@ -93,6 +93,7 @@ async function loadLeaderboardData(metric) {
         console.error("Error loading leaderboard data:", error);
     }
 }
+
 
 function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");

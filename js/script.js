@@ -80,6 +80,20 @@ function updateUserIcon(user) {
 
 ;
 
+// Assuming `user` is the authenticated user object
+async function saveUserToFirestore(user) {
+    try {
+        const userRef = doc(db, "users", user.uid);
+        await setDoc(userRef, {
+            name: user.displayName,
+            avatar: user.photoURL,
+            score: 0, // Initialize score if not set
+            streak: 0, // Initialize streak if not set
+        }, { merge: true }); // Merge to avoid overwriting existing data
+    } catch (error) {
+        console.error("Error saving user to Firestore:", error);
+    }
+}
 
 //Part 4.5 RANDOS
 
