@@ -1,4 +1,4 @@
-import { auth, provider, signInWithPopup, db, collection, doc, getDocs, setDoc, getDoc, orderBy, query } from "./firebase.js";
+import { db, collection, query, orderBy, getDocs } from "./firebase.js";
 
 export function initializeLeaderboardModal() {
     const modal = document.createElement("div");
@@ -27,12 +27,16 @@ export function initializeLeaderboardModal() {
         modal.style.display = "none";
     });
 
-    // Event listeners for toggle
+    // Event listeners for toggle buttons
     document.getElementById("toggle-score").addEventListener("click", () => {
+        document.getElementById("toggle-score").classList.add("active");
+        document.getElementById("toggle-streak").classList.remove("active");
         loadLeaderboardData("score");
     });
 
     document.getElementById("toggle-streak").addEventListener("click", () => {
+        document.getElementById("toggle-streak").classList.add("active");
+        document.getElementById("toggle-score").classList.remove("active");
         loadLeaderboardData("streak");
     });
 
@@ -42,7 +46,6 @@ export function initializeLeaderboardModal() {
     return modal;
 }
 
-// Function to fetch and display leaderboard data
 async function loadLeaderboardData(metric) {
     try {
         const usersRef = collection(db, "users");
@@ -59,7 +62,7 @@ async function loadLeaderboardData(metric) {
             const data = doc.data();
             users.push({
                 name: data.name || "Anonymous",
-                avatar: data.avatar || "assets/default-user.png", // Ensure fallback image
+                avatar: data.avatar || "assets/default-user.png",
                 score: data.score || 0,
                 streak: data.streak || 0,
             });
@@ -90,8 +93,6 @@ async function loadLeaderboardData(metric) {
         console.error("Error loading leaderboard data:", error);
     }
 }
-
-
 
 function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");
