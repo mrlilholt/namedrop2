@@ -58,29 +58,28 @@ async function loadLeaderboardData(metric) {
         snapshot.forEach((doc) => {
             const data = doc.data();
             users.push({
-                name: data.name || "Anonymous",
-                avatar: data.avatar || "assets/default-user.png", // Fallback image
+                id: doc.id, // Store document ID if needed
                 score: data.score || 0,
                 streak: data.streak || 0,
             });
         });
 
-        // Sort users by selected metric
+        // Sort users by the selected metric
         users.sort((a, b) => b[metric] - a[metric]);
 
-        // Update top 3
+        // Update top 3 users
         updateTopThree(users.slice(0, 3), metric);
 
         // Update leaderboard list
         const listContainer = document.getElementById("leaderboard-list");
         listContainer.innerHTML = users
-            .slice(3) // Skip top 3
+            .slice(3) // Skip the top 3
             .map((user, index) => `
                 <div class="leaderboard-item">
                     <span class="rank">${index + 4}</span>
-                    <img src="${user.avatar}" alt="${user.name}" class="avatar">
+                    <img src="assets/default-user.png" alt="Default Avatar" class="avatar"> <!-- Default avatar -->
                     <div class="user-info">
-                        <span class="username">${user.name}</span>
+                        <span class="username">${user.id}</span> <!-- Using document ID as a placeholder for the username -->
                         <span class="user-score">${user[metric]}</span>
                     </div>
                 </div>
