@@ -30,7 +30,6 @@ export function initializeLeaderboardModal() {
 
         // Event listeners for toggles
         document.getElementById("toggle-score").addEventListener("click", () => {
-            // Add active class to Score button and remove from Streak
             document.getElementById("toggle-score").classList.add("active");
             document.getElementById("toggle-streak").classList.remove("active");
 
@@ -39,7 +38,6 @@ export function initializeLeaderboardModal() {
         });
 
         document.getElementById("toggle-streak").addEventListener("click", () => {
-            // Add active class to Streak button and remove from Score
             document.getElementById("toggle-streak").classList.add("active");
             document.getElementById("toggle-score").classList.remove("active");
 
@@ -56,7 +54,7 @@ export function initializeLeaderboardModal() {
                 <div class="username">${users[1]?.name || 'Anonymous'}</div>
                 <div class="score">${users[1]?.[metric] || 0}</div>
             </div>
-            <div class="top-3-item first">
+            <div class="top-3-item first" style="background-image: url('/assets/first.png'); background-size: contain; background-repeat: no-repeat; background-position: center;">
                 <img src="${users[0]?.avatar || 'assets/default-user.png'}" alt="${users[0]?.name || 'Anonymous'}">
                 <div class="username">${users[0]?.name || 'Anonymous'}</div>
                 <div class="score">${users[0]?.[metric] || 0}</div>
