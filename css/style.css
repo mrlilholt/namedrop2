@@ -792,85 +792,86 @@ body.dark-mode .leaderboard-item {
 .leaderboard-item .user-score {
     font-weight: bold;
 }
-#top-3 {
+/* Leaderboard Top Container */
+.leaderboard-top {
     display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Align icons to the bottom for a stepped look */
-    gap: 20px; /* Space between the icons */
+    justify-content: space-around;
+    align-items: flex-end;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px 0;
 }
 
-.top-3-item {
+/* Background for the top 3 */
+.leaderboard-top::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 100px;
+    background: url('assets/allThree.png') no-repeat center;
+    background-size: contain;
+    z-index: 0;
+}
+
+/* Individual Top User Styling */
+.top-user {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-}
-
-.top-3-item img {
-    border-radius: 50%;
-    border: 3px solid #ffd700; /* Optional: golden border for 1st place */
-}
-
-.top-3-item.first img {
-    width: 100px; /* Largest size */
-    height: 100px;
-}
-
-.top-3-item.second img {
-    width: 90px; /* 10% smaller */
-    height: 90px;
-}
-
-.top-3-item.third img {
-    width: 80px; /* 20% smaller */
-    height: 80px;
-}
-
-.top-3-item .username {
-    margin-top: 10px;
-    font-size: 16px; /* Adjust as needed */
-    font-weight: bold;
-}
-
-.top-3-item .score {
-    font-size: 14px;
-    color: #666;
-}
-
-.leaderboard-user {
     position: relative;
     text-align: center;
-    margin: 10px;
+    z-index: 1;
+    padding: 10px;
 }
 
-/* User avatar */
-.leaderboard-user .avatar {
-    width: 80px; /* Adjust size as needed */
+/* First Place Icon */
+.top-user.first img {
+    width: 100px; /* Largest icon */
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #FFD700; /* Gold border for first place */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* Second Place Icon */
+.top-user.second img {
+    width: 90px; /* Smaller than first */
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid #C0C0C0; /* Silver border for second place */
+}
+
+/* Third Place Icon */
+.top-user.third img {
+    width: 80px; /* Smaller than first and second */
     height: 80px;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 4px solid #CD7F32; /* Bronze border for third place */
 }
 
-/* Overlay images */
-.overlay {
+/* Score and Names */
+.top-user .score {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    margin-top: 5px;
+}
+
+.top-user .name {
+    font-size: 14px;
+    color: #CCCCCC; /* Slightly muted for a clean look */
+    margin-top: 2px;
+}
+
+/* Crown for First Place */
+.top-user.first .crown {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -20%); /* Center overlay over avatar */
-    width: 50px; /* Adjust as needed */
-    height: auto;
-    pointer-events: none; /* Prevent interaction */
-}
-
-/* Adjust sizes for each placement */
-.first .overlay {
-    width: 70px; /* Larger for first place */
-}
-
-.second .overlay {
-    width: 60px; /* Slightly smaller */
-}
-
-.third .overlay {
-    width: 50px; /* Smallest */
+    top: -30px;
+    width: 40px;
+    height: 40px;
+    background: url('assets/crown.png') no-repeat center;
+    background-size: contain;
 }
