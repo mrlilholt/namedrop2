@@ -635,7 +635,6 @@ button:hover {
 /* Leaderboard Modal Background */
 
 /* Reset and General Styles */
-/* Reset and General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -664,7 +663,7 @@ body {
 /* Header Section */
 .leaderboard-header {
     text-align: center;
-    background-color: #3798f9;
+    background-color: #8e44ad;
     color: white;
     padding: 20px;
     font-size: 1.5rem;
@@ -678,7 +677,7 @@ body {
     padding: 20px 10px;
     background-color: #dcd6f7;
     position: relative;
-    border-bottom: 2px solid #2426b0;
+    border-bottom: 2px solid #8e44ad;
 }
 
 .top-user {
