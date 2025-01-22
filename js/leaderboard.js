@@ -121,41 +121,56 @@ async function loadLeaderboardData(metric) {
         // Sort users by selected metric
         users.sort((a, b) => b[metric] - a[metric]);
 
-        // Update top 3
-        updateTopThree(users.slice(0, 3), metric);
+        // Separate top three and remaining users
+        const topThree = users.slice(0, 3);
+        const others = users.slice(3);
+
+        // Update top three
+        updateTopThree(topThree);
 
         // Update leaderboard list
-        const listContainer = document.getElementById("leaderboard-list");
-        listContainer.innerHTML = users
-            .slice(3) // Skip top 3
-            .map((user, index) => `
-                <div class="leaderboard-item">
-                    <span class="rank">${index + 4}</span>
-                    <img src="${user.avatar}" alt="${user.name}" class="avatar">
-                    <div class="user-info">
-                        <span class="username">${user.name}</span>
-                        <span class="user-score">${user[metric]}</span>
-                    </div>
-                </div>
-            `)
-            .join("");
+        updateLeaderboardList(others, metric);
     } catch (error) {
         console.error("Error loading leaderboard data:", error);
     }
 }
 
 
-function updateTopThree(topThree, metric) {
+// Function to update the top three users
+function updateTopThree(topThree) {
     const topContainer = document.getElementById("top-3");
-    topContainer.innerHTML = topThree
-        .map((user, index) => `
-            <div class="top-player ${index === 0 ? "gold" : index === 1 ? "silver" : "bronze"}">
-                <img src="${user.avatar}" alt="${user.name}" class="avatar">
-                <div class="user-info">
-                    <span class="username">${user.name}</span>
-                    <span class="user-score">${user[metric]}</span>
-                </div>
+    topContainer.innerHTML = ""; // Clear any existing content
+
+    const positions = ["second", "first", "third"];
+    topThree.forEach((user, index) => {
+        const userElement = document.createElement("div");
+        userElement.classList.add("top-user", positions[index]);
+
+        userElement.innerHTML = `
+            <img src="${user.avatar}" alt="${user.name}" />
+            <div class="name">${user.name}</div>
+            <div class="score">${user.score}</div>
+        `;
+        topContainer.appendChild(userElement);
+    });
+}
+// Function to update the remaining leaderboard list
+function updateLeaderboardList(others, metric) {
+    const listContainer = document.getElementById("leaderboard-list");
+    listContainer.innerHTML = ""; // Clear any existing content
+
+    others.forEach((user, index) => {
+        const userElement = document.createElement("div");
+        userElement.classList.add("leaderboard-item");
+
+        userElement.innerHTML = `
+            <span class="rank">${index + 4}</span>
+            <img src="${user.avatar}" alt="${user.name}" class="avatar" />
+            <div class="user-info">
+                <span class="username">${user.name}</span>
+                <span class="user-score">${user[metric]}</span>
             </div>
-        `)
-        .join("");
+        `;
+        listContainer.appendChild(userElement);
+    });
 }
