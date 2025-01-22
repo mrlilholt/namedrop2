@@ -15,9 +15,23 @@ export function initializeLeaderboardModal() {
                     <button id="toggle-streak" class="toggle">Streak</button>
                 </div>
             </div>
-            <div class="leaderboard-top" id="top-3">
-                <!-- Top 3 will be dynamically populated -->
-            </div>
+            <div class="leaderboard-top">
+    <div class="top-user first">
+        <img src="path/to/image1.jpg" alt="First Place">
+        <div class="name">First User</div>
+        <div class="score">123</div>
+    </div>
+    <div class="top-user second">
+        <img src="path/to/image2.jpg" alt="Second Place">
+        <div class="name">Second User</div>
+        <div class="score">110</div>
+    </div>
+    <div class="top-user third">
+        <img src="path/to/image3.jpg" alt="Third Place">
+        <div class="name">Third User</div>
+        <div class="score">90</div>
+    </div>
+</div>
             <div class="leaderboard-list" id="leaderboard-list"></div>
             <button id="close-leaderboard" class="modal-close">Close</button>
         `;
@@ -48,23 +62,24 @@ export function initializeLeaderboardModal() {
 
     // Function to update the top 3 users
     function updateTopThree(users) {
-        const topThreeContainer = document.querySelector(".leaderboard-top");
-        topThreeContainer.innerHTML = ""; // Clear existing content
+        const positions = ['second', 'first', 'third'];
+        const topContainer = document.getElementById('top-3');
+        topContainer.innerHTML = ''; // Clear existing content
     
-        const positions = ["second", "first", "third"];
         users.forEach((user, index) => {
-            const userElement = document.createElement("div");
-            userElement.classList.add("top-user", positions[index]);
-    
-            userElement.innerHTML = `
-                ${index === 0 ? '<div class="crown"></div>' : ""} <!-- Crown for 1st -->
-                <img src="${user.avatar}" alt="${user.name}" />
-                <div class="score">${user.score || user.streak}</div>
+            const userDiv = document.createElement('div');
+            userDiv.className = `top-user ${positions[index]}`;
+            userDiv.innerHTML = `
+                <img src="${user.avatar}" alt="${user.name}">
                 <div class="name">${user.name}</div>
+                <div class="score">${user.score}</div>
             `;
-            topThreeContainer.appendChild(userElement);
+            topContainer.appendChild(userDiv);
         });
     }
+    
+    
+
     
     
 
