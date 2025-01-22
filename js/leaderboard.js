@@ -181,25 +181,3 @@ function updateLeaderboardList(others, metric) {
         listContainer.appendChild(userElement);
     });
 }
-function updateTopThree(topThree, metric) {
-    const topContainer = document.getElementById("top-3");
-    topContainer.innerHTML = ""; // Clear existing content
-
-    const positions = ["first", "second", "third"];
-    topThree.forEach((user, index) => {
-        const userElement = document.createElement("div");
-        userElement.classList.add("top-user", positions[index]);
-
-        userElement.innerHTML = `
-            <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}" />
-            <div class="name">${user.name}</div>
-            <div class="score">${user[metric]}</div>
-        `;
-        topContainer.appendChild(userElement);
-    });
-}
-// Update top three
-updateTopThree(topThree, metric);
-
-// Update leaderboard list
-updateLeaderboardList(others, metric);
