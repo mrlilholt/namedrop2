@@ -664,11 +664,10 @@ body {
 .leaderboard-header {
     text-align: center;
     background-color: #d2ceff;
-    color: rgb(255, 255, 255);
+    color: rgba(255, 243, 20, 0.859);
     padding: 20px;
     font-size: 1.5rem;
     font-weight: bold;
-    text-shadow: #000;
 }
 
 /* Toggle Button Styles */
@@ -678,9 +677,9 @@ body {
     align-items: center;
     background-color: #e0e0e0;
     border-radius: 25px;
-    padding: 2px;
+    padding: 5px;
     width: fit-content;
-    margin: 2px auto;
+    margin: 10px auto;
     position: relative;
 }
 
@@ -691,7 +690,7 @@ body {
     border-radius: 25px;
     font-size: 1rem;
     font-weight: bold;
-    padding: 2px 2px;
+    padding: 4px 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1;
