@@ -664,12 +664,64 @@ body {
 .leaderboard-header {
     text-align: center;
     background-color: #d2ceff;
-    color: rgb(20, 146, 243);
+    color: rgb(255, 255, 255);
     padding: 20px;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
+/* Toggle Button Styles */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    padding: 5px;
+    width: fit-content;
+    margin: 10px auto;
+    position: relative;
+}
+
+.toggle {
+    background-color: transparent;
+    color: #555;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.toggle.active {
+    background-color: #0080ff;
+    color: white;
+    border-radius: 25px;
+}
+
+.toggle-container::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 50%;
+    height: calc(100% - 10px);
+    background-color: #8e44ad;
+    border-radius: 25px;
+    z-index: 0;
+    transition: all 0.3s ease;
+}
+
+.toggle-container .toggle.active:nth-child(1) ~ ::after {
+    left: 5px;
+}
+
+.toggle-container .toggle.active:nth-child(2) ~ ::after {
+    left: 50%;
+}
 /* Top 3 Section */
 .leaderboard-top {
     display: flex;
