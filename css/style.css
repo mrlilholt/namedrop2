@@ -663,13 +663,11 @@ body {
 /* Header Section */
 .leaderboard-header {
     text-align: center;
-    background: url('assets/lbBackground.png') no-repeat center;
-    background-size: cover;
+    background-color: #448fad;
     color: white;
     padding: 20px;
     font-size: 1.5rem;
     font-weight: bold;
-    border-bottom: 2px solid #8e44ad;
 }
 
 /* Top 3 Section */
@@ -679,7 +677,7 @@ body {
     padding: 20px 10px;
     background-color: #dcd6f7;
     position: relative;
-    border-bottom: 2px solid #8e44ad;
+    border-bottom: 2px solid #1656b0;
 }
 
 .top-user {
@@ -717,7 +715,7 @@ body {
 
 .top-user .score {
     font-size: 1.2rem;
-    color: #8e44ad;
+    color: #0038ba;
     margin-top: 5px;
 }
 
@@ -727,7 +725,7 @@ body {
     padding: 10px;
     max-height: 300px;
     overflow-y: auto;
-    background-color: #f4f4f9;
+    background-color: #f4f5f9;
 }
 
 .leaderboard-item {
@@ -746,7 +744,7 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
-    border: 2px solid #dcd6f7;
+    border: 2px solid #d6e1f7;
 }
 
 .leaderboard-item .user-info {
@@ -761,13 +759,13 @@ body {
 
 .leaderboard-item .user-info .user-score {
     font-size: 0.9rem;
-    color: #8e44ad;
+    color: #4465ad;
 }
 
 .leaderboard-item .rank {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #8e44ad;
+    color: #4470ad;
     margin-right: 10px;
 }
 
@@ -777,7 +775,7 @@ body {
 }
 
 .leaderboard-list::-webkit-scrollbar-thumb {
-    background: #8e44ad;
+    background: #4457ad;
     border-radius: 10px;
 }
 
