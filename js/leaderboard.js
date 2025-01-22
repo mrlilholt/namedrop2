@@ -8,13 +8,14 @@ export function initializeLeaderboardModal() {
         modal.id = "leaderboard-modal";
         modal.classList.add("modal"); // Modal class for styling
         modal.innerHTML = `
-    <div class="leaderboard-header">
-        <h2>Leaderboard</h2>
-        <div class="toggle-container">
-            <button id="toggle-score" class="toggle active">Score</button>
-            <button id="toggle-streak" class="toggle">Streak</button>
-        </div>
+    <div class="leaderboard-header" style="background: url('assets/lbBackground.png') no-repeat center; background-size: cover; border-radius: 20px 20px 0 0;">
+    <h2>Leaderboard</h2>
+    <div class="toggle-container">
+        <button id="toggle-score" class="toggle active">Score</button>
+        <button id="toggle-streak" class="toggle">Streak</button>
     </div>
+</div>
+
     <div class="leaderboard-top" id="top-3">
         <!-- Top 3 players will be dynamically injected here -->
     </div>
