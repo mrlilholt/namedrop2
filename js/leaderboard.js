@@ -147,7 +147,7 @@ function updateTopThree(topThree) {
     const topContainer = document.getElementById("top-3");
     topContainer.innerHTML = ""; // Clear any existing content
 
-    const positions = ["second", "first", "third"];
+    const positions = ["first", "second", "third"];
     topThree.forEach((user, index) => {
         const userElement = document.createElement("div");
         userElement.classList.add("top-user", positions[index]);
