@@ -8,33 +8,22 @@ export function initializeLeaderboardModal() {
         modal.id = "leaderboard-modal";
         modal.classList.add("modal"); // Modal class for styling
         modal.innerHTML = `
-            <div class="leaderboard-header">
-                <h2>Leaderboard</h2>
-                <div class="toggle-container">
-                    <button id="toggle-score" class="toggle active">Score</button>
-                    <button id="toggle-streak" class="toggle">Streak</button>
-                </div>
-            </div>
-            <div class="leaderboard-top">
-    <div class="top-user first">
-        <img src="path/to/image1.jpg" alt="First Place">
-        <div class="name">First User</div>
-        <div class="score">123</div>
+    <div class="leaderboard-header">
+        <h2>Leaderboard</h2>
+        <div class="toggle-container">
+            <button id="toggle-score" class="toggle active">Score</button>
+            <button id="toggle-streak" class="toggle">Streak</button>
+        </div>
     </div>
-    <div class="top-user second">
-        <img src="path/to/image2.jpg" alt="Second Place">
-        <div class="name">Second User</div>
-        <div class="score">110</div>
+    <div class="leaderboard-top" id="top-3">
+        <!-- Top 3 players will be dynamically injected here -->
     </div>
-    <div class="top-user third">
-        <img src="path/to/image3.jpg" alt="Third Place">
-        <div class="name">Third User</div>
-        <div class="score">90</div>
+    <div class="leaderboard-list" id="leaderboard-list">
+        <!-- Remaining leaderboard items will be dynamically injected here -->
     </div>
-</div>
-            <div class="leaderboard-list" id="leaderboard-list"></div>
-            <button id="close-leaderboard" class="modal-close">Close</button>
-        `;
+    <button id="close-leaderboard" class="modal-close">Close</button>
+`;
+
         document.body.appendChild(modal);
 
         // Close modal
@@ -75,6 +64,23 @@ export function initializeLeaderboardModal() {
                 <div class="score">${user.score}</div>
             `;
             topContainer.appendChild(userDiv);
+        });
+    }
+    function updateTopThree(topThree) {
+        const topContainer = document.getElementById("top-3");
+        topContainer.innerHTML = ""; // Clear any existing content
+    
+        const positions = ["second", "first", "third"];
+        topThree.forEach((user, index) => {
+            const userElement = document.createElement("div");
+            userElement.classList.add("top-user", positions[index]);
+    
+            userElement.innerHTML = `
+                <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}">
+                <div class="name">${user.name}</div>
+                <div class="score">${user.score}</div>
+            `;
+            topContainer.appendChild(userElement);
         });
     }
     
@@ -165,7 +171,7 @@ function updateLeaderboardList(others, metric) {
 
         userElement.innerHTML = `
             <span class="rank">${index + 4}</span>
-            <img src="${user.avatar}" alt="${user.name}" class="avatar" />
+            <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}" class="avatar">
             <div class="user-info">
                 <span class="username">${user.name}</span>
                 <span class="user-score">${user[metric]}</span>
