@@ -51,7 +51,7 @@ export function initializeLeaderboardModal() {
         const topThreeContainer = document.querySelector(".leaderboard-top");
         topThreeContainer.innerHTML = ""; // Clear existing content
     
-        const positions = ["first", "second", "third"];
+        const positions = ["second", "first", "third"];
         users.forEach((user, index) => {
             const userElement = document.createElement("div");
             userElement.classList.add("top-user", positions[index]);
