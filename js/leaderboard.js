@@ -144,23 +144,25 @@ async function loadLeaderboardData(metric) {
 
 
 // Function to update the top three users
-function updateTopThree(topThree) {
+function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");
-    topContainer.innerHTML = ""; // Clear any existing content
+    topContainer.innerHTML = ""; // Clear existing content
 
     const positions = ["first", "second", "third"];
     topThree.forEach((user, index) => {
         const userElement = document.createElement("div");
         userElement.classList.add("top-user", positions[index]);
 
+        // Dynamically use the selected metric (score or streak)
         userElement.innerHTML = `
-            <img src="${user.avatar}" alt="${user.name}" />
+            <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}">
             <div class="name">${user.name}</div>
-            <div class="score">${user.score}</div>
+            <div class="score">${user[metric]}</div>
         `;
         topContainer.appendChild(userElement);
     });
 }
+
 // Function to update the remaining leaderboard list
 function updateLeaderboardList(others, metric) {
     const listContainer = document.getElementById("leaderboard-list");
