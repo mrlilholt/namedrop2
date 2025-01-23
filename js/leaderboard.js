@@ -133,10 +133,11 @@ async function loadLeaderboardData(metric) {
         const others = users.slice(3);
 
         // Update top three
-        updateTopThree(topThree);
+updateTopThree(topThree, metric);
 
-        // Update leaderboard list
-        updateLeaderboardList(others, metric);
+// Update leaderboard list
+updateLeaderboardList(others, metric);
+
     } catch (error) {
         console.error("Error loading leaderboard data:", error);
     }
@@ -157,11 +158,12 @@ function updateTopThree(topThree, metric) {
         userElement.innerHTML = `
             <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}">
             <div class="name">${user.name}</div>
-            <div class="score">${user[metric]}</div>
+            <div class="score">${user[metric] || 0}</div>
         `;
         topContainer.appendChild(userElement);
     });
 }
+
 
 // Function to update the remaining leaderboard list
 function updateLeaderboardList(others, metric) {
