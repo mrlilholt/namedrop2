@@ -8,22 +8,22 @@ export function initializeLeaderboardModal() {
         modal.id = "leaderboard-modal";
         modal.classList.add("modal"); // Modal class for styling
         modal.innerHTML = `
-            <div class="leaderboard-header" style="background: url('assets/lbBackground.png') no-repeat center; background-size: cover; border-radius: 20px 20px 0 0;">
-                <h2>Leaderboard</h2>
-                <div class="toggle-container">
-                    <button id="toggle-score" class="toggle active">Score</button>
-                    <button id="toggle-streak" class="toggle">Streak</button>
-                </div>
-            </div>
+    <div class="leaderboard-header" style="background: url('assets/lbBackground.png') no-repeat center; background-size: cover; border-radius: 20px 20px 0 0;">
+    <h2>Leaderboard</h2>
+    <div class="toggle-container">
+        <button id="toggle-score" class="toggle active">Score</button>
+        <button id="toggle-streak" class="toggle">Streak</button>
+    </div>
+</div>
 
-            <div class="leaderboard-top" id="top-3">
-                <!-- Top 3 players will be dynamically injected here -->
-            </div>
-            <div class="leaderboard-list" id="leaderboard-list">
-                <!-- Remaining leaderboard items will be dynamically injected here -->
-            </div>
-            <button id="close-leaderboard" class="modal-close">Close</button>
-        `;
+    <div class="leaderboard-top" id="top-3">
+        <!-- Top 3 players will be dynamically injected here -->
+    </div>
+    <div class="leaderboard-list" id="leaderboard-list">
+        <!-- Remaining leaderboard items will be dynamically injected here -->
+    </div>
+    <button id="close-leaderboard" class="modal-close">Close</button>
+`;
 
         document.body.appendChild(modal);
 
@@ -51,27 +51,57 @@ export function initializeLeaderboardModal() {
     }
 
     // Function to update the top 3 users
-    function updateTopThree(topThree, metric) {
+    function updateTopThree(users) {
+        const positions = ['second', 'first', 'third'];
+        const topContainer = document.getElementById('top-3');
+        topContainer.innerHTML = ''; // Clear existing content
+    
+        users.forEach((user, index) => {
+            const userDiv = document.createElement('div');
+            userDiv.className = `top-user ${positions[index]}`;
+            userDiv.innerHTML = `
+                <img src="${user.avatar}" alt="${user.name}">
+                <div class="name">${user.name}</div>
+                <div class="score">${user.score}</div>
+            `;
+            topContainer.appendChild(userDiv);
+        });
+    }
+    function updateTopThree(topThree) {
         const topContainer = document.getElementById("top-3");
-        topContainer.innerHTML = ""; // Clear existing content
-
-        const positions = ["first", "second", "third"];
+        topContainer.innerHTML = ""; // Clear any existing content
+    
+        const positions = ["second", "first", "third"];
         topThree.forEach((user, index) => {
             const userElement = document.createElement("div");
             userElement.classList.add("top-user", positions[index]);
-
+    
             userElement.innerHTML = `
                 <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}">
                 <div class="name">${user.name}</div>
-                <div class="score">${user[metric]}</div>
+                <div class="score">${user.score}</div>
             `;
             topContainer.appendChild(userElement);
         });
     }
+    
+    
+
+    
+    
 
     // Load initial leaderboard data
     loadLeaderboardData("score");
+
+    // Add the `updateTopThree` function as a callback to `loadLeaderboardData`
+    window.updateTopThree = updateTopThree;
+
+    // Display the modal
+    modal.style.display = "block";
 }
+
+
+
 
 async function loadLeaderboardData(metric) {
     try {
@@ -103,7 +133,7 @@ async function loadLeaderboardData(metric) {
         const others = users.slice(3);
 
         // Update top three
-        updateTopThree(topThree, metric);
+        updateTopThree(topThree);
 
         // Update leaderboard list
         updateLeaderboardList(others, metric);
@@ -112,9 +142,29 @@ async function loadLeaderboardData(metric) {
     }
 }
 
+
+// Function to update the top three users
+function updateTopThree(topThree) {
+    const topContainer = document.getElementById("top-3");
+    topContainer.innerHTML = ""; // Clear any existing content
+
+    const positions = ["first", "second", "third"];
+    topThree.forEach((user, index) => {
+        const userElement = document.createElement("div");
+        userElement.classList.add("top-user", positions[index]);
+
+        userElement.innerHTML = `
+            <img src="${user.avatar}" alt="${user.name}" />
+            <div class="name">${user.name}</div>
+            <div class="score">${user.score}</div>
+        `;
+        topContainer.appendChild(userElement);
+    });
+}
+// Function to update the remaining leaderboard list
 function updateLeaderboardList(others, metric) {
     const listContainer = document.getElementById("leaderboard-list");
-    listContainer.innerHTML = ""; // Clear existing content
+    listContainer.innerHTML = ""; // Clear any existing content
 
     others.forEach((user, index) => {
         const userElement = document.createElement("div");
