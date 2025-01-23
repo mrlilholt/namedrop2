@@ -677,11 +677,11 @@ body {
     align-items: center;
     background-color: #e0e0e0;
     border-radius: 25px;
-    padding: 3px; /* Reduced padding for a smaller height */
+    padding: 1px; /* Reduced padding for a smaller height */
     width: fit-content;
     margin: 1px auto;
     position: relative;
-    height: auto; /* Automatically adjusts to the content's height */
+    height: fit-content; /* Automatically adjusts to the content's height */
 }
 
 .toggle {
