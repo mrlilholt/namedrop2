@@ -676,11 +676,12 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #e0e0e0;
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 25px;
+    padding: 3px; /* Reduced padding for a smaller height */
     width: fit-content;
     margin: 1px auto;
     position: relative;
+    height: auto; /* Automatically adjusts to the content's height */
 }
 
 .toggle {
@@ -715,7 +716,7 @@ body {
     display: flex;
     justify-content: space-around;
     padding: 20px 10px;
-    background-color: #248afff1;
+    background-color: #06e7f7f1;
     position: relative;
     border-bottom: 2px solid #1656b0;
 }
