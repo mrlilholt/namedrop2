@@ -8,8 +8,10 @@ export function initializeLeaderboardModal() {
         modal.id = "leaderboard-modal";
         modal.classList.add("modal"); // Modal class for styling
         modal.innerHTML = `
-    <div class="leaderboard-header" style="background: url('assets/lbBackground.png') no-repeat center; background-size: cover; border-radius: 20px 20px 0 0;">
-    <h2>Leaderboard</h2>
+    <div class="leaderboard-header">
+<div class="modal-header">
+    <img src="assets/leaderboardTitle.png" alt="Leaderboard Title" class="modal-title-image">
+</div>
     <div class="toggle-container">
         <button id="toggle-score" class="toggle active">Score</button>
         <button id="toggle-streak" class="toggle">Streak</button>
