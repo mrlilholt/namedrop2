@@ -38,6 +38,7 @@ header {
 
 #logo-section {
     display: flex;
+    position: absolute top;
     align-items: flex-end; /* Keeps the current style */
     margin-right: auto; /* Ensures it stays on the left */
     margin-bottom: 0; /* Removes unnecessary bottom alignment */
