@@ -677,7 +677,7 @@ body {
     align-items: center;
     background-color: #e0e0e0;
     border-radius: 25px;
-    padding: 3px 5px; /* Adjust padding for tighter height */
+    padding: 3px 3px; /* Adjust padding for tighter height */
     width: fit-content;
     margin: 10px auto;
     position: relative;
