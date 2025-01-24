@@ -36,9 +36,11 @@ header {
 }
 
 #logo-section {
+    order: -1; /* Ensure the logo appears first */
+    margin-bottom: 10px; /* Add spacing below the logo */
     display: flex;
-    align-items: flex-end;
-    margin-right: 20px;
+    justify-content: center;
+    width: 100%; /* Ensure it spans the width of the header */
 }
 
 #logo-section img {
