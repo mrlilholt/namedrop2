@@ -35,12 +35,13 @@ header {
     margin: 0 auto;  /* Centers the image */
 }
 
+
 #logo-section {
-    order: -1; /* Ensure the logo appears first */
-    margin-bottom: 10px; /* Add spacing below the logo */
     display: flex;
-    justify-content: center;
-    width: 100%; /* Ensure it spans the width of the header */
+    align-items: flex-end; /* Keeps the current style */
+    margin-right: auto; /* Ensures it stays on the left */
+    margin-bottom: 0; /* Removes unnecessary bottom alignment */
+    margin-left: 10px; /* Adds spacing from the left edge */
 }
 
 #logo-section img {
