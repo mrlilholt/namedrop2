@@ -29,7 +29,8 @@ header {
     border-radius: 12px;
 }
 #title-image {
-    max-width: 100%; /* Ensures responsiveness */
+    max-width: 50%; /* Ensures responsiveness */
+    max-height: 50%; /* Ensures responsiveness */
     height: auto;    /* Maintains aspect ratio */
     display: block;
     margin: 0 auto;  /* Centers the image */
