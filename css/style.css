@@ -691,16 +691,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute; /* Place it on top of the title image */
-    top: 60%; /* Adjust position vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Align perfectly in the center */
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
+    background-color: #e0e0e0;
     border-radius: 25px;
-    padding: 5px; /* Add padding around the toggle buttons */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 3px 3px; /* Adjust padding for tighter height */
+    width: fit-content;
+    height: 35px;
+    margin: 10px auto;
+    position: relative;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 .toggle {
     background-color: transparent;
