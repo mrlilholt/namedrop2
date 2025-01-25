@@ -39,7 +39,7 @@ export function initializeLeaderboardModal() {
             document.getElementById("toggle-score").classList.add("active");
             document.getElementById("toggle-streak").classList.remove("active");
         
-            // Load Score leaderboard
+            // Load the leaderboard with score as the metric
             loadLeaderboardData("score");
         });
         
@@ -47,9 +47,10 @@ export function initializeLeaderboardModal() {
             document.getElementById("toggle-streak").classList.add("active");
             document.getElementById("toggle-score").classList.remove("active");
         
-            // Load Streak leaderboard
+            // Load the leaderboard with highest streak as the metric
             loadLeaderboardData("streak");
         });
+        
         
     }
 
@@ -121,68 +122,68 @@ async function loadLeaderboardData(metric) {
         snapshot.forEach((doc) => {
             const data = doc.data();
             users.push({
-                name: data.name || "Anonymous", // Use stored name or fallback
-                avatar: data.avatar || "assets/default-user.png", // Use stored avatar or fallback
-                score: data.score || 0,
-                streak: data.highestStreak || 0, // Use highest streak for the streak metric
+                name: data.name || "Anonymous", // Fallback for name
+                avatar: data.avatar || "assets/default-user.png", // Fallback for avatar
+                score: data.score || 0, // Default score
+                streak: data.highestStreak || 0, // Use highest streak for "streak"
             });
         });
 
-        // Sort users by selected metric
-        users.sort((a, b) => b[metric === "streak" ? "streak" : metric] - a[metric === "streak" ? "streak" : metric]);
+        // Sort by the selected metric
+        users.sort((a, b) => b[metric === "streak" ? "streak" : "score"] - a[metric === "streak" ? "streak" : "score"]);
 
-        // Separate top three and remaining users
+        // Separate top three and others
         const topThree = users.slice(0, 3);
         const others = users.slice(3);
 
-        // Update top three
+        // Update UI
         updateTopThree(topThree, metric);
-
-        // Update leaderboard list
         updateLeaderboardList(others, metric);
-
     } catch (error) {
         console.error("Error loading leaderboard data:", error);
     }
 }
 
 
+
 // Function to update the top three users
 function updateTopThree(topThree, metric) {
     const topContainer = document.getElementById("top-3");
-    topContainer.innerHTML = ""; // Clear existing content
+    topContainer.innerHTML = ""; // Clear content
 
-    const positions = ["first", "second", "third"];
+    const positions = ["second", "first", "third"];
     topThree.forEach((user, index) => {
         const userElement = document.createElement("div");
         userElement.classList.add("top-user", positions[index]);
 
-        // Dynamically use the selected metric (score or streak)
+        // Dynamically display the selected metric
         userElement.innerHTML = `
             <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}">
             <div class="name">${user.name}</div>
-            <div class="score">${user[metric] || 0}</div>
+            <div class="score">${metric === "streak" ? user.streak : user.score}</div>
         `;
         topContainer.appendChild(userElement);
     });
 }
 
 
+
 // Function to update the remaining leaderboard list
 function updateLeaderboardList(others, metric) {
     const listContainer = document.getElementById("leaderboard-list");
-    listContainer.innerHTML = ""; // Clear any existing content
+    listContainer.innerHTML = ""; // Clear content
 
     others.forEach((user, index) => {
         const userElement = document.createElement("div");
         userElement.classList.add("leaderboard-item");
 
+        // Dynamically display the selected metric
         userElement.innerHTML = `
             <span class="rank">${index + 4}</span>
             <img src="${user.avatar || 'assets/default-user.png'}" alt="${user.name}" class="avatar">
             <div class="user-info">
                 <span class="username">${user.name}</span>
-                <span class="user-score">${user[metric]}</span>
+                <span class="user-score">${metric === "streak" ? user.streak : user.score}</span>
             </div>
         `;
         listContainer.appendChild(userElement);
