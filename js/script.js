@@ -90,9 +90,6 @@ function updateUserIcon(user) {
 // Ensure user icon is updated after Google login
 
 ;
-document.getElementById("open-about-button").addEventListener("click", () => {
-    initializeAboutModal();
-});
 
 // Assuming `user` is the authenticated user object
 // Save user to Firestore with proper merging
@@ -663,3 +660,6 @@ async function updateUserData(userId, newScore, newStreak) {
         console.error("Error updating user data:", error);
     }
 }
+document.getElementById("open-about-button").addEventListener("click", () => {
+    initializeAboutModal();
+});
