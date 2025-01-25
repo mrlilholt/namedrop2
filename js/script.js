@@ -413,22 +413,20 @@ document.getElementById("skip-button").addEventListener("click", async () => {
     }, 3000);
 });
 
-
 // Function to display skipped person's name
 function displaySkippedName(fullName) {
-    const gifContainer = document.getElementById("gif-container");
-    const skippedText = document.createElement("div");
-    skippedText.className = "skipped-text";
-    skippedText.textContent = `Skipped: ${fullName}`;
+    const skippedText = document.getElementById("skipped-text");
 
-    // Add skipped text to the container
-    gifContainer.appendChild(skippedText);
+    // Display the skipped name
+    skippedText.textContent = `Skipped: ${fullName}`;
+    skippedText.style.display = "block"; // Ensure it's visible
 
     // Automatically hide the text after 3 seconds
     setTimeout(() => {
-        skippedText.remove();
+        skippedText.style.display = "none";
     }, 3000);
 }
+
 
 
 // Ensure skip button is correctly initialized
