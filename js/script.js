@@ -415,15 +415,20 @@ document.getElementById("skip-button").addEventListener("click", async () => {
 });
 
 
+
 // Function to display skipped person's name
 function showSkippedName(name) {
     const gifContainer = document.getElementById("gif-container");
     const skippedText = document.createElement("div"); // Dynamically create the skipped text element
+    const successText = document.getElementById("success-text"); // Access the success text container
 
     if (!gifContainer) {
         console.error("GIF container not found");
         return;
     }
+
+    // Hide the success text if it's visible
+    successText.style.display = "none";
 
     // Set up the skipped text
     skippedText.textContent = `Skipped: ${name}`;
