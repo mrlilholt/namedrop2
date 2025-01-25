@@ -901,3 +901,35 @@ body {
 #tutorial-modal button:hover {
     background-color: #0056b3;
 }
+
+
+/* about */
+#about-modal h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+#about-modal p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+#about-modal ul {
+    list-style: none;
+    padding: 0;
+}
+
+#about-modal ul li::before {
+    content: "✔";
+    margin-right: 8px;
+    color: green;
+}
+
+#about-modal button {
+    transition: background-color 0.3s ease;
+}
+
+#about-modal button:hover {
+    background-color: #0056b3;
+}
