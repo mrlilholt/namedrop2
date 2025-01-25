@@ -90,6 +90,9 @@ function updateUserIcon(user) {
 // Ensure user icon is updated after Google login
 
 ;
+document.getElementById("open-about-button").addEventListener("click", () => {
+    initializeAboutModal();
+});
 
 // Assuming `user` is the authenticated user object
 // Save user to Firestore with proper merging
