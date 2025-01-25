@@ -57,8 +57,7 @@ export function initializeAboutModal() {
     // Append modal to body
     document.body.appendChild(aboutModal);
 
-    // Add close button logic
-    document.getElementById("close-about-modal").addEventListener("click", () => {
-        document.body.removeChild(aboutModal);
-    });
+   document.getElementById("close-about-modal").addEventListener("click", () => {
+    document.body.removeChild(document.getElementById("about-modal"));
+});
 }
