@@ -337,27 +337,6 @@ function getRandomSuccessMessage() {
     return successMessages[Math.floor(Math.random() * successMessages.length)];
 }
 
-function showSuccessGif(message) {
-    const gifContainer = document.getElementById("gif-container");
-    const successText = document.getElementById("success-text");
-
-    if (!gifContainer || !successText) {
-        console.error("GIF container or success text element not found");
-        return;
-    }
-
-    // Set the success message
-    successText.textContent = message;
-
-    // Show the GIF container
-    gifContainer.style.display = "flex";
-
-    // Hide the GIF container after 3 seconds
-    setTimeout(() => {
-        gifContainer.style.display = "none";
-    }, 3000);
-}
-
 // Example integration with the submit button
 document.getElementById("submit-button").addEventListener("click", () => {
     // Check if the answer is correct
@@ -416,19 +395,16 @@ document.getElementById("skip-button").addEventListener("click", async () => {
 
 
 
+
 // Function to display skipped person's name
 function showSkippedName(name) {
     const gifContainer = document.getElementById("gif-container");
     const skippedText = document.createElement("div"); // Dynamically create the skipped text element
-    const successText = document.getElementById("success-text"); // Access the success text container
 
     if (!gifContainer) {
         console.error("GIF container not found");
         return;
     }
-
-    // Hide the success text if it's visible
-    successText.style.display = "none";
 
     // Set up the skipped text
     skippedText.textContent = `Skipped: ${name}`;
@@ -446,6 +422,29 @@ function showSkippedName(name) {
         gifContainer.style.display = "none"; // Optionally hide the container
     }, 3000);
 }
+
+function showSuccessGif(message) {
+    const gifContainer = document.getElementById("gif-container");
+    const successText = document.getElementById("success-text");
+
+    if (!gifContainer || !successText) {
+        console.error("GIF container or success text element not found");
+        return;
+    }
+
+    // Set the success message
+    successText.textContent = message;
+
+    // Show the GIF container
+    gifContainer.style.display = "flex";
+
+    // Hide the success message after 3 seconds
+    setTimeout(() => {
+        successText.textContent = ""; // Clear the success message
+        gifContainer.style.display = "none"; // Hide the GIF container
+    }, 3000);
+}
+
 
 
 
