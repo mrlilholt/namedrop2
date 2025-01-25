@@ -108,7 +108,7 @@ export function initializeLeaderboardModal() {
 async function loadLeaderboardData(metric) {
     try {
         const usersRef = collection(db, "users");
-        const q = query(usersRef, orderBy(metric, "desc"));
+        const q = query(usersRef, orderBy(metric === "streak" ? "highestStreak" : metric, "desc"));
         const snapshot = await getDocs(q);
 
         if (snapshot.empty) {
@@ -123,22 +123,22 @@ async function loadLeaderboardData(metric) {
                 name: data.name || "Anonymous", // Use stored name or fallback
                 avatar: data.avatar || "assets/default-user.png", // Use stored avatar or fallback
                 score: data.score || 0,
-                streak: data.streak || 0,
+                streak: data.highestStreak || 0, // Use highest streak for the streak metric
             });
         });
 
         // Sort users by selected metric
-        users.sort((a, b) => b[metric] - a[metric]);
+        users.sort((a, b) => b[metric === "streak" ? "streak" : metric] - a[metric === "streak" ? "streak" : metric]);
 
         // Separate top three and remaining users
         const topThree = users.slice(0, 3);
         const others = users.slice(3);
 
         // Update top three
-updateTopThree(topThree, metric);
+        updateTopThree(topThree, metric);
 
-// Update leaderboard list
-updateLeaderboardList(others, metric);
+        // Update leaderboard list
+        updateLeaderboardList(others, metric);
 
     } catch (error) {
         console.error("Error loading leaderboard data:", error);
