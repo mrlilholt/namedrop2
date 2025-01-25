@@ -400,11 +400,15 @@ document.getElementById("skip-button").addEventListener("click", async () => {
 function showSkippedName(name) {
     const gifContainer = document.getElementById("gif-container");
     const skippedText = document.createElement("div"); // Dynamically create the skipped text element
+    const successGif = document.getElementById("success-gif"); // Access the success GIF element
 
-    if (!gifContainer) {
-        console.error("GIF container not found");
+    if (!gifContainer || !successGif) {
+        console.error("GIF container or success GIF element not found");
         return;
     }
+
+    // Ensure the success GIF is hidden
+    successGif.style.display = "none";
 
     // Set up the skipped text
     skippedText.textContent = `Skipped: ${name}`;
@@ -423,27 +427,32 @@ function showSkippedName(name) {
     }, 3000);
 }
 
+
 function showSuccessGif(message) {
     const gifContainer = document.getElementById("gif-container");
     const successText = document.getElementById("success-text");
+    const successGif = document.getElementById("success-gif"); // Access the success GIF element
 
-    if (!gifContainer || !successText) {
-        console.error("GIF container or success text element not found");
+    if (!gifContainer || !successText || !successGif) {
+        console.error("GIF container, success text, or success GIF element not found");
         return;
     }
 
     // Set the success message
     successText.textContent = message;
 
-    // Show the GIF container
+    // Show the GIF and the success message
     gifContainer.style.display = "flex";
+    successGif.style.display = "block";
 
-    // Hide the success message after 3 seconds
+    // Hide the GIF and success message after 3 seconds
     setTimeout(() => {
         successText.textContent = ""; // Clear the success message
-        gifContainer.style.display = "none"; // Hide the GIF container
+        gifContainer.style.display = "none";
+        successGif.style.display = "none"; // Hide the GIF
     }, 3000);
 }
+
 
 
 
