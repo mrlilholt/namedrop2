@@ -18,8 +18,8 @@ export function initializeTutorialModal() {
     // Tutorial steps
     const steps = [
         {
-            title: "Welcome to the App!",
-            content: "This app is all about matching names to faces. Let’s walk through the basics!"
+            title: "Welcome to the Name Drop!",
+            content: "This app is all about matching names to faces.  The real reason for this game is so we all get to know each other. Let’s walk through the basics!"
         },
         {
             title: "Game Basics",
@@ -27,7 +27,7 @@ export function initializeTutorialModal() {
         },
         {
             title: "Skipping",
-            content: "If you’re unsure, click the 'Skip' button to move to the next image."
+            content: "If you’re unsure, click the 'Skip' button to move to the next image.  This is a good idea if you have no clue what the person's name is because it will give it to you if you skip."
         },
         {
             title: "Leaderboard",
@@ -35,11 +35,11 @@ export function initializeTutorialModal() {
         },
         {
             title: "Settings",
-            content: "Customize your experience with notifications, hints, streak savers, and more!"
+            content: "You will soon be able to customize your experience with notifications, hints, streak savers, and more!"
         },
         {
             title: "Have Fun!",
-            content: "Enjoy the game, sharpen your skills, and aim for the top of the leaderboard!"
+            content: "Enjoy the game, sharpen your skills, and aim for the top of the leaderboard!  Next time someone says 'Good Morning' to you, you'll know their name!"
         }
     ];
 
