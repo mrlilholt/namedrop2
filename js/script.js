@@ -382,7 +382,6 @@ document.getElementById("submit-button").addEventListener("click", () => {
 
 
 // Skip button logic
-// Skip button logic
 document.getElementById("skip-button").addEventListener("click", async () => {
     const randomPersonElement = document.getElementById("random-person");
     const imageId = randomPersonElement.dataset.imageId; // Get the current image ID
@@ -407,10 +406,13 @@ document.getElementById("skip-button").addEventListener("click", async () => {
         console.error("Error fetching skipped person's name:", error);
     }
 
-    // Load a new random image
-    loadRandomImage();
-    console.log("Skipped to the next image!");
+    // Wait 3 seconds before loading a new random image
+    setTimeout(() => {
+        loadRandomImage();
+        console.log("Skipped to the next image!");
+    }, 3000);
 });
+
 
 // Function to display skipped person's name
 function displaySkippedName(fullName) {
