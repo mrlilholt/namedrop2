@@ -43,21 +43,26 @@ export function initializeAboutModal() {
             and soul into making NameDrop a memorable experience for you.
         </p>
         <button id="close-about-modal" style="
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-">Close</button>
-
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        ">Close</button>
     `;
 
-    // Append modal to body
+    // Append modal to the body
     document.body.appendChild(aboutModal);
 
-   document.getElementById("close-about-modal").addEventListener("click", () => {
-    document.body.removeChild(document.getElementById("about-modal"));
-});
+    // Close button functionality
+    const closeButton = document.getElementById("close-about-modal");
+    if (closeButton) {
+        closeButton.addEventListener("click", () => {
+            document.body.removeChild(aboutModal); // Safely remove the modal
+        });
+    } else {
+        console.error("Close button not found in the About Modal.");
+    }
 }
