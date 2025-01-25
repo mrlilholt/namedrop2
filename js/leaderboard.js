@@ -10,7 +10,7 @@ export function initializeLeaderboardModal() {
         modal.innerHTML = `
     <div class="leaderboard-header">
 <div class="modal-header">
-    <img src="assets/leaderboardTitle.gif" alt="Leaderboard Title" class="modal-title-image">
+    <img src="assets/leaderboardTitle.png" alt="Leaderboard Title" class="modal-title-image">
 </div>
     <div class="toggle-container">
         <button id="toggle-score" class="toggle active">Score</button>
