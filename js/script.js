@@ -382,10 +382,52 @@ document.getElementById("submit-button").addEventListener("click", () => {
 
 
 // Skip button logic
-document.getElementById("skip-button").addEventListener("click", () => {
-    loadRandomImage(); // Load a new random image without updating scores
+// Skip button logic
+document.getElementById("skip-button").addEventListener("click", async () => {
+    const randomPersonElement = document.getElementById("random-person");
+    const imageId = randomPersonElement.dataset.imageId; // Get the current image ID
+
+    if (!imageId) {
+        console.error("No image loaded to skip.");
+        return;
+    }
+
+    try {
+        // Fetch the skipped person's name from Firestore
+        const imageRef = doc(db, "images", imageId);
+        const imageDoc = await getDoc(imageRef);
+
+        if (imageDoc.exists()) {
+            const { firstName, lastName } = imageDoc.data();
+            displaySkippedName(`${firstName} ${lastName}`);
+        } else {
+            console.error("Image not found in Firestore.");
+        }
+    } catch (error) {
+        console.error("Error fetching skipped person's name:", error);
+    }
+
+    // Load a new random image
+    loadRandomImage();
     console.log("Skipped to the next image!");
 });
+
+// Function to display skipped person's name
+function displaySkippedName(fullName) {
+    const gifContainer = document.getElementById("gif-container");
+    const skippedText = document.createElement("div");
+    skippedText.className = "skipped-text";
+    skippedText.textContent = `Skipped: ${fullName}`;
+
+    // Add skipped text to the container
+    gifContainer.appendChild(skippedText);
+
+    // Automatically hide the text after 3 seconds
+    setTimeout(() => {
+        skippedText.remove();
+    }, 3000);
+}
+
 
 // Ensure skip button is correctly initialized
 document.addEventListener("DOMContentLoaded", () => {
