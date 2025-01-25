@@ -420,6 +420,18 @@ input:checked + .slider:before {
     z-index: 2; /* Ensure it's above the GIF */
     text-align: center; /* Center-align the text */
 }
+#success-gif {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%);
+    width: 150px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    z-index: 10; /* Ensure it appears above other content */
+    display: none; /* Hidden by default */
+}
+
 .skipped-text {
     position: absolute;
     top: 50%; /* Center vertically */
