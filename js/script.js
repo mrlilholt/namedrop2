@@ -669,3 +669,46 @@ async function updateUserData(userId, newScore, newStreak) {
         console.error("Error updating user data:", error);
     }
 }
+async function updateStreak(userId, currentStreak) {
+    try {
+        // Reference the user's streak data in Firestore
+        const userRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const highestStreak = userData.highestStreak || 0; // Get the existing highest streak or default to 0
+
+            // Compare the current streak with the highest streak
+            if (currentStreak > highestStreak) {
+                // If the current streak is greater, update the highest streak
+                await setDoc(userRef, { highestStreak: currentStreak }, { merge: true });
+                console.log(`New highest streak saved: ${currentStreak}`);
+            } else {
+                console.log(`Highest streak remains: ${highestStreak}`);
+            }
+        } else {
+            // If no data exists, save the current streak as the highest streak
+            await setDoc(userRef, { highestStreak: currentStreak }, { merge: true });
+            console.log(`First streak saved: ${currentStreak}`);
+        }
+    } catch (error) {
+        console.error("Error updating streak:", error);
+    }
+}
+async function displayHighestStreak(userId) {
+    try {
+        const userRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+            const highestStreak = userDoc.data().highestStreak || 0; // Default to 0 if not set
+            console.log(`Highest streak for user ${userId}: ${highestStreak}`);
+            document.getElementById("highest-streak-display").textContent = `Highest Streak: ${highestStreak}`;
+        } else {
+            console.log("No user data found.");
+        }
+    } catch (error) {
+        console.error("Error fetching highest streak:", error);
+    }
+}
