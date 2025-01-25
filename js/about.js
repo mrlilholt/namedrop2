@@ -57,12 +57,7 @@ export function initializeAboutModal() {
     document.body.appendChild(aboutModal);
 
     // Close button functionality
-    const closeButton = document.getElementById("close-about-modal");
-    if (closeButton) {
-        closeButton.addEventListener("click", () => {
-            document.body.removeChild(aboutModal); // Safely remove the modal
-        });
-    } else {
-        console.error("Close button not found in the About Modal.");
-    }
+    document.getElementById("close-about-modal").addEventListener("click", () => {
+        aboutModal.style.display = "none"; // Hide the modal instead of removing it
+    });
 }
