@@ -8,9 +8,18 @@ import { initializeProfileModal } from "./userinfo.js";
 import { initializeSettingsModal } from "./settings.js";
 import { initializeLeaderboardModal } from "./leaderboard.js";
 import { initializeTutorialModal } from "./tutorial.js";
+import { initializeAboutModal } from "./about.js";
 
 // Initialize the tutorial modal
 initializeTutorialModal();
+document.getElementById("open-about-button").addEventListener("click", () => {
+    initializeAboutModal();
+});
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("open-about-button").addEventListener("click", () => {
+        initializeAboutModal();
+    });
+});
 
 
 let currentUser = null;
@@ -660,6 +669,3 @@ async function updateUserData(userId, newScore, newStreak) {
         console.error("Error updating user data:", error);
     }
 }
-document.getElementById("open-about-button").addEventListener("click", () => {
-    initializeAboutModal();
-});
