@@ -1,4 +1,3 @@
-// settings.js
 export function initializeSettingsModal() {
     const settingsModal = document.createElement("div");
     settingsModal.id = "settings-modal";
@@ -15,11 +14,9 @@ export function initializeSettingsModal() {
 
     // Content
     settingsModal.innerHTML = `
-    <div id="upload-modal" class="modal">
-
-<div class="modal-header">
-    <img src="assets/settingsTitle.png" alt="Settings" class="modal-title-image">
-</div>
+        <div id="settings-modal-header" class="modal-header">
+            <img src="assets/settingsTitle.png" alt="Settings" class="modal-title-image">
+        </div>
         <div style="margin: 20px 0; text-align: center;">
             <label for="nickname-input">Update Nickname:</label>
             <input type="text" id="nickname-input" placeholder="Enter new nickname" style="
@@ -39,9 +36,38 @@ export function initializeSettingsModal() {
                 cursor: pointer;
             ">Save</button>
         </div>
-        <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;">
-            <span class="material-icons">dark_mode</span>
-            <span id="dark-mode-toggle" class="material-icons" style="cursor: pointer;">toggle_off</span>
+        <div style="margin: 20px 0; text-align: center;">
+            <label for="notifications-toggle">Enable Notifications:</label>
+            <input type="checkbox" id="notifications-toggle" />
+        </div>
+        <div style="margin: 20px 0; text-align: center;">
+            <label for="hints-toggle">Enable Hints:</label>
+            <input type="checkbox" id="hints-toggle" />
+        </div>
+        <div style="margin: 20px 0; text-align: center;">
+            <label for="challenge-mode-rules">Challenge Mode Rules:</label>
+            <textarea id="challenge-mode-rules" placeholder="Define your challenge rules here..." style="
+                width: 100%;
+                padding: 10px;
+                margin-top: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            "></textarea>
+        </div>
+        <div style="margin: 20px 0; text-align: center;">
+            <label for="streak-saver-toggle">Enable Streak Saver:</label>
+            <input type="checkbox" id="streak-saver-toggle" />
+        </div>
+        <div style="margin: 20px 0; text-align: center;">
+            <button id="view-session-analytics" style="
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            ">View Session Analytics</button>
         </div>
         <div style="margin: 20px 0; text-align: center;">
             <button id="reset-score" style="
@@ -64,7 +90,6 @@ export function initializeSettingsModal() {
             border-radius: 5px;
             cursor: pointer;
         ">Close</button>
-        </div>
     `;
 
     // Append to body
@@ -75,70 +100,49 @@ export function initializeSettingsModal() {
         document.body.removeChild(settingsModal);
     });
 
-    // Add functionality for dark mode toggle
-// Add event listener to the dark mode toggle switch
-// Event listener for dark mode toggle
-document.getElementById("dark-mode-toggle").addEventListener("click", (event) => {
-    const isDarkMode = event.target.textContent === "toggle_off"; // Check the current icon state
-    event.target.textContent = isDarkMode ? "toggle_on" : "toggle_off"; // Toggle the icon
-    toggleDarkMode(isDarkMode);
-});
-
-// Function to toggle dark mode
-function toggleDarkMode(isDarkMode) {
-    const darkModeLink = document.getElementById("dark-mode-css");
-
-    if (isDarkMode) {
-        if (!darkModeLink) {
-            const link = document.createElement("link");
-            link.id = "dark-mode-css";
-            link.rel = "stylesheet";
-            link.href = "/css/darkmode.css";
-            document.head.appendChild(link);
-        }
-        localStorage.setItem("theme", "dark");
-    } else {
-        if (darkModeLink) {
-            document.head.removeChild(darkModeLink);
-        }
-        localStorage.setItem("theme", "light");
-    }
-}
-
-
-// Check localStorage to apply the theme on load
-document.addEventListener("DOMContentLoaded", () => {
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme === "dark") {
-        toggleDarkMode(true);
-        const darkModeToggle = document.getElementById("dark-mode-toggle");
-        if (darkModeToggle) darkModeToggle.textContent = "toggle_on";
-    } else {
-        toggleDarkMode(false);
-    }
-});
-
-
     // Add functionality for saving nickname
     document.getElementById("save-nickname").addEventListener("click", () => {
         const nicknameInput = document.getElementById("nickname-input").value.trim();
         if (nicknameInput) {
-            // Save nickname to localStorage
             localStorage.setItem("nickname", nicknameInput);
-    
-            // Provide user feedback
             alert(`Nickname updated to: ${nicknameInput}`);
-    
-            // Optionally update the profile modal immediately if it's open
-            const profileNickname = document.getElementById("profile-nickname");
-            if (profileNickname) {
-                profileNickname.innerHTML = `<strong>Nickname:</strong> ${nicknameInput}`;
-            }
         } else {
             alert("Please enter a valid nickname.");
         }
     });
-    
+
+    // Add functionality for notifications toggle
+    document.getElementById("notifications-toggle").addEventListener("change", (event) => {
+        const isEnabled = event.target.checked;
+        localStorage.setItem("notifications", isEnabled);
+        alert(`Notifications are now ${isEnabled ? "enabled" : "disabled"}`);
+    });
+
+    // Add functionality for hints toggle
+    document.getElementById("hints-toggle").addEventListener("change", (event) => {
+        const isEnabled = event.target.checked;
+        localStorage.setItem("hints", isEnabled);
+        alert(`Hints are now ${isEnabled ? "enabled" : "disabled"}`);
+    });
+
+    // Add functionality for challenge mode rules
+    document.getElementById("challenge-mode-rules").addEventListener("blur", (event) => {
+        const rules = event.target.value.trim();
+        localStorage.setItem("challengeRules", rules);
+        alert("Challenge rules saved!");
+    });
+
+    // Add functionality for streak saver toggle
+    document.getElementById("streak-saver-toggle").addEventListener("change", (event) => {
+        const isEnabled = event.target.checked;
+        localStorage.setItem("streakSaver", isEnabled);
+        alert(`Streak Saver is now ${isEnabled ? "enabled" : "disabled"}`);
+    });
+
+    // Add functionality for session analytics button
+    document.getElementById("view-session-analytics").addEventListener("click", () => {
+        alert("Session Analytics feature is under construction!");
+    });
 
     // Add functionality for resetting score
     document.getElementById("reset-score").addEventListener("click", () => {
