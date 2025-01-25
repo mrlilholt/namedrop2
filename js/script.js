@@ -398,7 +398,8 @@ document.getElementById("skip-button").addEventListener("click", async () => {
 
         if (imageDoc.exists()) {
             const { firstName, lastName } = imageDoc.data();
-            displaySkippedName(`${firstName} ${lastName}`);
+            const fullName = `${firstName} ${lastName}`;
+            showSkippedName(fullName); // Show the skipped person's name
         } else {
             console.error("Image not found in Firestore.");
         }
@@ -413,19 +414,34 @@ document.getElementById("skip-button").addEventListener("click", async () => {
     }, 3000);
 });
 
+
 // Function to display skipped person's name
-function displaySkippedName(fullName) {
-    const skippedText = document.getElementById("skipped-text");
+function showSkippedName(name) {
+    const gifContainer = document.getElementById("gif-container");
+    const skippedText = document.createElement("div"); // Dynamically create the skipped text element
 
-    // Display the skipped name
-    skippedText.textContent = `Skipped: ${fullName}`;
-    skippedText.style.display = "block"; // Ensure it's visible
+    if (!gifContainer) {
+        console.error("GIF container not found");
+        return;
+    }
 
-    // Automatically hide the text after 3 seconds
+    // Set up the skipped text
+    skippedText.textContent = `Skipped: ${name}`;
+    skippedText.className = "skipped-text"; // Apply a class for styling
+
+    // Add the skipped text to the container
+    gifContainer.appendChild(skippedText);
+
+    // Show the GIF container (if hidden)
+    gifContainer.style.display = "flex";
+
+    // Hide the text after 3 seconds
     setTimeout(() => {
-        skippedText.style.display = "none";
+        skippedText.remove(); // Remove the dynamically added skipped text
+        gifContainer.style.display = "none"; // Optionally hide the container
     }, 3000);
 }
+
 
 
 
