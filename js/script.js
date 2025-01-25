@@ -7,6 +7,10 @@ import { initializeUploadImagesModal } from "./upload_images.js";
 import { initializeProfileModal } from "./userinfo.js";
 import { initializeSettingsModal } from "./settings.js";
 import { initializeLeaderboardModal } from "./leaderboard.js";
+import { initializeTutorialModal } from "./tutorial.js";
+
+// Initialize the tutorial modal
+initializeTutorialModal();
 
 
 let currentUser = null;
@@ -527,6 +531,7 @@ menuIcon.addEventListener("click", () => {
 });
 
 // Add Event Listeners for Modals
+// Add Event Listeners for Modals
 document.querySelectorAll("#menu-list li").forEach((menuItem) => {
     const modalType = menuItem.getAttribute("data-modal");
     menuItem.addEventListener("click", () => {
@@ -536,6 +541,12 @@ document.querySelectorAll("#menu-list li").forEach((menuItem) => {
         if (modalType === "settings") initializeSettingsModal();
     });
 });
+
+// Add event listener for the "Help" button
+document.getElementById("open-tutorial-button").addEventListener("click", () => {
+    openTutorial(); // Opens the tutorial modal
+});
+
 
 // Handle Logout
 const logoutButton = document.getElementById("logout-button");
