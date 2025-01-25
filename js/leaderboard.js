@@ -38,18 +38,19 @@ export function initializeLeaderboardModal() {
         document.getElementById("toggle-score").addEventListener("click", () => {
             document.getElementById("toggle-score").classList.add("active");
             document.getElementById("toggle-streak").classList.remove("active");
-
+        
             // Load Score leaderboard
             loadLeaderboardData("score");
         });
-
+        
         document.getElementById("toggle-streak").addEventListener("click", () => {
             document.getElementById("toggle-streak").classList.add("active");
             document.getElementById("toggle-score").classList.remove("active");
-
+        
             // Load Streak leaderboard
             loadLeaderboardData("streak");
         });
+        
     }
 
     // Function to update the top 3 users
