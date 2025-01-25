@@ -45,16 +45,6 @@ export function initializeSettingsModal() {
             <input type="checkbox" id="hints-toggle" />
         </div>
         <div style="margin: 20px 0; text-align: center;">
-            <label for="challenge-mode-rules">Challenge Mode Rules:</label>
-            <textarea id="challenge-mode-rules" placeholder="Define your challenge rules here..." style="
-                width: 100%;
-                padding: 10px;
-                margin-top: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            "></textarea>
-        </div>
-        <div style="margin: 20px 0; text-align: center;">
             <label for="streak-saver-toggle">Enable Streak Saver:</label>
             <input type="checkbox" id="streak-saver-toggle" />
         </div>
@@ -123,13 +113,6 @@ export function initializeSettingsModal() {
         const isEnabled = event.target.checked;
         localStorage.setItem("hints", isEnabled);
         alert(`Hints are now ${isEnabled ? "enabled" : "disabled"}`);
-    });
-
-    // Add functionality for challenge mode rules
-    document.getElementById("challenge-mode-rules").addEventListener("blur", (event) => {
-        const rules = event.target.value.trim();
-        localStorage.setItem("challengeRules", rules);
-        alert("Challenge rules saved!");
     });
 
     // Add functionality for streak saver toggle
