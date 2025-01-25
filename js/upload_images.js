@@ -20,7 +20,9 @@ export function initializeUploadImagesModal() {
         modal.innerHTML = `
         <div id="upload-modal" class="modal">
 
-    <h2 style="text-align: center;">Upload an Image</h2>
+<div class="modal-header">
+    <img src="assets/uploadTitle.png" alt="Upload an Image" class="modal-title-image">
+</div>
     <form id="upload-form">
         <label for="file-input">Select an Image:</label>
 <label for="file-input" class="custom-file-label">Choose File</label>

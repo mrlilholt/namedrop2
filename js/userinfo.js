@@ -19,7 +19,9 @@ export function initializeProfileModal() {
     profileModal.innerHTML = `
     <div id="upload-modal" class="modal">
 
-        <h2 style="text-align: center;">Your Profile</h2>
+<div class="modal-header">
+    <img src="assets/profileTitle.png" alt="Your Profile" class="modal-title-image">
+</div>
         <div style="text-align: center; margin: 20px 0;">
             <div id="profile-picture" style="
                 width: 100px;

@@ -17,7 +17,9 @@ export function initializeSettingsModal() {
     settingsModal.innerHTML = `
     <div id="upload-modal" class="modal">
 
-        <h2 style="text-align: center;">Settings</h2>
+<div class="modal-header">
+    <img src="assets/settingsTitle.png" alt="Settings" class="modal-title-image">
+</div>
         <div style="margin: 20px 0; text-align: center;">
             <label for="nickname-input">Update Nickname:</label>
             <input type="text" id="nickname-input" placeholder="Enter new nickname" style="
