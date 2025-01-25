@@ -43,14 +43,15 @@ export function initializeAboutModal() {
             and soul into making NameDrop a memorable experience for you.
         </p>
         <button id="close-about-modal" style="
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        ">Close</button>
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+">Close</button>
+
     `;
 
     // Append modal to body
