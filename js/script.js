@@ -382,6 +382,7 @@ document.getElementById("submit-button").addEventListener("click", () => {
 
 
 // Skip button logic
+// Skip button logic
 document.getElementById("skip-button").addEventListener("click", async () => {
     const randomPersonElement = document.getElementById("random-person");
     const imageId = randomPersonElement.dataset.imageId; // Get the current image ID
@@ -413,22 +414,20 @@ document.getElementById("skip-button").addEventListener("click", async () => {
     }, 3000);
 });
 
-
 // Function to display skipped person's name
 function displaySkippedName(fullName) {
-    const gifContainer = document.getElementById("gif-container");
-    const skippedText = document.createElement("div");
-    skippedText.className = "skipped-text";
-    skippedText.textContent = `Skipped: ${fullName}`;
+    const successText = document.getElementById("success-text");
 
-    // Add skipped text to the container
-    gifContainer.appendChild(skippedText);
+    // Display the skipped name in the success-text element
+    successText.textContent = `Skipped: ${fullName}`;
+    successText.style.display = "block"; // Ensure it's visible
 
     // Automatically hide the text after 3 seconds
     setTimeout(() => {
-        skippedText.remove();
+        successText.style.display = "none";
     }, 3000);
 }
+
 
 
 // Ensure skip button is correctly initialized
